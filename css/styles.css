@@ -1,0 +1,57 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Karla
+}
+
+body {
+    background: linear-gradient(0deg, rgba(16,16,38,1) 0%, rgba(27,23,43,1) 47%, rgba(47,40,60,1) 100%);
+    color: #9ab;
+    margin: 0;
+}
+
+nav {
+    background-color: #2c3440;
+}
+
+.trending_cards {
+    display: flex;
+    overflow: auto;
+    /* white-space: nowrap; */
+}
+
+.card {
+    border: 1px solid white;
+    min-width: 150px;
+    height: 225px;
+    margin: 20px;
+}
+
+.icon {
+    padding: 0 3px;
+}
+
+footer {
+    background: #2c3440;
+    margin: 0;
+    padding: 30px 0;
+}
+
+footer h3 {
+    text-align: center;
+}
+
+footer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: #9ab;
+}
