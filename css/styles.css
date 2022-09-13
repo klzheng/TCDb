@@ -93,7 +93,7 @@ section button {
     height: 40px;
 }
 
-.trending_cards {
+.cards-trending, .cards-theater {
     display: flex;
     overflow: auto;
     /* white-space: nowrap; */
@@ -105,6 +105,68 @@ section button {
     min-width: 150px;
     height: 225px;
     margin: 20px;
+    position: relative;    
+}
+
+.card img {
+    height: 223px;
+    width: 148px;
+    border-radius: 10px;
+    display: flex;
+    margin: auto;
+}
+
+.card:hover{
+    border: none;
+    outline: none;
+    box-shadow: 0 0px 20px rgba(247, 247, 247, 0.541);
+    transition: box-shadow .5s;
+}
+
+.card:hover img, .card:hover .card-rating {
+    filter: brightness(20%);
+    transition: filter .25s ;
+}
+
+.card:hover .card-info {
+    opacity: 1;
+    transition: opacity .5s ease-in-out;
+}
+
+.card-info {
+    display: flex;
+    display: -webkit-box;
+    flex-direction: column;
+    padding: 0 6px;
+    position: absolute;
+    width: 150px;
+    max-height: 230px;
+    transform: translateY(-230px); 
+    overflow: hidden;
+    color: white;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    text-align: center;
+    opacity: 0;
+    
+}
+
+.card-rating {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    padding: 3px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.692);
+    border-radius: 5px;
+}
+
+.card-name {
+    text-align: center;
+    margin: 0 15px;
+    font-size: 14px;
 }
 
 .icon {
