@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/4fb505754f.js" crossorigin="anonymous"></script>
     <title>Movies WebApp</title>
 </head>
-<body class="canvas">
+<body>
     <nav>
         <article>
             <!-- <img src="" alt="Logo"> -->
@@ -23,8 +23,7 @@
 
 
     <section>
-        <h1>Welcome back, &ltusername&gt</h1>
-        <form onsubmit="resetForm()" action="./search.html" method="POST" target="_self">
+        <form id="main-search-form">
             <input 
                 id="main-search" 
                 type="text" 
@@ -37,24 +36,9 @@
 
 
     <section class="popular">
-        <h2>See what's popular this week</h2>
-        <div class="popular-slider">
-            <div id="all" class="popular-slider-selected popular-slider-option">
-                <p>All</p>
-            </div>
-            <div id="movies" class="popular-slider-option">
-                <p>Movies</p>
-            </div>
-            <div id="shows" class="popular-slider-option">
-                <p>Shows</p>
-            </div>
+        <h2>Search results</h2>
         </div>
-        <div class="cards-trending"></div>
-    </section>
-
-    <section>
-        <h2>In Theaters</h2>
-        <div class="cards-theater"></div>
+        <div class="cards-search"></div>
     </section>
 
 
