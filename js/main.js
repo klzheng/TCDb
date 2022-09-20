@@ -26,10 +26,13 @@ function displayMovies(data, target, cardStyle1, cardStyle2, cardStyle3, cardSty
     data.forEach(movie => {
         const targetLocation = document.querySelector(target)
         const movieCol = document.createElement("div")
-        let {name, title, overview, poster_path, vote_average, release_date, first_air_date} = movie
+        let {name, title, overview, poster_path, vote_average, release_date, first_air_date, profile_path, known_for_department} = movie
         name = checkFilmName(name, title)
-        imagePath = checkImg(poster_path)
-        movieOverview = createCard(name, overview, imagePath, vote_average, release_date, cardStyle1, cardStyle2, cardStyle3, cardStyle4)
+        imagePath = checkImg(poster_path, profile_path)
+        releaseDate = checkRelease(release_date, first_air_date, known_for_department)
+        rating = checkRating(vote_average)
+        overview = checkOverview(overview)
+        movieOverview = createCard(name, overview, imagePath, rating, releaseDate, cardStyle1, cardStyle2, cardStyle3, cardStyle4)
         movieName = createCardName(name, cardStyle4)
         movieCol.appendChild(movieOverview)
         movieCol.appendChild(movieName)
@@ -41,6 +44,30 @@ function displayMovies(data, target, cardStyle1, cardStyle2, cardStyle3, cardSty
 function checkFilmName(name, title) {
     return name === undefined ? name = title : name
 }
+
+// Checks for correct release date (movie vs show)
+function checkRelease(date1, date2, actor) {
+    if (date1) {
+        return date1
+    } else if (date2) {
+        return date2
+    } else if (actor) {
+        return actor
+    }
+    return ""
+}
+
+
+function checkOverview(overview) {
+    return overview ? overview : ""
+}
+
+
+// Checks rating score
+function checkRating(rating) {
+    return rating === undefined ? "" : rating.toFixed(1)
+}
+
 
 // Creates card with hover information
 function createCard(name, overview, image, rating, releaseDate, cardClass, cardInfo, cardRating, cardName){
@@ -56,7 +83,7 @@ function createCard(name, overview, image, rating, releaseDate, cardClass, cardI
             <p>${releaseDate}</p>
             <p>${overview}</p>
         </div>
-        <span class="${cardRating}">${rating.toFixed(1)}</span>
+        <span class="${cardRating}">${rating}</span>
         `
     return movieOverview
 }
@@ -89,8 +116,13 @@ function changeTrending(el, classEl) {
 }
 
 // Checks image path for valid result, if not a default image path is returned
-function checkImg(imgPath) {
-    return imgPath ? `${IMG_URL + imgPath}` : "./images/default.jpg"
+function checkImg(imgPath, profilePath) {
+    if (imgPath) {
+        return `${IMG_URL + imgPath}`
+    } else if (profilePath) {
+        return `${IMG_URL + profilePath}`
+    } 
+    return "./images/default.jpg"
 }
 
 // resets form after submit
