@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
+require('./db/index')
 const userRoutes = require("./routes/user")
+
 
 
 app.use(express.json())
