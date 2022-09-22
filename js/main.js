@@ -15,7 +15,6 @@ function getData(url, target, cardStyle1, cardStyle2, cardStyle3, cardStyle4) {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             displayMovies(data.results, target, cardStyle1, cardStyle2, cardStyle3, cardStyle4)
         })
         .catch(err => console.log(err))
@@ -57,17 +56,15 @@ function checkRelease(date1, date2, actor) {
     return ""
 }
 
-
+// Checks film overview/summary
 function checkOverview(overview) {
     return overview ? overview : ""
 }
-
 
 // Checks rating score
 function checkRating(rating) {
     return rating === undefined ? "" : rating.toFixed(1)
 }
-
 
 // Creates card with hover information
 function createCard(name, overview, image, rating, releaseDate, cardClass, cardInfo, cardRating, cardName){
@@ -87,7 +84,6 @@ function createCard(name, overview, image, rating, releaseDate, cardClass, cardI
         `
     return movieOverview
 }
-
 
 // Creates card name tag
 function createCardName(name, cardName) {
@@ -129,6 +125,14 @@ function checkImg(imgPath, profilePath) {
 function resetForm(e) {
     e.target.reset()
 }
+
+
+
+
+
+
+
+
 
 // Creates slider options
 const sliderOptions = document.querySelectorAll(".popular-slider-option")
