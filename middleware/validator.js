@@ -40,3 +40,10 @@ exports.validateResetToken = async (req, res, next) => {
 
     next();
 };
+
+// checks email and password for sign in
+exports.validateSignIn = [
+    check("email").normalizeEmail().isEmail().withMessage("Email is invalid"),
+    check("password")
+        .trim().not().isEmpty().withMessage("Password cannot be empty")
+]

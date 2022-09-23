@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken")
 const { isValidObjectId } = require("mongoose")
 const { generateOTP, generateTransporter } = require("../utils/mail")
 const User = require("../models/user")
@@ -198,5 +199,26 @@ exports.resetPassword = async (req, res) => {
 
   res.json({
     message: "Password reset successfully.",
+  })
+}
+
+
+// user sign-in
+exports.signIn = async (req, res) => {
+  const {email, password} = req.body
+  const user = await User.findOne({email})
+  const matched = await user.comparePassword(password)
+  const jwtToken = jwt.sign({userId: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: "30d"}) // uses json web token to ...
+
+  if (!user) return res.json({error: "Email/Password incorrect. Please try again"})
+  if (!matched) return res.json({error: "Email/Password incorrect. Please try again"})
+
+  res.json({
+    user: {
+      id: user._id, 
+      name: user.name, 
+      email: user.email, 
+      token: jwtToken
+    }
   })
 }

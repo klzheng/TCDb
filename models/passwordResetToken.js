@@ -34,4 +34,5 @@ passwordTokenSchema.methods.compareToken = async function(token) {
     return result
 }
 
+
 module.exports = mongoose.model("PasswordToken", passwordTokenSchema)
