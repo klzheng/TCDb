@@ -2,6 +2,7 @@ const { isValidObjectId } = require("mongoose")
 const { generateOTP, generateTransporter } = require("../utils/mail")
 const User = require("../models/user")
 const EmailToken = require("../models/emailToken")
+const PasswordToken = require("../models/passwordResetToken")
 
 
 // creates new user, saves it in db, and sends OTP to email
@@ -92,13 +93,13 @@ exports.verifyEmail = async (req, res) => {
 exports.resendEmailToken = async (req, res) => {
   const { userId } = req.body;
   const user = await User.findById(userId);
-  const alreadyHasToken = await EmailToken.findOne({
+  const token = await EmailToken.findOne({
     owner: userId,
   });
 
   if (!user) return res.json({ error: "user not found!" });
   if (user.isVerified) return res.json({ error: "This email id is already verified!" });
-  if (alreadyHasToken) return res.json({ error: "Please wait 1 hour before requesting a new token" });
+  if (token) return res.json({ error: "Please wait 1 hour before requesting a new token" });
 
   // generate 6 digit OTP
   const OTP = generateOTP()
@@ -130,4 +131,72 @@ exports.resendEmailToken = async (req, res) => {
 };
 
 
+// sends reset password link to user email
+exports.forgetPassword = async (req, res) => {
+  const {email} = req.body
+  const user = await User.findOne({email})
+  const token = await PasswordToken.findOne({owner: user._id})
 
+  if (!email) return res.json({error: "email is missing"})
+  if (!user) return res.json({error: "User not found"})
+  if (token) return res.json({error: "Please wait 1 hour before requesting for a new password token"})
+
+  // generates OTP code
+  const OTP = generateOTP()
+
+  // creates new password token object
+  const newPasswordToken = new PasswordToken({ owner: user._id, token: OTP })
+
+  // saves token object to db
+  await newPasswordToken.save()
+
+  // creates password reset link
+  const resetPassUrl = `http://localhost:3000/reset-password?token=${OTP}&id=${user._id}`
+
+  // sends password reset link to user email
+  const transport = generateTransporter()
+  transport.sendMail({
+    from: "security@reviewapp.com",
+    to: user.email,
+    subject: "Reset Password Link",
+    html: `
+      <p>Click <a href='${resetPassUrl}'>here</a> to reset password</p>
+    `,
+  });
+
+  res.json({ message: "Link sent to your email!" });
+}
+
+
+// resets password
+exports.resetPassword = async (req, res) => {
+  const { newPassword, userId } = req.body;
+  const user = await User.findById(userId);
+  const matched = await user.comparePassword(newPassword);
+
+  // checks if new password === old password
+  if (matched) return res.json({error: "The new password must be different from the old one"})
+
+  // sets user password to new password
+  user.password = newPassword;
+
+  // saves and updates the user info in db
+  await user.save();
+
+  // deletes password token
+  await PasswordToken.findByIdAndDelete(req.resetToken._id);
+
+  const transport = generateTransporter();
+  transport.sendMail({
+    from: "security@reviewapp.com",
+    to: user.email,
+    subject: "Password Reset Successfully",
+    html: `
+      <h1>Password Reset Successfully</h1>
+    `,
+  });
+
+  res.json({
+    message: "Password reset successfully.",
+  })
+}

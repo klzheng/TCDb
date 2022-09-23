@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer")
 
+// generates new OTP with default length 6
 exports.generateOTP = (otpLength = 6) => {
     let OTP = ""
     for (let i = 0; i < otpLength; i++) {
@@ -9,6 +10,7 @@ exports.generateOTP = (otpLength = 6) => {
     return OTP
 }
 
+// generates nodemailer transporter
 exports.generateTransporter = () => {
     const transport = nodemailer.createTransport({
         host: "smtp.mailtrap.io",
