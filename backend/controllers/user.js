@@ -8,85 +8,98 @@ const PasswordToken = require("../models/passwordResetToken")
 
 // creates new user, saves it in db, and sends OTP to email
 exports.create = async (req, res) => {
-    const {name, email, password} = req.body
-    const oldUser = await User.findOne({email})
+  const {name, email, password} = req.body
+  const oldUser = await User.findOne({email})
 
-    // checks if email is already in db
-    if (oldUser) {
-        return res.json({ error: "This email is already in use"})
-    } 
+  // checks if email is already in db
+  if (oldUser) {
+      return res.json({ error: "This email is already in use"})
+  } 
 
-    // create new user object
-    const newUser = new User({
-        name: name,
-        email: email,
-        password: password
-    })
+  // create new user object
+  const newUser = new User({
+      name: name,
+      email: email,
+      password: password
+  })
 
-    // save new user to db
-    await newUser.save()
+  // save new user to db
+  await newUser.save()
 
-    // generate 6 digit OTP
-    const OTP = generateOTP()
+  // generate 6 digit OTP
+  const OTP = generateOTP()
 
-    // creates new token object
-    const newEmailToken = new EmailToken({
-        owner: newUser._id, 
-        token: OTP,
-    })
+  // creates new token object
+  const newEmailToken = new EmailToken({
+      owner: newUser._id, 
+      token: OTP,
+  })
 
-    // saves OTP (token object) inside our db
-    await newEmailToken.save()
+  // saves OTP (token object) inside our db
+  await newEmailToken.save()
 
-    // gets mail transporter
-    const transport = generateTransporter()
+  // gets mail transporter
+  const transport = generateTransporter()
 
-    // Sending the email with OTP info
-    transport.sendMail({
-        from: "verification@reviewapp.com",
-        to: newUser.email,
-        subject: "Email Verification",
-        html:  
-            `
-            <p> Your verification OTP </p>
-            <h1>${OTP}</h1>
-            `
-    })
+  // Sending the email with OTP info
+  transport.sendMail({
+      from: "verification@reviewapp.com",
+      to: newUser.email,
+      subject: "Email Verification",
+      html:  
+          `
+          <p> Your verification OTP </p>
+          <h1>${OTP}</h1>
+          `
+  })
 
-    // 201 response with message
-    res.json({ message: "Please verify your email. OTP has been sent to your email account"})
+  // 201 response with message
+  res.json({ 
+    user: {
+      id: newUser._id,
+      name: newUser.name,
+      email: newUser.email
+  }
+  })
 }
 
 
 // checks OTP input against OTP in db and verifies user
 exports.verifyEmail = async (req, res) => {
-    const { userId, OTP } = req.body
-    const user = await User.findById(userId)
-    const token = await EmailToken.findOne({ owner: userId })
-    const isMatched = await token.compareToken(OTP)
 
-    // checks for errors
-    if (!isValidObjectId(userId)) return res.json({ error: "Invalid user!" })
-    if (!user) return res.json({ error: "user not found!" })
-    if (user.isVerified) return res.json({ error: "user is already verified!" })
-    if (!token) return res.json({ error: 'token not found!' })
-    if (!isMatched) return res.json({ error: 'Please submit a valid OTP!' })
-  
-    // if no errors, change user verified status to true
-    user.isVerified = true;
-    await user.save();
-    await EmailToken.findByIdAndDelete(token._id);
-  
-    const transport = generateTransporter()
-  
-    transport.sendMail({
-      from: 'verification@reviewapp.com',
-      to: user.email,
-      subject: 'Welcome Email',
-      html: '<h1>Welcome to our app!.</h1>'
-    })
-  
-    res.json({ message: "Your email is verified." })
+  // checks if user is valid object
+  const { userId, OTP } = req.body
+  if (!isValidObjectId(userId)) return res.json({ error: "Invalid user" })
+
+  // checks if user exists or if user is already verified
+  const user = await User.findById(userId)
+  if (!user) return res.json({ error: "User not found!" })
+  if (user.isVerified) return res.json({ error: "User is already verified" })
+
+  // checks if token exists
+  const token = await EmailToken.findOne({ owner: userId })
+  if (!token) return res.json({ error: 'Token not found' })
+
+  // checks if OTP matches with token
+  const isMatched = await token.compareToken(OTP)
+  if (!isMatched) return res.json({ error: 'Invalid OTP' })
+
+
+  // if no errors, change user verified status to true
+  user.isVerified = true;
+  await user.save();
+  await EmailToken.findByIdAndDelete(token._id);
+
+  const transport = generateTransporter()
+
+  transport.sendMail({
+    from: 'verification@reviewapp.com',
+    to: user.email,
+    subject: 'Welcome Email',
+    html: '<h1>Welcome to our app!</h1>'
+  })
+
+  res.json({ message: "Your email is verified." })
 }
 
 
