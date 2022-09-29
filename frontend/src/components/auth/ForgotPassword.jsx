@@ -21,10 +21,12 @@ export default function ForgotPassword() {
                     <div className="flex justify-between mt-2">
                         <Link 
                             className="text-gray-700 hover:text-black transition " 
-                            to="/auth/signin">Sign In</Link>
+                            to="/auth/signin">Sign In
+                        </Link>
                         <Link 
                             className="text-gray-700 hover:text-black transition" 
-                            to="/auth/signup">Sign Up</Link>
+                            to="/auth/signup">Sign Up
+                        </Link>
                     </div>
                 </form>
             </div>

@@ -6,7 +6,8 @@ import SignUp from "./components/auth/Signup"
 import Home from "./components/Home"
 import EmailVerification from "./components/auth/EmailVerification"
 import ForgotPassword from "./components/auth/ForgotPassword"
-import { isCompositeComponent } from "react-dom/test-utils"
+import ConfirmNewPass from "./components/auth/ConfirmNewPass"
+// import { isCompositeComponent } from "react-dom/test-utils"
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
                 <Route path="/auth/signup" element={<SignUp />} />
                 <Route path="/auth/verification" element={<EmailVerification />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                <Route path="/auth/confirm-password" element={<ConfirmNewPass />} />
                 <Route path="/auth/signup" element={<SignUp />} />
             </Routes>
         </>
