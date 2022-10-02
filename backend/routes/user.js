@@ -1,15 +1,29 @@
-const express = require("express")
-const { create, verifyEmail, resendEmailToken, forgetPassword, resetPassword, signIn } = require("../controllers/user")
-const {userValidator, validationRes, validatePassword, validateResetToken, validateSignIn} = require("../middleware/validator")
-const router = express.Router()
+const express = require("express");
+// destructuring of modules 
+const {
+  create,
+  forgetPassword,
+  sendResetPasswordTokenStatus,
+  resetPassword,
+  signIn,
+} = require("../controllers/user");
+const { isAuth, Auth } = require("../middlewares/auth");
+const { isValidPassResetToken } = require("../middlewares/user");
+const {
+  userValidtor,
+  validate,
+  validatePassword,
+  signInValidator,
+} = require("../middlewares/validator");
 
+// routes
+const router = express.Router();
 
-router.post("/create", userValidator, validationRes, create)
-router.post("/verify-email", verifyEmail)
-router.post("/resend-email-token", resendEmailToken)
-router.post("/forget-password", forgetPassword)
-router.post("/reset-password", validatePassword, validationRes, validateResetToken, resetPassword)
-router.post("/sign-in", validateSignIn, validationRes, signIn)
+router.post("/create", userValidtor, validate, create);
+router.post("/sign-in", signInValidator, validate, signIn);
+router.post("/forget-password", forgetPassword);
+router.post("/verify-pass-reset-token", isValidPassResetToken, sendResetPasswordTokenStatus);
+router.post("/reset-password", validatePassword, validate, isValidPassResetToken, resetPassword);
+router.get("/is-auth", isAuth, Auth);
 
-
-module.exports = router
+module.exports = router;

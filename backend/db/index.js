@@ -1,13 +1,11 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose');
 
-// Store this method in connectDB and export the var
-const connectDB = async () => {
-    try {
-        const connection = await mongoose.connect(process.env.DB_STRING)
-        console.log(`Database is connected`)
-    } catch (err) {
-        console.log("DB connection failed", err)
-    }
-}
-
-module.exports = connectDB
+// using mongoose to connect to db
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log('db is connected!')
+    })
+    .catch((ex) => {
+        console.log('db connection failed: ', ex)
+    })
