@@ -5,6 +5,21 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+/* Styling scrollbar */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(55 65 81);
+  border-radius: 10px;
+}
+
 /* Removes input number arrows [Firefox support] */
 input[type=number] {
   -moz-appearance: textfield;
@@ -28,6 +43,7 @@ input[type=number] {
     opacity: 1;
   }
 }
+
 @keyframes scale-in-center {
   0% {
     -webkit-transform: scale(0);

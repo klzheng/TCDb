@@ -4,9 +4,7 @@ import React from "react";
 export default function FormInput({ name, label, placeholder, ...rest }) {
   return (
     <div className="my-3">
-      <label
-        htmlFor={name}
-      >
+      <label htmlFor={name}>
         {label}
       </label>
       <input
@@ -16,7 +14,6 @@ export default function FormInput({ name, label, placeholder, ...rest }) {
         placeholder={placeholder}
         {...rest}
       />
-
     </div>
   );
 }

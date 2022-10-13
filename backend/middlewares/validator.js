@@ -13,6 +13,11 @@ exports.userValidtor = [
         .withMessage("Password must be 8 to 20 characters long!"),
 ];
 
+exports.actorInfoValidator = [
+    check("name").trim().not().isEmpty().withMessage("Actor name is missing!"),
+    check("about").trim().not().isEmpty().withMessage("About info is a required field!"),
+]
+
 // sends error msgs if any
 exports.validate = (req, res, next) => {
     const error = validationResult(req).array();

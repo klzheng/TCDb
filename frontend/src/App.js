@@ -7,19 +7,22 @@ import Navbar from "./components/Navbar";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ConfirmPassword from "./components/auth/ConfirmPassword";
 import NotFound from "./components/NotFound";
+import { MovieProvider } from "./context/MovieContext";
 
 export default function App() {
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth/signin" element={<Signin />} />
-        <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/forget-password" element={<ForgetPassword />} />
-        <Route path="/auth/reset-password" element={<ConfirmPassword />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <MovieProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth/signin" element={<Signin />} />
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/auth/forget-password" element={<ForgetPassword />} />
+          <Route path="/auth/reset-password" element={<ConfirmPassword />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </MovieProvider>
     </>
   );
 }

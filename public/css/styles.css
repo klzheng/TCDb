@@ -189,7 +189,7 @@ section form div ul li p {
     display: flex;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.35);
-    border-radius: 20px;
+    border-radius: 10px;
     /* white-space: nowrap; */
 }
 
@@ -227,7 +227,7 @@ h3.card-name, .card-info p:nth-child(2) {
 .card:hover{
     border: none;
     outline: none;
-    box-shadow: 0 0px 20px rgba(247, 247, 247, 0.541);
+    box-shadow: 0 0px 20px rgba(255, 255, 255, 0.4);
     transition: box-shadow .5s;
 }
 

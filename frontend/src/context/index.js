@@ -3,10 +3,10 @@ import AuthProvider from "./AuthProvider";
 import NotificationProvider from "./NotificationProvider";
 
 
-export default function ContextProviders({ children }) {
+export default function ContextProviders(props) {
   return (
     <NotificationProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>{props.children}</AuthProvider>
     </NotificationProvider>
   );
 }

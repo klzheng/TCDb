@@ -21,9 +21,9 @@ export default function Navbar() {
         <div className="flex items-center space-x-4">
           <input type="text" placeholder="Search" className="border-2 border-gray-300 bg-gray-300 rounded-md px-1 text-gray-500 outline-none" />
           {isLoggedIn ? (<button onClick={handleLogout} className="font-bold text-xl hover:text-white transition">SIGN OUT</button>) : (
-              <Link to="auth/signin">
-                  <span className="tracking-wider font-bold text-xl hover:text-white transition">LOGIN</span>
-              </Link>
+            <Link to="auth/signin">
+                <span className="tracking-wider font-bold text-xl hover:text-white transition">LOGIN</span>
+            </Link>
           )}
         </div>
       </div>
