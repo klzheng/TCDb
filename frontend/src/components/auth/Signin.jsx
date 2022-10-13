@@ -44,7 +44,7 @@ export default function Signin() {
 
   useEffect(() => {
     // redirect user to homepage
-    if (isLoggedIn) navigate("/")
+    if (isLoggedIn) navigate("/") // eslint-disable-next-line
   }, [isLoggedIn])
 
   return (
@@ -54,7 +54,7 @@ export default function Signin() {
           <h1 className="text-center text-3xl font-semibold mb-5">
             Sign in
           </h1>
-          <FormInput
+          <FormInput 
             value={userInfo.email}
             onChange={handleChange}
             label="Email"

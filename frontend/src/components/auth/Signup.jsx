@@ -53,7 +53,7 @@ export default function Signup() {
 
   useEffect(() => {
     // redirect user to homepage
-    if (isLoggedIn) navigate("/");
+    if (isLoggedIn) navigate("/"); // eslint-disable-next-line
   }, [isLoggedIn]);
 
   const { name, email, password } = userInfo;

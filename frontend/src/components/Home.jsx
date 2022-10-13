@@ -15,8 +15,7 @@ export default function Home() {
   const [movies, setMovies] = useState([])
   const { url, setUrl } = useContext(MovieContext)
   const { authInfo } = useAuth()
-  const { isLoggedIn } = authInfo
-
+  const { isLoggedIn, profile } = authInfo
 
   // api urls
   const trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
@@ -51,7 +50,7 @@ export default function Home() {
     <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
       <div className="mx-32 my-28 text-gray-400 flex-auto ">
 
-        <Welcome />
+        <Welcome user={profile.name}/>
         <SearchBar />
 
         <SectionContent>

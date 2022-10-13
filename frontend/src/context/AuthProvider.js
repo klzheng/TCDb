@@ -5,7 +5,7 @@ import { useNotification } from "../hooks";
 
 export const AuthContext = createContext();
 const defaultAuthInfo = {
-  profile: null,
+  profile: {},
   isLoggedIn: false,
   isPending: false,
   error: "",
@@ -57,8 +57,8 @@ export default function AuthProvider({ children }) {
     setAuthInfo({ ...defaultAuthInfo });
   };
 
-  useEffect(() => {
-    isAuth();
+  useEffect(() => { 
+    isAuth(); // eslint-disable-next-line
   }, []);
 
   
