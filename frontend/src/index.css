@@ -8,16 +8,19 @@ input::-webkit-inner-spin-button {
 /* Styling scrollbar */
 *::-webkit-scrollbar {
   width: 12px;
-  height: 12px
+  height: 12px;
+  z-index: -10000;
 }
 
 *::-webkit-scrollbar-track {
   background: #ffffff00;
+  z-index: -10000;
 }
 
 *::-webkit-scrollbar-thumb {
   background-color: rgb(55 65 81);
   border-radius: 10px;
+  z-index: -10000;
 }
 
 /* Removes input number arrows [Firefox support] */

@@ -8,7 +8,7 @@ export default function Navbar() {
   const { isLoggedIn } = authInfo;
 
   return (
-    <div className="bg-primary text-secondary drop-shadow-xl py-5">
+    <div className="bg-primary text-secondary drop-shadow-xl py-5 overflow-hidden">
       <div className="max-w-screen-xl mx-auto items-center flex justify-between px-5">
         <div className="flex items-center space-x-1">
           <Link to="/">

@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        "karla": ["Karla", "sans-serif"]
+      },
       colors: {
         primary: "#2c3440",
         secondary: "#9ab",
@@ -25,6 +28,9 @@ module.exports = {
       boxShadow: {
         'whitexl': '0 0 25px rgba(255, 255, 255, .4)',
         "teal": "0 0 10px rgb(0, 128, 128)",
+      },
+      dropShadow: {
+        'white': '0 0 50px rgba(255, 255, 255, .8)',
       },
     },
   },

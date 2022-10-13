@@ -11,7 +11,7 @@ export default function Slider() {
     const { changeContent } = useContext(MovieContext)
 
     // Changes slider content and styling on click
-    const handleToggle = (e) => {
+    const handleToggle = (e) => { // eslint-disable-next-line
         switch (e.target.id) {
             case "all":
                 changeContent(urlHeader + "trending/all/week" + urlParams)
@@ -23,18 +23,18 @@ export default function Slider() {
                 break
             case "shows":
                 changeContent(urlHeader + "tv/popular" + urlParams)
-                setActive([false, false, true])
+                setActive([false, false, true]) 
         }
     }
 
 
     return (
         <>
-            <div className="flex flex-row justify-evenly gap-1 w-72 border-2 border-solid border-teal rounded-full text-white mb-5">
+            <div className="flex flex-row justify-evenly gap-1 w-80 border-2 border-solid border-teal rounded-full text-white mb-5 text-xl">
                 <button
                     onClick={handleToggle}
                     id="all"
-                    className={(isActive[0] ? "bg-teal shadow-teal ease-in-out  duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>All</button>
+                    className={(isActive[0] ? "bg-teal shadow-teal ease-in-out  duration-300 " : " ") + "w-1/3 py-1  rounded-full outline-none"}>All</button>
                 <button
                     onClick={handleToggle}
                     id="movies"

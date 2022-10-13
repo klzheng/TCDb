@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MovieContext from "../context/MovieContext";
 import { useAuth } from "../hooks";
-import Container from "./Container";
-import FormContainer from "./form/FormContainer";
 import MovieContent from "./home/MovieContent";
 import SearchBar from "./home/SearchBar";
 import SectionContent from "./home/SectionContent";
@@ -27,21 +25,21 @@ export default function Home() {
   // default movie results
   useEffect(() => {
     const fetchDetails = async () => {
-        try {
-            const trendingRes = await fetch(trendingUrl)
-            const trendingData = await trendingRes.json()
-            setUrl(trendingData.results)
+      try {
+        const trendingRes = await fetch(trendingUrl)
+        const trendingData = await trendingRes.json()
+        setUrl(trendingData.results)
 
-            const theatersRes = await fetch(theatersUrl)
-            const theatersData = await theatersRes.json()
-            setMovies(theatersData.results)
+        const theatersRes = await fetch(theatersUrl)
+        const theatersData = await theatersRes.json()
+        setMovies(theatersData.results)
 
-        } catch (err) {
-            console.log(err)
-        }
+      } catch (err) {
+        console.log(err)
+      }
     }
     fetchDetails() // eslint-disable-next-line
-}, [])
+  }, [])
 
 
   // redirect user to sign in page if no user already signed in
@@ -50,26 +48,24 @@ export default function Home() {
   }, [isLoggedIn])
 
   return (
-    <FormContainer>
-      <Container>
-        
-        
-          <Welcome />
-          <SearchBar />
+    <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
+      <div className="mx-32 my-28 text-gray-400 flex-auto ">
 
-          <SectionContent>
-            <SectionHeader value="See what's popular this week" />
-            <Slider />
-            <MovieContent url={url} />
-          </SectionContent>
+        <Welcome />
+        <SearchBar />
 
-          <SectionContent>
-            <SectionHeader value="In Theaters" />
-            <MovieContent url={movies} />
-          </SectionContent>
-        
-        
-      </Container>
-    </FormContainer>
+        <SectionContent>
+          <SectionHeader value="See what's popular this week" />
+          <Slider />
+          <MovieContent url={url} />
+        </SectionContent>
+
+        <SectionContent>
+          <SectionHeader value="In Theaters" />
+          <MovieContent url={movies} />
+        </SectionContent>
+
+      </div>
+    </div>
   )
 }
