@@ -8,6 +8,7 @@ import ForgetPassword from "./components/auth/ForgetPassword";
 import ConfirmPassword from "./components/auth/ConfirmPassword";
 import NotFound from "./components/NotFound";
 import { MovieProvider } from "./context/MovieContext";
+import MoviePage from "./components/user/MoviePage";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/auth/forget-password" element={<ForgetPassword />} />
           <Route path="/auth/reset-password" element={<ConfirmPassword />} />
+          <Route path="/:mediaType/:id" element={<MoviePage />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MovieProvider>
