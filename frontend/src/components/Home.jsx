@@ -17,9 +17,12 @@ export default function Home() {
   const { authInfo } = useAuth()
   const { isLoggedIn, profile } = authInfo
 
+
+
   // api urls
   const trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
   const theatersUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
+  const searchUrl = "https://api.themoviedb.org/3/search/multi?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1&query="
 
   // default movie results
   useEffect(() => {
@@ -51,7 +54,7 @@ export default function Home() {
       <div className="mx-32 my-28 text-gray-400 flex-auto ">
 
         <Welcome user={profile.name}/>
-        <SearchBar />
+        <SearchBar apiUrl={searchUrl} placeholder="Search for something specific..." />
 
         <SectionContent>
           <SectionHeader value="See what's popular this week" />
