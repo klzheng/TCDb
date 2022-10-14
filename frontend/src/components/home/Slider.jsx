@@ -5,7 +5,7 @@ import MovieContext from "../../context/MovieContext"
 export default function Slider() {
     // url variables
     const urlHeader = "https://api.themoviedb.org/3/"
-    const urlParams = "?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
+    const urlParams = "?api_key=5b7ff1ca08f2367f1d77090c6730231d&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1"
 
     const [isActive, setActive] = useState([true, false, false])
     const { changeContent } = useContext(MovieContext)

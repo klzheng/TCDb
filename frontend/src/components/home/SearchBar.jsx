@@ -21,6 +21,12 @@ export default function SearchBar({ apiUrl, placeholder}) {
         setSearch(e.target.value)
     }
 
+    // clears search results on blur
+    const clearAll = () => {
+        setSearch("")
+        setSearchResult([])
+    }
+
     // grabs data and stores it if query is valid
     useEffect(() => {
         if (!search) return;
@@ -29,16 +35,20 @@ export default function SearchBar({ apiUrl, placeholder}) {
     },[search])
 
     return (
-        <div className="relative text-center my-10 ">
+        <div className="relative text-center my-10">
             <input
                 id="main-search"
                 type="text"
                 placeholder={placeholder}
                 onChange={handleChange}
+                onBlur={clearAll}
                 value={search}
-                className="w-9/12 h-10 rounded-full border-none px-4 text-xl bg-gray-300 outline-none" />
-            <button type="submit" className="p-1 mx-2 rounded-full border-none w-10 h-10 bg-gray-300 text-black">
-                <i className="fa-solid fa-magnifying-glass"></i>
+                className="w-9/12 max-w-3xl h-10 rounded-full border-none px-4 text-xl focus:bg-gray-300 focus:text-gray-600 outline-none bg-gray-600 peer transition-all" />
+            <button type="submit" onClick={search.length === 0 ? "" : clearAll} className="p-1 mx-2 rounded-full border-none w-10 h-10 bg-gray-600 text-gray-300 peer-focus:bg-gray-300 peer-focus:text-gray-600 transition-all">
+                {search.length === 0 
+                    ? <i className="fa-solid fa-magnifying-glass transition-all"></i> 
+                    : <i class="fa-solid fa-x transition-all duration-1000"></i>
+                }
             </button>
             {/* <img src="/default.jpg" /> */}
             <SearchResults data={searchResult}/>
@@ -48,7 +58,7 @@ export default function SearchBar({ apiUrl, placeholder}) {
 
 
 const SearchResults = ({ data }) => {
-
+    // getting poster img
     const getImgUrl = (index) => {
         if (data[index].poster_path) return "https://image.tmdb.org/t/p/w185" + data[index].poster_path
         else if (data[index].backdrop_path) return "https://image.tmdb.org/t/p/w185" + data[index].backdrop_path
@@ -58,7 +68,7 @@ const SearchResults = ({ data }) => {
 
     if (data.length === 0) return null
     return (
-        <div className="absolute w-9/12 right-14 left-0 top-10 z-10 bg-gray-400 p-2 max-h-96 space-y-2 drop-shadow-lg overflow-auto mx-auto mt-1 text-left rounded-md text-gray-700 border-2 border-gray-500">
+        <div className="absolute w-9/12 max-w-3xl right-14 left-0 top-10 z-10 bg-gray-400 p-2 max-h-128 space-y-2 overflow-auto mx-auto mt-1 text-left rounded-md text-gray-700 border-2 border-gray-500 shadow-blur">
         {data.slice(0,20).map((result, index) => {
             return (
                 <div key={index} className="flex font-karla justify-start rounded bg-gray-300 p-2 hover:bg-slate-200 transition">

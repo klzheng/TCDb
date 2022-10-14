@@ -28,10 +28,17 @@ module.exports = {
       boxShadow: {
         'whitexl': '0 0 25px rgba(255, 255, 255, .4)',
         "teal": "0 0 10px rgb(0, 128, 128)",
+        "blur": "0px 100px 1000px 50px rgba(0, 0, 0, 0.6)",
       },
       dropShadow: {
         'white': '0 0 50px rgba(255, 255, 255, .8)',
       },
+      maxHeight: {
+        '112': '28rem',
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+      }
     },
   },
   plugins: [

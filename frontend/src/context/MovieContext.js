@@ -9,6 +9,7 @@ export function MovieProvider(props) {
         fetch(url)
             .then(res => res.json())
             .then(data => {
+                console.log(data.results)
                 setUrl(data.results)
             })
     }

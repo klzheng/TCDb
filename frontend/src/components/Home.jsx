@@ -20,9 +20,9 @@ export default function Home() {
 
 
   // api urls
-  const trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
-  const theatersUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1"
-  const searchUrl = "https://api.themoviedb.org/3/search/multi?api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1&query="
+  const trendingUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=5b7ff1ca08f2367f1d77090c6730231d&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1"
+  const theatersUrl = "https://api.themoviedb.org/3/movie/now_playing?api_key=5b7ff1ca08f2367f1d77090c6730231d&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1"
+  const searchUrl = "https://api.themoviedb.org/3/search/multi?&api_key=5b7ff1ca08f2367f1d77090c6730231d&sort_by=popularity.desc&language=en-US&page=1&query="
 
   // default movie results
   useEffect(() => {
