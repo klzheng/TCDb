@@ -23,9 +23,11 @@ input::-webkit-inner-spin-button {
   z-index: -10000;
 }
 
+
 /* Removes input number arrows [Firefox support] */
 input[type=number] {
   -moz-appearance: textfield;
+  
 }
 
 /* Notification bounce animation */
@@ -64,6 +66,8 @@ input[type=number] {
 .player-wrapper {
   position: relative;
   padding-top: 56.25%; 
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .react-player {
@@ -71,7 +75,17 @@ input[type=number] {
   top: 0;
   left: 50%;
   transform: translate(-50%);
+  
+}
 
+.backdrop-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100vw;
+  z-index: -10;
+  opacity: 25%;
+  object-fit: cover
 }
 
 /* @media screen and (min-width: 1280px) {
