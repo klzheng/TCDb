@@ -4,21 +4,28 @@ export const MovieContext = createContext()
 
 export function MovieProvider(props) {
     const [url, setUrl] = useState([])
-    
-    const changeContent = (url) => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setUrl(data.results)
-            })
+
+    // sets url state to the fetch results
+    const changeContent = async (url) => {
+        const res = await fetch(url)
+        const data = await res.json()
+        // console.log(data.results)
+        setUrl(data.results)
     }
 
-    return (
-        <MovieContext.Provider value={{url, setUrl, changeContent}}>
-            {props.children}
-        </MovieContext.Provider>
-    )
+    // async/await fn, returns data from api url
+    const grabData = async (url) => {
+        const res = await fetch(url)
+        const data = await res.json()
+        // console.log(data)
+        return data
+    }
+
+return (
+    <MovieContext.Provider value={{ url, setUrl, changeContent, grabData }}>
+        {props.children}
+    </MovieContext.Provider>
+)
 }
 
 export default MovieContext

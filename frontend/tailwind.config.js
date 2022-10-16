@@ -12,6 +12,7 @@ module.exports = {
         tertiary: "rgba(0, 0, 0, 0.35)",
         "bg-start": "#303946",
         "teal": "rgba(64, 224, 208, 0.486)",
+        "yellow-green": "rgba(183, 221, 41, .8)",
       },
       lineClamp: {
         7: '7',

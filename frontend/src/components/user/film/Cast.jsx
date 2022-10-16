@@ -8,11 +8,14 @@ export default function Cast(props) {
                 {props.cast.map((person, index) => (
                     <div key={index} className="text-center mt-1 mb-4">
                         <img
-                            src={`https://image.tmdb.org/t/p/h632${person.profile_path}`}
+                            src={ 
+                                person.profile_path 
+                                ? `https://image.tmdb.org/t/p/h632${person.profile_path}` 
+                                : ("default_profile.png")}
                             alt="Cast Member"
-                            className="max-w-xs h-60 object-cover rounded" />
-                        <p className="font-bold text-gray-200 line-clamp-1 text-lg">{person.character}</p>
-                        <p className="line-clamp-1">{person.name}</p>
+                            className="w-40 h-60 object-cover rounded" />
+                        <p className="font-bold text-gray-200 line-clamp-1 text-lg w-40">{person.character}</p>
+                        <p className="line-clamp-1 max-w-40">{person.name}</p>
                     </div>
                 ))}
             </div>

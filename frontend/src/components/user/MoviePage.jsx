@@ -3,12 +3,14 @@ import moment from "moment"
 import { useEffect } from "react"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import Trailer from "./details/Trailer"
-import PosterBackground from "./details/PosterBackground"
-import Header from "./details/Header"
-import Overview from "./details/Overview"
-import Cast from "./details/Cast"
-import Other from "./details/Other"
+import Trailer from "./film/Trailer"
+import PosterBackground from "./film/PosterBackground"
+import Header from "./film/Header"
+import Overview from "./film/Overview"
+import Cast from "./film/Cast"
+import Other from "./film/Other"
+import MovieContext from "../../context/MovieContext"
+import { useContext } from "react"
 
 
 export default function MoviePage() {
@@ -22,20 +24,16 @@ export default function MoviePage() {
     const [genres, setGenres] = useState([])
 
 
+    // grabbing params
     const res = useParams()
+
+    // async/await fn, returns data from api url
+    const {grabData} = useContext(MovieContext)
 
     // urls
     const apiVideo = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/videos?api_key=5b7ff1ca08f2367f1d77090c6730231d`
     const apiDetails = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}?api_key=5b7ff1ca08f2367f1d77090c6730231d`
     const apiCrew = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/credits?api_key=5b7ff1ca08f2367f1d77090c6730231d`
-    
-
-    // async/await fn, returns data from api url
-    const grabData = async (url) => {
-        const res = await fetch(url)
-        const data = await res.json()
-        return data
-    }
 
 
     useEffect(() => {
@@ -66,45 +64,43 @@ export default function MoviePage() {
         // getting movie crew details
         grabData(apiCrew)
             .then(data => {
-
-                setCast(data.cast)
+                // console.log(data.cast)
+                setCast(data.cast.slice(0, 11))
 
                 setDirector(data.crew
-                    .filter(item => item.known_for_department === "Directing")[0].name)
+                    .filter(item => item.known_for_department === "Directing" || item.department === "Directing")[0].name)
 
                 setWriters(data.crew
-                    .filter(item => item.known_for_department === "Writing").map(item => item.name))
+                    .filter(item => item.department === "Writing").map(item => item.name))
             })
-    }, [apiCrew, apiDetails, apiVideo])
+    }, [apiCrew, apiDetails, apiVideo, grabData])
 
 
 
     return (
-        <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">                   
+        <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
 
-            <PosterBackground imgPath={pageDetails.backdrop_path}/>
+            <PosterBackground imgPath={pageDetails.backdrop_path} />
             <div className="mx-32 my-28 text-gray-400 flex-auto ">
 
-                <Trailer trailerKey={trailerKey}/>
+                <Trailer trailerKey={trailerKey} />
                 <div className="flex-col space-y-12 mt-40">
-
-                    <Header 
-                        details={pageDetails} 
-                        releaseDate={releaseDate} 
+                    <Header
+                        details={pageDetails}
+                        releaseDate={releaseDate}
                         genres={genres} />
 
-                    <Overview 
-                        details={pageDetails}/>
+                    <Overview
+                        details={pageDetails} />
 
-                    <Cast 
-                        cast={cast}/>
+                    <Cast
+                        cast={cast} />
 
-                    <Other 
-                        director={director} 
-                        writers={writers} 
-                        releaseDate={releaseDate} 
+                    <Other
+                        director={director}
+                        writers={writers}
+                        releaseDate={releaseDate}
                         languages={languages} />
-
                 </div>
             </div>
         </div>
