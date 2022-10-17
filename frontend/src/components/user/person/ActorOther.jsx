@@ -24,9 +24,11 @@ export default function ActorOther(props) {
                 </div>
                 <div>
                     <h2 className="text-white">Also Known As</h2>
-                    <p>{props.aliases.map((item, index) => (
-                        <p key={index}>{item}</p>
-                    ))}</p>
+                    <div>
+                        {props.aliases.map((item, index) => (
+                            <p key={index}>{item}</p>
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

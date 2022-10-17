@@ -14,6 +14,11 @@ module.exports = {
         "teal": "rgba(64, 224, 208, 0.486)",
         "yellow-green": "rgba(183, 221, 41, .8)",
       },
+      minWidth: {
+        32: "8rem",
+        28: "7rem",
+        24: "6rem",
+      },
       lineClamp: {
         7: '7',
         8: '8',

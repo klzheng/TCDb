@@ -6,7 +6,7 @@ export default function Cast(props) {
             </p>
             <div className="flex space-x-4 overflow-auto">
                 {props.cast.map((person, index) => (
-                    <div key={index} className="text-center mt-1 mb-4">
+                    <div key={index} className="text-center mt-1 mb-4 w-40">
 
                         <img
                             src={
@@ -17,7 +17,7 @@ export default function Cast(props) {
                             alt="Casting Pictures"
                             className="object-cover rounded" />
                         <p 
-                            className={"text-gray-200 line-clamp-1 pt-1 " + (person.name ? " font-bold w-40 text-lg " : " w-32 text-sm ")}>
+                            className={"text-gray-200 pt-1 " + (person.name ? " font-bold text-lg w-40 " : " text-sm w-32 ")}>
                             {person.title || person.character }
                         </p>
                         <p className={"line-clamp-1 max-w-40"}>

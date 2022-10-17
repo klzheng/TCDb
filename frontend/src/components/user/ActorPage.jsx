@@ -31,7 +31,7 @@ export default function ActorPage() {
 
                 {actorDetails.length !== 0 &&
                     <div className="flex space-x-10">
-                        <div className="w-1/3 flex flex-col gap-5">
+                        <div className="w-1/4 flex flex-col gap-5">
                             <img
                                 src={`https://image.tmdb.org/t/p/original${actorDetails.profile_path}`}
                                 className="object-cover rounded-lg"
@@ -45,7 +45,7 @@ export default function ActorPage() {
                                 aliases={actorDetails.also_known_as} />
                         </div>
 
-                        <div className="w-2/3 flex flex-col gap-10">
+                        <div className="w-3/4 flex flex-col gap-10">
                             <h1 className="text-5xl text-white font-semibold">{actorDetails.name}</h1>
 
                             <Biography bio={actorDetails.biography} />

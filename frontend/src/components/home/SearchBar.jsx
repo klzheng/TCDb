@@ -72,16 +72,16 @@ const SearchResults = ({ data }) => {
             {data.slice(0, 20).map((result, index) => {
                 return (
                     <Link to={`/${result.media_type}/${result.id}`} key={index}>
-                        <div key={index} className="flex font-karla justify-start rounded bg-gray-300 p-2 hover:bg-slate-200 transition">
+                        <div key={index} className="flex font-karla justify-start rounded bg-gray-300 p-2 hover:bg-slate-200 transition ">
                             <img
                                 src={getImgUrl(index)}
                                 alt="Poster"
-                                className="w-32 h-36 object-cover rounded overflow-hidden" />
+                                className="min-w-24 h-36 object-cover rounded overflow-hidden" />
                             <div className="flex flex-col w-full  px-2 ">
                                 <p className="text-lg font-bold">
                                     {(result.title || result.name)}
                                 </p>
-                                <p className="text-sm line-clamp-4 mt-3 leading-snug">
+                                <p className="text-sm line-clamp-5  leading-snug">
                                     {result.overview || result.known_for_department}
                                 </p>
                             </div>

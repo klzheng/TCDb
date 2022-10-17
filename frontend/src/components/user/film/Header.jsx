@@ -3,10 +3,10 @@ import { FaHeart } from "react-icons/fa"
 export default function Header(props) {
 
     const ratingColor = (rating) => {
-        if (rating > 7.5) return " border-green-400 bg-green-600 "
-        else if (rating > 6.5) return " border-yellow-300 bg-yellow-500 "
-        else if (rating > 5.5) return " bg-orange-500 border-orange-300 "
-        else if (rating > 0) return " bg-red-500 border-red-300 "
+        if (rating >= 8) return " border-green-400 bg-green-600 "
+        else if (rating >= 6.5) return " border-yellow-300 bg-yellow-500 "
+        else if (rating >= 5.5) return " bg-orange-500 border-orange-300 "
+        else if (rating >= 0) return " bg-red-500 border-red-300 "
         else return ""
     }
 
