@@ -94,7 +94,7 @@ export default function MoviePage() {
                         details={pageDetails} />
 
                     <Cast
-                        cast={cast} />
+                        cast={cast} title="Cast"/>
 
                     <Other
                         director={director}

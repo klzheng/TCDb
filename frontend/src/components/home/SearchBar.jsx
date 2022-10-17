@@ -32,7 +32,7 @@ export default function SearchBar({ apiUrl, placeholder }) {
     useEffect(() => {
         if (!search) return;
         requestResultsData(search)
-            .then(setSearchResult)
+            .then(setSearchResult) // eslint-disable-next-line
     }, [search])
 
     return (
