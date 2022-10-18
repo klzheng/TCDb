@@ -15,7 +15,7 @@ export default function Cast(props) {
                             src={
                                 (person.profile_path && `https://image.tmdb.org/t/p/h632${person.profile_path}`) 
                                 || (person.poster_path && `https://image.tmdb.org/t/p/h632${person.poster_path}`) 
-                                || ("default_profile.png")
+                                || (props.people ? "default_profile.png" : "default.jpg")
                             }
                             alt="Casting Pictures"
                             className={"object-cover rounded" + 
