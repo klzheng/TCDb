@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../api/auth";
 import { useAuth, useNotification } from "../../hooks";
 import Container from "../Container";
-import CustomLink from "../CustomLink";
 import FormContainer from "../form/FormContainer";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
@@ -90,8 +89,8 @@ export default function Signup() {
           <Submit value="Sign up" />
 
           <div className="flex justify-between mt-2">
-            <CustomLink to="/auth/forget-password">Forget Password</CustomLink>
-            <CustomLink to="/auth/signin">Sign In</CustomLink>
+            <Link to="/auth/forget-password">Forget Password</Link>
+            <Link to="/auth/signin">Sign In</Link>
           </div>
         </form>
       </Container>

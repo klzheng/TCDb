@@ -5,7 +5,7 @@ import MovieContext from "../../context/MovieContext"
 export default function Slider() {
     // url variables
     const urlHeader = "https://api.themoviedb.org/3/"
-    const urlParams = "?api_key=5b7ff1ca08f2367f1d77090c6730231d&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1"
+    const urlParams = `?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1`
 
     const [isActive, setActive] = useState([true, false, false])
     const { changeContent } = useContext(MovieContext)
@@ -30,19 +30,19 @@ export default function Slider() {
 
     return (
         <>
-            <div className="flex flex-row justify-evenly gap-1 w-80 border-2 border-solid border-teal rounded-full text-white mb-5 text-xl">
+            <div className="flex flex-row justify-evenly gap-1 w-80 border-2 border-solid border-teal-standard rounded-full text-white mb-5 text-xl">
                 <button
                     onClick={handleToggle}
                     id="all"
-                    className={(isActive[0] ? "bg-teal shadow-teal ease-in-out  duration-300 " : " ") + "w-1/3 py-1  rounded-full outline-none"}>All</button>
+                    className={(isActive[0] ? "bg-teal-standard shadow-teal ease-in-out  duration-300 " : " ") + "w-1/3 py-1  rounded-full outline-none"}>All</button>
                 <button
                     onClick={handleToggle}
                     id="movies"
-                    className={(isActive[1] ? "bg-teal shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Movies</button>
+                    className={(isActive[1] ? "bg-teal-standard shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Movies</button>
                 <button
                     onClick={handleToggle}
                     id="shows"
-                    className={(isActive[2] ? "bg-teal shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Shows</button>
+                    className={(isActive[2] ? "bg-teal-standard shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Shows</button>
             </div>
         </>
     )

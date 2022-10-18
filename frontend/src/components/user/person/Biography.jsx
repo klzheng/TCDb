@@ -15,7 +15,6 @@ export default function Biography(props) {
                 <div>
                     <p className="text-xl text-gray-200 my-2">Biography</p>
                     <div>
-                        {console.log(props.bio.split(/\r?\n/))}
                         {readMore
                             ? props.bio.split(/\r?\n/)
                                 .map((item, index) => (
@@ -26,7 +25,8 @@ export default function Biography(props) {
                                 ))
                             : props.bio.split(/\r?\n/)[0] 
                             }
-                        {props.bio.split(/\r?\n/).length > 1 && <button onClick={toggleMore} className=" rounded text-teal-200 flex items-center mx-auto mt-4 px-1 bg-gray-700">
+                        {props.bio.split(/\r?\n/).length > 1 && 
+                        <button onClick={toggleMore} className=" rounded text-gray-200 flex items-center mx-auto mt-4 px-1 bg-gray-700">
                             {readMore ? "Read Less" : "Read More"}
                             {readMore 
                                 ? <HiArrowUp className="ml-1"/> 

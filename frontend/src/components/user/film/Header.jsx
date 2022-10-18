@@ -12,7 +12,6 @@ export default function Header(props) {
 
     return (
         <div>
-            {console.log(props)}
             <div className="text-5xl font-light text-gray-400 mb-1">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}

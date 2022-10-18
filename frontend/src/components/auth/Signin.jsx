@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useNotification } from "../../hooks";
 import Container from "../Container";
-import CustomLink from "../CustomLink";
 import FormContainer from "../form/FormContainer";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
@@ -72,8 +71,8 @@ export default function Signin() {
           <Submit value="Sign in" busy={isPending} />
 
           <div className="flex justify-between">
-            <CustomLink to="/auth/forget-password">Forgot Password</CustomLink>
-            <CustomLink to="/auth/signup">Sign Up</CustomLink>
+            <Link to="/auth/forget-password" className="text-gray-700 hover:text-black transition">Forgot Password</Link>
+            <Link to="/auth/signup" className="text-gray-700 hover:text-black transition">Sign Up</Link>
           </div>
         </form>
       </Container>

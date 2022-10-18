@@ -11,8 +11,8 @@ module.exports = {
         secondary: "#9ab",
         tertiary: "rgba(0, 0, 0, 0.35)",
         "bg-start": "#303946",
-        "teal": "rgba(64, 224, 208, 0.486)",
         "teal": {
+          "standard" : "rgba(64, 224, 208, 0.486)",
           100: "#ccfbf1",
           200: "#99f6e4",
           300: "#5eead4",

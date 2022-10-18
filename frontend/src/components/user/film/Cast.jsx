@@ -14,7 +14,7 @@ export default function Cast(props) {
                         <img
                             src={
                                 (person.profile_path && `https://image.tmdb.org/t/p/h632${person.profile_path}`) 
-                                || (person.poster_path && `https://image.tmdb.org/t/p/h632${person.poster_path}`) 
+                                || (person.poster_path && `https://image.tmdb.org/t/p/w342${person.poster_path}`) 
                                 || (props.people ? "default_profile.png" : "default.jpg")
                             }
                             alt="Casting Pictures"

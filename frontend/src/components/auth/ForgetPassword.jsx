@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { forgetPassword } from "../../api/auth";
 import { useNotification } from "../../hooks";
 import Container from "../Container";
-import CustomLink from "../CustomLink";
 import FormContainer from "../form/FormContainer";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
@@ -46,8 +46,8 @@ export default function ForgetPassword() {
           <Submit value="Send Link" />
 
           <div className="flex justify-between mt-2">
-            <CustomLink to="/auth/signin">Sign In</CustomLink>
-            <CustomLink to="/auth/signup">Sign Up</CustomLink>
+            <Link to="/auth/signin">Sign In</Link>
+            <Link to="/auth/signup">Sign Up</Link>
           </div>
         </form>
       </Container>

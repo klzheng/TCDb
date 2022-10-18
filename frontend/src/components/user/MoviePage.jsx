@@ -31,9 +31,9 @@ export default function MoviePage() {
     const {grabData} = useContext(MovieContext)
 
     // urls
-    const apiVideo = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/videos?api_key=5b7ff1ca08f2367f1d77090c6730231d`
-    const apiDetails = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}?api_key=5b7ff1ca08f2367f1d77090c6730231d`
-    const apiCrew = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/credits?api_key=5b7ff1ca08f2367f1d77090c6730231d`
+    const apiVideo = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/videos?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+    const apiDetails = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+    const apiCrew = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
 
 
     useEffect(() => {
@@ -64,7 +64,6 @@ export default function MoviePage() {
         // getting movie crew details
         grabData(apiCrew)
             .then(data => {
-                console.log(data.cast)
                 setCast(data.cast.slice(0, 11))
 
                 setDirector(data.crew
@@ -85,7 +84,7 @@ export default function MoviePage() {
 
                 <Trailer trailerKey={trailerKey} />
                 <div className={" flex-col space-y-12 " + (
-                    pageDetails.backdrop_path ? " mt-40 " : " mt-20 ")}>
+                    pageDetails.backdrop_path ? " mt-32 " : " mt-20 ")}>
                     <Header
                         details={pageDetails}
                         releaseDate={releaseDate}

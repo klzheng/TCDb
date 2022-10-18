@@ -1,13 +1,13 @@
-const API_KEY = "5b7ff1ca08f2367f1d77090c6730231d"
+const API_KEY = process.env.REACT_APP_TMDB_API_KEY
 const BASE_URL = "https://api.themoviedb.org/3"
 const PARAM = "&language=en-US&page=1"
-const API_URL_TRENDING = BASE_URL + "/trending/all/week?api_key=" + API_KEY
-const API_URL_TRENDING_MOV = BASE_URL + "/movie/popular?api_key=" + API_KEY + PARAM
-const API_URL_TRENDING_SHOW = BASE_URL + "/tv/popular?api_key=" + API_KEY + PARAM
-const API_URL_THEATERS = BASE_URL + "/movie/now_playing?api_key=" + API_KEY + PARAM
+const API_URL_TRENDING = BASE_URL + "/trending/all/week?api_key=" + process.env.REACT_APP_TMDB_API_KEY
+const API_URL_TRENDING_MOV = BASE_URL + "/movie/popular?api_key=" + process.env.REACT_APP_TMDB_API_KEY + PARAM
+const API_URL_TRENDING_SHOW = BASE_URL + "/tv/popular?api_key=" + process.env.REACT_APP_TMDB_API_KEY + PARAM
+const API_URL_THEATERS = BASE_URL + "/movie/now_playing?api_key=" + process.env.REACT_APP_TMDB_API_KEY + PARAM
 const IMG_URL = "https://image.tmdb.org/t/p/w500"
-const API_SEARCH = "https://api.themoviedb.org/3/search/multi?&api_key=5b7ff1ca08f2367f1d77090c6730231d&language=en-US&page=1&query="
-BASE_URL + "/search/multi?&api_key=" + API_KEY + PARAM + "&query="
+const API_SEARCH = `https://api.themoviedb.org/3/search/multi?&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=1&query=`
+
 
 
 // Gets API data from url with a specific target in HTML

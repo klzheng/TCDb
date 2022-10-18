@@ -13,14 +13,13 @@ export default function ActorPage() {
     const [dataTest, setDataTest] = useState({})
     const res = useParams()
     const { grabData } = useContext(MovieContext)
-    const apiPerson = `https://api.themoviedb.org/3/person/${res.id}?api_key=5b7ff1ca08f2367f1d77090c6730231d&append_to_response=credits`
+    const apiPerson = `https://api.themoviedb.org/3/person/${res.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=credits`
 
 
     useEffect(() => {
         // getting video key
         grabData(apiPerson)
             .then(data => {
-                console.log(data)
                 setActorDetails(data)
                 setCredits((data.credits.cast || data.credits.crew).sort((a, b) => (b.popularity - a.popularity)).slice(0, 10))
                 setDataTest({
