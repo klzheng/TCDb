@@ -48,7 +48,7 @@ export default function MoviePage() {
         // getting movie details
         grabData(apiDetails)
             .then(data => {
-
+                
                 setPageDetails(data)
 
                 setLanguages(data.spoken_languages
@@ -64,7 +64,7 @@ export default function MoviePage() {
         // getting movie crew details
         grabData(apiCrew)
             .then(data => {
-                // console.log(data.cast)
+                console.log(data.cast)
                 setCast(data.cast.slice(0, 11))
 
                 setDirector(data.crew
@@ -84,7 +84,8 @@ export default function MoviePage() {
             <div className="mx-32 my-28 text-gray-400 flex-auto ">
 
                 <Trailer trailerKey={trailerKey} />
-                <div className="flex-col space-y-12 mt-40">
+                <div className={" flex-col space-y-12 " + (
+                    pageDetails.backdrop_path ? " mt-40 " : " mt-20 ")}>
                     <Header
                         details={pageDetails}
                         releaseDate={releaseDate}
@@ -94,7 +95,7 @@ export default function MoviePage() {
                         details={pageDetails} />
 
                     <Cast
-                        cast={cast} title="Cast"/>
+                        cast={cast} title="Cast" people={true}/>
 
                     <Other
                         director={director}

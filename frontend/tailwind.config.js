@@ -19,6 +19,11 @@ module.exports = {
         28: "7rem",
         24: "6rem",
       },
+      maxWidth: {
+        32: "8rem",
+        28: "7rem",
+        24: "6rem",
+      },
       lineClamp: {
         7: '7',
         8: '8',
