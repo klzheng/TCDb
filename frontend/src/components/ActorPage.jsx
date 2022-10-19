@@ -8,6 +8,7 @@ import Biography from "./actor/Biography";
 import Background from "./Background";
 import Container from "./Container";
 import Navbar from "./Navbar";
+import ActorImage from "./actor/ActorImage";
 
 export default function ActorPage() {
 
@@ -42,18 +43,15 @@ export default function ActorPage() {
                 {Object.keys(dataTest).length !== 0 &&
                     <div className="flex space-x-10">
 
+                        {/* LEFT COLUMN */}
                         <div className="w-1/4 flex flex-col gap-5">
-                            <img
-                                src={actorDetails.profile_path 
-                                    ? `https://image.tmdb.org/t/p/original${actorDetails.profile_path}`
-                                    : "/default_profile.png"
-                                }
-                                className="object-cover rounded-lg"
-                                alt="Actor" />
+                            <ActorImage 
+                                imgPath={actorDetails.profile_path}/>
                             <ActorOther
                                 info={dataTest} />
                         </div>
 
+                        {/* RIGHT COLUMN */}
                         <div className="w-3/4 flex flex-col gap-10">
                             <h1 className="text-5xl text-white font-semibold"> 
                                 {actorDetails.name}

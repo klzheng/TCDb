@@ -20,6 +20,6 @@
   left: 0;
   max-width: 99vw;
   z-index: -10;
-  opacity: 25%;
+  opacity: 50%;
   object-fit: cover
 }

@@ -18,15 +18,6 @@ exports.actorInfoValidator = [
     check("about").trim().not().isEmpty().withMessage("About info is a required field!"),
 ]
 
-// sends error msgs if any
-exports.validate = (req, res, next) => {
-    const error = validationResult(req).array();
-    if (error.length) {
-        return res.json({ error: error[0].msg });
-    }
-
-    next();
-};
 
 // validates password input
 exports.validatePassword = [
@@ -44,3 +35,19 @@ exports.signInValidator = [
     check("email").normalizeEmail().isEmail().withMessage("Email is invalid!"),
     check("password").trim().not().isEmpty().withMessage("Password is missing!"),
 ];
+
+// Checks that rating value is between 0 and 10
+exports.validateRatings = [
+    check("rating", "Please enter a valid rating").isFloat({min: 0, max: 10})
+]
+
+
+// sends error msgs if any
+exports.validate = (req, res, next) => {
+    const error = validationResult(req).array();
+    if (error.length) {
+        return res.json({ error: error[0].msg });
+    }
+
+    next();
+};

@@ -98,7 +98,8 @@ module.exports = {
         "groove" : [
           "0px 1px 0px rgba(255, 255, 255, .5)", 
           // "0px -1px 0px rgba(0,0,0,.7)"
-        ]
+        ],
+        "3xl": "0 10px 25px rgba(0, 0, 0, 0.35)"
       },
       maxHeight: {
         '112': '28rem',

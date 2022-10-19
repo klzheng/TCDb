@@ -1,20 +1,10 @@
 const express = require("express");
 // destructuring of modules 
-const {
-  create,
-  forgetPassword,
-  sendResetPasswordTokenStatus,
-  resetPassword,
-  signIn,
-} = require("../controllers/user");
+const { create, forgetPassword, sendResetPasswordTokenStatus, resetPassword,
+  signIn } = require("../controllers/user");
 const { isAuth, Auth } = require("../middlewares/auth");
 const { isValidPassResetToken } = require("../middlewares/user");
-const {
-  userValidtor,
-  validate,
-  validatePassword,
-  signInValidator,
-} = require("../middlewares/validator");
+const { userValidtor, validate, validatePassword, signInValidator} = require("../middlewares/validator");
 
 // routes
 const router = express.Router();

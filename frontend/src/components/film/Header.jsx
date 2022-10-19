@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { FaHeart } from "react-icons/fa"
-import RatingModal from "../user/RatingModal"
+import RatingModal from "../modals/RatingModal"
 
 export default function Header(props) {
 
@@ -9,7 +9,6 @@ export default function Header(props) {
 
     const toggleModal = () => {
         setDisplayModal(prevState => !prevState)
-        console.log(displayModal)
     }
     
     const ratingColor = (rating) => {
@@ -22,7 +21,7 @@ export default function Header(props) {
 
     return (
         <div>
-            {console.log(props)}
+            {/* {console.log(props)} */}
             <div className="text-5xl font-light text-gray-400 mb-1 mt-32">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
