@@ -25,8 +25,12 @@ export default function Biography(props) {
                                 ))
                             : props.bio.split(/\r?\n/)[0] 
                             }
+                            
                         {props.bio.split(/\r?\n/).length > 1 && 
-                        <button onClick={toggleMore} className=" rounded text-gray-200 flex items-center mx-auto mt-4 px-1 bg-gray-700">
+                        <button 
+                            onClick={toggleMore} 
+                            className=" rounded text-gray-200 flex items-center mx-auto mt-4 px-1 bg-gray-700"
+                        >
                             {readMore ? "Read Less" : "Read More"}
                             {readMore 
                                 ? <HiArrowUp className="ml-1"/> 

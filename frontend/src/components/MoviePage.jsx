@@ -9,8 +9,11 @@ import Header from "./film/Header"
 import Overview from "./film/Overview"
 import Cast from "./film/Cast"
 import Other from "./film/Other"
-import MovieContext from "../../context/MovieContext"
+import MovieContext from "../context/MovieContext"
 import { useContext } from "react"
+import Background from "./Background"
+import Container from "./Container"
+import Navbar from "./Navbar"
 
 
 export default function MoviePage() {
@@ -40,7 +43,6 @@ export default function MoviePage() {
         // getting video key
         grabData(apiVideo)
             .then(data => {
-
                 setTrailerKey(data.results
                     .filter((item) => item.type === "Trailer")[0].key)
             })
@@ -77,14 +79,13 @@ export default function MoviePage() {
 
 
     return (
-        <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
-
+        <Background>
+            <Navbar />
             <PosterBackground imgPath={pageDetails.backdrop_path} />
-            <div className="mx-32 my-28 text-gray-400 flex-auto ">
-
+            <Container>
                 <Trailer trailerKey={trailerKey} />
-                <div className={" flex-col space-y-12 " + (
-                    pageDetails.backdrop_path ? " mt-32 " : " mt-20 ")}>
+
+                <div className={" flex-col space-y-12 mt-20 "}>
                     <Header
                         details={pageDetails}
                         releaseDate={releaseDate}
@@ -102,7 +103,8 @@ export default function MoviePage() {
                         releaseDate={releaseDate}
                         languages={languages} />
                 </div>
-            </div>
-        </div>
+
+            </Container>
+        </Background>
     )
 }

@@ -3,11 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import Signin from "./components/auth/Signin";
 import Signup from "./components/auth/Signup";
 import Home from "./components/Home";
-import Navbar from "./components/Navbar";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ConfirmPassword from "./components/auth/ConfirmPassword";
-import MoviePage from "./components/user/MoviePage";
-import ActorPage from "./components/user/ActorPage";
+import MoviePage from "./components/MoviePage";
+import ActorPage from "./components/ActorPage";
 import NotFound from "./components/NotFound";
 import { MovieProvider } from "./context/MovieContext";
 
@@ -16,7 +15,6 @@ export default function App() {
   return (
     <>
       <MovieProvider>
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth/signin" element={<Signin />} />

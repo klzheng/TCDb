@@ -1,3 +1,5 @@
+import "../MoviePage.css"
+
 export default function PosterBackground(props) {
     return (
         <>

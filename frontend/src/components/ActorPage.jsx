@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MovieContext from "../../context/MovieContext";
+import MovieContext from "../context/MovieContext";
 import Cast from "./film/Cast";
-import ActorOther from "./person/ActorOther";
-import Biography from "./person/Biography";
+import ActorOther from "./actor/ActorOther";
+import Biography from "./actor/Biography";
+import Background from "./Background";
+import Container from "./Container";
+import Navbar from "./Navbar";
 
 export default function ActorPage() {
 
@@ -33,8 +36,9 @@ export default function ActorPage() {
     }, [apiPerson, grabData])
 
     return (
-        <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
-            <div className="mx-32 my-28 text-gray-400 flex-auto ">
+        <Background>
+            <Navbar />
+            <Container>
                 {Object.keys(dataTest).length !== 0 &&
                     <div className="flex space-x-10">
 
@@ -46,7 +50,6 @@ export default function ActorPage() {
                                 }
                                 className="object-cover rounded-lg"
                                 alt="Actor" />
-
                             <ActorOther
                                 info={dataTest} />
                         </div>
@@ -55,9 +58,7 @@ export default function ActorPage() {
                             <h1 className="text-5xl text-white font-semibold"> 
                                 {actorDetails.name}
                             </h1>
-
                             <Biography bio={actorDetails.biography} />
-                            
                             <Cast 
                                 title="Known For" 
                                 cast={credits} 
@@ -66,7 +67,7 @@ export default function ActorPage() {
 
                     </div>
                 }
-            </div>
-        </div>
+            </Container>
+        </Background>
     )
 }

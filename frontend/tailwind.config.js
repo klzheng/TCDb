@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "karla": ["Karla", "sans-serif"]
+        "karla": ["Karla", "sans-serif"],
+        "lora": ["Lora", "serif"],
       },
       colors: {
         primary: "#2c3440",
@@ -23,17 +24,55 @@ module.exports = {
           800: "#115e59",
           900: "#134e4a",
         },
+        "slate": {
+          100: "#f1f5f9",
+          200: "#e2e8f0",
+          300: "#cbd5e1",
+          400: "#94a3b8",
+          500: "#64748b",
+          600: "#475569",
+          700: "#334155",
+          800: "#1e293b",
+          900: "#0f172a",
+        },
         "yellow-green": "rgba(183, 221, 41, .8)",
+      },
+      width: {
+        112: '28rem',
+        120: '30rem',
+        128: '32rem',
+        144: '36rem',
+        160: '40rem',
+        176: '44rem',
+        192: '48rem',
+        208: '52rem',
+      },
+      height: {
+        112: '28rem',
+        128: '32rem',
+        144: '36rem',
+        160: '40rem',
+        176: '44rem',
+        192: '48rem',
+        208: '52rem',
       },
       minWidth: {
         32: "8rem",
         28: "7rem",
         24: "6rem",
+        112: '28rem',
+        128: '32rem',
+        144: '36rem',
+        160: '40rem',
       },
       maxWidth: {
         32: "8rem",
         28: "7rem",
         24: "6rem",
+        112: '28rem',
+        128: '32rem',
+        144: '36rem',
+        160: '40rem',
       },
       lineClamp: {
         7: '7',
@@ -56,13 +95,17 @@ module.exports = {
       dropShadow: {
         'white': '0 0 50px rgba(255, 255, 255, .8)',
         'white-text': '0 0 2px rgba(255, 255, 255, .5)',
+        "groove" : [
+          "0px 1px 0px rgba(255, 255, 255, .5)", 
+          // "0px -1px 0px rgba(0,0,0,.7)"
+        ]
       },
       maxHeight: {
         '112': '28rem',
         '128': '32rem',
         '144': '36rem',
         '160': '40rem',
-      },    
+      },     
       spacing: {
         '10%': '10%', 
         '20%': '20%', 
@@ -77,6 +120,12 @@ module.exports = {
       backgroundImage: {
         "fading" : "linear-gradient(90deg, transparent 95%, grey)",
       },
+      opacity: {
+        96 : ".96",
+        97 : ".97",
+        98 : ".98",
+        99 : ".99",
+      }
     },
   },
   plugins: [

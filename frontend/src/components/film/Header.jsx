@@ -1,7 +1,17 @@
+import { useState } from "react"
 import { FaHeart } from "react-icons/fa"
+import RatingModal from "../user/RatingModal"
 
 export default function Header(props) {
 
+    
+    const [displayModal, setDisplayModal] = useState(false)
+
+    const toggleModal = () => {
+        setDisplayModal(prevState => !prevState)
+        console.log(displayModal)
+    }
+    
     const ratingColor = (rating) => {
         if (rating >= 8) return " border-green-400 bg-green-600 "
         else if (rating >= 6.5) return " border-yellow-300 bg-yellow-500 "
@@ -12,7 +22,8 @@ export default function Header(props) {
 
     return (
         <div>
-            <div className="text-5xl font-light text-gray-400 mb-1">
+            {console.log(props)}
+            <div className="text-5xl font-light text-gray-400 mb-1 mt-32">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
                 </span>
@@ -32,10 +43,20 @@ export default function Header(props) {
                         TMDb Rating
                     </span>
 
-                    <span className="flex flex-row items-center">
+                    <button onClick={toggleModal} className="flex flex-row items-center">
                         Rate
                         <FaHeart className="ml-1" />
-                    </span>
+                    </button>
+
+                    {displayModal && 
+                        <RatingModal 
+                            title={props.details.title || props.details.name} 
+                            releaseYear={props.releaseDate.slice(-4)}
+                            imgPath={props.details.poster_path}
+                            toggleModal={toggleModal}
+                            />
+                    }
+                    
                 </div>}
 
         </div>

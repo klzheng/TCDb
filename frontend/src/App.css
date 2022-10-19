@@ -62,37 +62,6 @@ input[type=number] {
   }
 }
 
-/* React player responsive css */
-.player-wrapper {
-  position: relative;
-  padding-top: 56.25%; 
-  max-width: 90%;
-  max-height: 90%;
-}
-
-.react-player {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-  
-}
-
-.backdrop-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 99vw;
-  z-index: -10;
-  opacity: 25%;
-  object-fit: cover
-}
-
-/* @media screen and (min-width: 1280px) {
-  .player-wrapper{
-    padding-top: 576px;
-  }
-} */
 
 @tailwind base;
 @tailwind components;

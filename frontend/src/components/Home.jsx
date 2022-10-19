@@ -8,6 +8,9 @@ import SectionContent from "./home/SectionContent";
 import SectionHeader from "./home/SectionHeader";
 import Slider from "./home/Slider";
 import Welcome from "./home/Welcome";
+import Background from "./Background";
+import Container from "./Container";
+import Navbar from "./Navbar";
 
 
 export default function Home() {
@@ -50,11 +53,15 @@ export default function Home() {
   }, [isLoggedIn])
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-bg-start to-black -z-10 overflow-auto">
-      <div className="mx-32 my-28 text-gray-400 flex-auto ">
+    
+    <Background>
+      <Navbar />
+      <Container>
 
         <Welcome user={profile.name}/>
-        <SearchBar apiUrl={searchUrl} placeholder="Search for something specific..." />
+        <SearchBar 
+          apiUrl={searchUrl} 
+          placeholder="Search for something specific..." />
 
         <SectionContent>
           <SectionHeader value="See what's popular this week" />
@@ -67,7 +74,7 @@ export default function Home() {
           <MovieContent url={movies} />
         </SectionContent>
 
-      </div>
-    </div>
+      </Container>
+    </Background>
   )
 }
