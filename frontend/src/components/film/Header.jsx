@@ -1,14 +1,22 @@
 import { useState } from "react"
 import { FaHeart } from "react-icons/fa"
+import { useParams } from "react-router-dom"
+import { getReview } from "../../api/review"
 import RatingModal from "../modals/RatingModal"
 
 export default function Header(props) {
 
     
     const [displayModal, setDisplayModal] = useState(false)
+    const {mediaType, id} = useParams()
 
-    const toggleModal = () => {
+    const toggleModal = async () => {
         setDisplayModal(prevState => !prevState)
+        if (!displayModal) {
+            const {response} = await getReview(mediaType, id)
+            console.log(response)
+        }
+        // console.log(error, message)
     }
     
     const ratingColor = (rating) => {
@@ -42,7 +50,7 @@ export default function Header(props) {
                         TMDb Rating
                     </span>
 
-                    <button onClick={toggleModal} className="flex flex-row items-center">
+                    <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
                         Rate
                         <FaHeart className="ml-1" />
                     </button>

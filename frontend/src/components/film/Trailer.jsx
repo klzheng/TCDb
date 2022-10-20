@@ -1,5 +1,4 @@
 import ReactPlayer from "react-player"
-import "../MoviePage.css"
 
 export default function Trailer(props) {
     return (

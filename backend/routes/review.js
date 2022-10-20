@@ -1,10 +1,11 @@
 const express = require("express")
-const { addReview, updateReview, deleteReview } = require("../controllers/review")
+const { addReview, updateReview, deleteReview, getReview } = require("../controllers/review")
 const { isAuth } = require("../middlewares/auth")
 const { validateRatings } = require("../middlewares/validator")
 const { validate } = require("../middlewares/validator")
 const router = express.Router()
 
+router.get("/get/:mediaType/:id", isAuth, getReview)
 router.post("/add/:mediaType/:id", isAuth, validateRatings, validate, addReview)
 router.patch("/:reviewId", isAuth, validateRatings, validate, updateReview)
 router.delete("/:reviewId", isAuth, deleteReview)
