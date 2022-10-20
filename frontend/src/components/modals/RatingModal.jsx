@@ -3,8 +3,9 @@ import { FaHeart } from "react-icons/fa"
 import { BiX } from "react-icons/bi"
 import { useState } from "react"
 import ModalContainer from "./ModalContainer"
-import { addReview } from "../../api/review"
+import { addReview, updateReview } from "../../api/review"
 import { useNotification } from "../../hooks"
+import { useEffect } from "react"
 
 
 export default function RatingModal(props) {
@@ -17,11 +18,14 @@ export default function RatingModal(props) {
     const [enlarge, setEnlarge] = useState(false)
     const {updateNotification} = useNotification()
     const regex = /^(0-9|\d)(\.\d{1})?$/
-    const { title, releaseYear, imgPath, toggleModal } = props
+    const { title, releaseYear, imgPath, toggleModal, reviewDetails } = props
+    
+
 
 
     const toggleLike = () => {
         setLiked(prevState => !prevState)
+        
     }
 
     const toggleEnlarge = () => {
@@ -46,14 +50,32 @@ export default function RatingModal(props) {
             rating: rating,
             liked: liked
         }
-        // console.log(res.mediaType, res.id, data)
         
-        const {error, message} = await addReview(res.mediaType, res.id, data)
-        if(error) return updateNotification("error", error)
-        
-        updateNotification("success", message)
+
+        if (Object.keys(reviewDetails).length !== 0) {
+            const {error, message} = await updateReview( reviewDetails._id, data)
+
+            if(error) return updateNotification("error", error)
+            updateNotification("success", message)
+        } else {
+            const {error, message} = await addReview(res.mediaType, res.id, data)
+
+            if(error) return updateNotification("error", error)
+            updateNotification("success", message)
+        }
+
         toggleModal()
     }
+
+
+    useEffect(() => {
+        if (Object.keys(reviewDetails).length !== 0) {
+            setReview(reviewDetails.content)
+            setLiked(reviewDetails.liked)
+            setRating(reviewDetails.rating.toString())
+        }
+    },[reviewDetails])
+
 
 
     return (

@@ -7,8 +7,8 @@ const router = express.Router()
 
 router.get("/get/:mediaType/:id", isAuth, getReview)
 router.post("/add/:mediaType/:id", isAuth, validateRatings, validate, addReview)
-router.patch("/:reviewId", isAuth, validateRatings, validate, updateReview)
-router.delete("/:reviewId", isAuth, deleteReview)
+router.patch("/patch/:reviewId", isAuth, validateRatings, validate, updateReview)
+router.delete("/delete/:reviewId", isAuth, deleteReview)
 
 
 

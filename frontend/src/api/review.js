@@ -36,3 +36,21 @@ export const getReview = async( mediaType, id ) => {
         return {err: err.message || err}
     }
 }
+
+export const updateReview = async( reviewId , reviewData ) => {
+    const token = localStorage.getItem("auth-token");
+
+    try {
+        const { data } = await client.patch(`/review/patch/${reviewId}`, reviewData, {
+            headers: {
+                authorization: "Bearer " + token,
+            },
+        })
+        return data
+
+    } catch (err) {
+        const {res} = err
+        if (res?.data) return res.data
+        return {err: err.message || err}
+    }
+}

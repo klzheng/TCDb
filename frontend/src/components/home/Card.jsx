@@ -5,7 +5,7 @@ export default function Card(props) {
         <div className="w-40 relative group">
             <div className="group-hover:shadow-whitexl rounded-lg group-hover:transition-all duration-500">
                 <Link to={`/${props.type}/${props.id}`}>
-                <img src={props.image} alt="Poster IMG" className="border border-white object-cover h-60 rounded-lg group-hover:brightness-20 group-hover:transition duration-500" />
+                <img src={props.image} alt="Poster IMG" className="border-2 border-slate-700 object-cover h-60 rounded-lg group-hover:brightness-20 group-hover:transition duration-500" />
                 <p className="text-center absolute -translate-y-52 text-white px-2.5 line-clamp-8 opacity-0 group-hover:opacity-100 ease-in-out duration-500 leading-snug">
                     {props.overview}
                 </p>

@@ -2,11 +2,11 @@ const { isValidObjectId } = require("mongoose")
 const Review = require("../models/review")
 const { sendError } = require("../utils/helper")
 
+
 exports.addReview = async (req, res) => {
     const { mediaType, id } = req.params
     const { content, rating, liked } = req.body
     const userId = req.user._id
-
 
     // validation
     const alreadyReviewed = await Review.findOne({ owner: userId, movieId: id, movieType: mediaType })
@@ -28,7 +28,9 @@ exports.addReview = async (req, res) => {
     res.json({ message: "Review added" })
 }
 
+
 exports.updateReview = async (req, res) => {
+    console.log(req.params)
     const { reviewId } = req.params
     const { content, rating, liked } = req.body
     const userId = req.user._id
@@ -48,6 +50,7 @@ exports.updateReview = async (req, res) => {
 
     res.json({ message: "Review updated" })
 }
+
 
 exports.deleteReview = async (req, res) => {
     const { reviewId } = req.params

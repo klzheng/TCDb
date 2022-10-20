@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useState } from "react"
 import { FaHeart } from "react-icons/fa"
 import { useParams } from "react-router-dom"
@@ -6,19 +7,15 @@ import RatingModal from "../modals/RatingModal"
 
 export default function Header(props) {
 
-    
+
     const [displayModal, setDisplayModal] = useState(false)
-    const {mediaType, id} = useParams()
+    const [reviewDetails, setReviewDetails] = useState({})
+    const { mediaType, id } = useParams()
 
     const toggleModal = async () => {
         setDisplayModal(prevState => !prevState)
-        if (!displayModal) {
-            const {response} = await getReview(mediaType, id)
-            console.log(response)
-        }
-        // console.log(error, message)
     }
-    
+
     const ratingColor = (rating) => {
         if (rating >= 8) return " border-green-400 bg-green-600 "
         else if (rating >= 6.5) return " border-yellow-300 bg-yellow-500 "
@@ -26,6 +23,18 @@ export default function Header(props) {
         else if (rating > 0) return " bg-red-500 border-red-300 "
         else return ""
     }
+
+
+    // grab review data on load
+    useEffect(() => {
+        const grabData = async () => {
+            const { response } = await getReview(mediaType, id)
+            if (response) setReviewDetails(response)
+        }
+        grabData()
+
+    },[displayModal])
+
 
     return (
         <div>
@@ -51,19 +60,20 @@ export default function Header(props) {
                     </span>
 
                     <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
+                        <FaHeart className={"mr-2" + (reviewDetails.liked ? " text-red-400 " : " ")} />
                         Rate
-                        <FaHeart className="ml-1" />
                     </button>
 
-                    {displayModal && 
-                        <RatingModal 
-                            title={props.details.title || props.details.name} 
+                    {displayModal &&
+                        <RatingModal
+                            title={props.details.title || props.details.name}
                             releaseYear={props.releaseDate.slice(-4)}
                             imgPath={props.details.poster_path}
+                            reviewDetails={reviewDetails}
                             toggleModal={toggleModal}
-                            />
+                        />
                     }
-                    
+
                 </div>}
 
         </div>
