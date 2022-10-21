@@ -23,12 +23,12 @@ export default function Search() {
         const grabData = async (url) => {
             const response = await fetch(url)
             const data = await response.json()
-            setSearchResults(data.results)
-            console.log(data.results)
+            setSearchResults(data.results.filter(item => item.popularity > 10))
         }
         grabData(`${url+query}`)
     },[url, query])
 
+    
     return (
         <Background>
             <Navbar />
