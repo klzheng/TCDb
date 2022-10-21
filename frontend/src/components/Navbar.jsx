@@ -27,8 +27,8 @@ export default function Navbar() {
     }
 
     return (
-        <div className="bg-primary text-secondary drop-shadow-xl py-5 overflow-hidden">
-            <div className="max-w-screen-xl mx-auto items-center flex justify-between px-28">
+        <div className="bg-primary text-secondary drop-shadow-xl py-4 overflow-hidden">
+            <div className="max-w-screen-xl items-center flex justify-between mx-32">
                 <Link to="/">
                     <div className="flex items-center space-x-1">
                         <img src="./logo.png" alt="Logo" className="h-8 items-center" />

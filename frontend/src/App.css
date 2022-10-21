@@ -86,7 +86,7 @@ input[type=number] {
     left: 0;
     max-width: 99vw;
     z-index: -10;
-    opacity: 50%;
+    opacity: 15%;
     object-fit: cover
 }
 
