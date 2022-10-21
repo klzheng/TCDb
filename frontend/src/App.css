@@ -1,92 +1,95 @@
 /* Removes input number arrows/spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Styling scrollbar */
 *::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-  z-index: -10000;
+    width: 8px;
+    height: 8px;
+    z-index: -10000;
 }
 
 *::-webkit-scrollbar-track {
-  background: #ffffff00;
-  z-index: -10000;
+    background: #ffffff00;
+    z-index: -10000;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(55 65 81);
-  border-radius: 10px;
-  z-index: -10000;
+    background-color: rgb(55 65 81);
+    border-radius: 10px;
+    z-index: -10000;
 }
 
 
 /* Removes input number arrows [Firefox support] */
 input[type=number] {
-  -moz-appearance: textfield;
-  
+    -moz-appearance: textfield;
+
 }
 
 /* Notification bounce animation */
 .scale-in-center {
-	-webkit-animation: scale-in-center 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	animation: scale-in-center 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    -webkit-animation: scale-in-center 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: scale-in-center 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
 @-webkit-keyframes scale-in-center {
-  0% {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 1;
-  }
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes scale-in-center {
-  0% {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 1;
-  }
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 
 /* React player responsive css */
 .player-wrapper {
-  position: relative;
-  padding-top: 56.25%; 
-  max-width: 90%;
-  max-height: 90%;
+    position: relative;
+    padding-top: 56.25%;
+    max-width: 90%;
+    max-height: 90%;
 }
 
 .react-player {
-position: absolute;
-top: 0;
-left: 50%;
-transform: translate(-50%);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 .backdrop-image {
-position: absolute;
-top: 0;
-left: 0;
-max-width: 99vw;
-z-index: -10;
-opacity: 50%;
-object-fit: cover
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 99vw;
+    z-index: -10;
+    opacity: 50%;
+    object-fit: cover
 }
+
 
 
 @tailwind base;
