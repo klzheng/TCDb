@@ -54,3 +54,22 @@ export const updateReview = async( reviewId , reviewData ) => {
         return {err: err.message || err}
     }
 }
+
+export const getAll = async () => {
+    const token = localStorage.getItem("auth-token")
+
+    try {
+        const {data} = await client.get(`/review/get/my-films`, {
+            headers: {
+                authorization: "Bearer " + token,
+            }, 
+        })
+        return data
+
+    } catch (err) {
+        const {res} = err
+        if (res?.data) return res.data
+        return {err: err.message || err}
+    }
+  
+}

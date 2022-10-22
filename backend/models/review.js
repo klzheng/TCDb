@@ -15,6 +15,10 @@ const reviewSchema = mongoose.Schema(
             type: Number,
             required: true
         },
+        imgPath: {
+            type: String,
+            required: true
+        },
         content: {
             type: String,
             trim: true,

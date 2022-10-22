@@ -27,45 +27,58 @@ export default function Navbar() {
     }
 
     return (
-        <div className="bg-primary text-secondary drop-shadow-xl py-4 overflow-hidden">
-            <div className="max-w-screen-xl items-center flex justify-between mx-32">
-                <Link to="/">
-                    <div className="flex items-center space-x-1">
-                        <img src="./logo.png" alt="Logo" className="h-8 items-center" />
-                        <span className="font-bold text-2xl">TCDb</span>
-                    </div>
-                </Link>
-                <div className="flex items-center space-x-16 relative">
-                    <div className={"flex items-center justify-end rounded-full outline-none transition-all duration-500 absolute right-3/4" + (active ? " bg-gray-300 text-primary w-36 " : " text-gray-200 ")} >
-                        {active
-                            ? <form onSubmit={handleSubmit}>
-                                <input
-                                    autoFocus
-                                    type="text"
-                                    placeholder="Search"
-                                    value={search}
-                                    onChange={handleChange}
-                                    onSubmit={handleSubmit}
-                                    className="bg-inherit outline-none text-primary text-sm mx-1 transition-all duration-50 absolute w-9/12 left-1.5 bottom-0.5 " />
-                                <FiX
-                                    onClick={toggleSearch}
-                                    className=" min-w-4 h-4 m-1" />
-                            </form>
-                            : <HiOutlineSearch
-                                onClick={toggleSearch}
-                                className={"  min-w-4 h-4 m-1 "} />
-                        }
-                    </div>
+        <nav className="bg-primary text-secondary drop-shadow-xl py-4 overflow-hidden flex justify-between items-center px-32">
 
-                    <Link
-                        to="auth/signin"
-                        onClick={isLoggedIn ? handleLogout : ""}
-                        className="font-bold text-xl hover:text-white transition">
-                        {isLoggedIn ? "SIGN OUT" : "LOGIN"}
-                    </Link>
-
+            {/* Logo */}
+            <Link to="/">
+                <div className="flex items-center space-x-1">
+                    <img src="./logo.png" alt="Logo" className="h-8 items-center" />
+                    <span className="font-bold text-2xl">TCDb</span>
                 </div>
+            </Link>
+
+            {/* Right Sided elements */}
+            <div className="flex items-center space-x-4 relative">
+
+
+                {/* Mini search-bar */}
+                <div className={"flex items-center justify-end rounded-full outline-none transition-all duration-500 " + (active ? " bg-gray-300 text-primary w-36 " : " text-gray-200 ")} >
+                    {active
+                        ? <form onSubmit={handleSubmit}>
+                            <input
+                                autoFocus
+                                type="text"
+                                placeholder="Search"
+                                value={search}
+                                onChange={handleChange}
+                                onSubmit={handleSubmit}
+                                className="bg-inherit outline-none text-primary text-sm mx-1 transition-all duration-50 absolute w-28 left-1.5 bottom-1 " />
+                            <FiX
+                                onClick={toggleSearch}
+                                className=" min-w-4 h-4 m-1 " />
+                        </form>
+                        : <HiOutlineSearch
+                            onClick={toggleSearch}
+                            className={"  min-w-4 h-4 m-1  "} />
+                    }
+                </div>
+
+                {/* User's films */}
+                <Link 
+                    to="/my-films"
+                    className="text-lg hover:text-white transition">
+                    <p>Films</p>
+                </Link>
+
+                {/* Login/Signout */}
+                <Link
+                    to="auth/signin"
+                    onClick={isLoggedIn ? handleLogout : ""}
+                    className=" text-lg hover:text-white transition">
+                    {isLoggedIn ? "Sign Out " : "Login"}
+                </Link>
             </div>
-        </div>
+
+        </nav>
     );
 }

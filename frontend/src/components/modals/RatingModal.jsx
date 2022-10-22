@@ -22,7 +22,6 @@ export default function RatingModal(props) {
     
 
 
-
     const toggleLike = () => {
         setLiked(prevState => !prevState)
         
@@ -48,10 +47,10 @@ export default function RatingModal(props) {
         const data = {
             content: review,
             rating: rating,
-            liked: liked
+            liked: liked,
+            imgPath: imgPath,
         }
         
-
         if (Object.keys(reviewDetails).length !== 0) {
             const {error, message} = await updateReview( reviewDetails._id, data)
 
@@ -93,7 +92,7 @@ export default function RatingModal(props) {
             <section className="w-3/4 flex flex-col justify-center relative my-8">
 
                 {/* TITLE */}
-                <p className="font-extrabold font-lora text-white tracking-tight">
+                <p className="font-extrabold text-xl font-lora text-white tracking-tight">
                     {title}
                     <span className="font-thin text-gray-400 font-karla ">
                         {" " + releaseYear}
@@ -113,12 +112,13 @@ export default function RatingModal(props) {
                                     ? " text-red-400 "
                                     : " text-slate-700 hover:text-slate-800 ")} />
                     </div>
-                    <div className="flex flex-col items-center space-y-1 ">
+                    <label htmlFor="RATING" className="flex flex-col items-center space-y-1 ">
                         <h3 className="text-gray-200 tracking-tight text-base">
                             Rating
                         </h3>
                         <div className="flex items-center space-x-1 group">
                             <input
+                                id="RATING"
                                 type="number"
                                 placeholder="—"
                                 value={rating}
@@ -129,7 +129,7 @@ export default function RatingModal(props) {
                                 out of 10
                             </span>
                         </div>
-                    </div>
+                    </label>
                 </div>
 
                 {/* REVIEW */}

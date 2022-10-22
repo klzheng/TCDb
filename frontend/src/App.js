@@ -9,6 +9,7 @@ import MoviePage from "./components/MoviePage";
 import ActorPage from "./components/ActorPage";
 import NotFound from "./components/NotFound";
 import Search from "./components/Search";
+import UserFilm from "./components/UserFilm";
 import { MovieProvider } from "./context/MovieContext";
 
 
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/:mediaType/:id" element={<MoviePage />}/>
           <Route path="/person/:id" element={<ActorPage />}/>
           <Route path="/search/:query" element={<Search />} />
+          <Route path="/my-films" element={<UserFilm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MovieProvider>
