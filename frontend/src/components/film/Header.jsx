@@ -33,7 +33,7 @@ export default function Header(props) {
         }
         grabData()
 
-    },[displayModal])
+    },[displayModal, id, mediaType])
 
 
     return (
@@ -59,10 +59,11 @@ export default function Header(props) {
                         TMDb Rating
                     </span>
 
-                    <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
+                    {props.details.length !== 0 && <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
                         <FaHeart className={"mr-2" + (reviewDetails.liked ? " text-red-400 " : " ")} />
                         Rate
-                    </button>
+                        {console.log(props.details.length)}
+                    </button>}
 
                     {displayModal &&
                         <RatingModal

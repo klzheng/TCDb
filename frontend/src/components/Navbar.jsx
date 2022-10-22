@@ -42,7 +42,7 @@ export default function Navbar() {
 
 
                 {/* Mini search-bar */}
-                <div className={"flex items-center justify-end rounded-full outline-none transition-all duration-500 " + (active ? " bg-gray-300 text-primary w-36 " : " text-gray-200 ")} >
+                <div className={"flex items-center justify-end rounded-full outline-none transition-all duration-500 " + (active ? " bg-gray-300 text-primary w-36 py-0.5 " : " text-gray-200 ")} >
                     {active
                         ? <form onSubmit={handleSubmit}>
                             <input
@@ -52,14 +52,14 @@ export default function Navbar() {
                                 value={search}
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}
-                                className="bg-inherit outline-none text-primary text-sm mx-1 transition-all duration-50 absolute w-28 left-1.5 bottom-1 " />
+                                className="bg-inherit outline-none text-primary text-sm mx-1 transition-all duration-50 absolute w-28 left-1.5 bottom-1 tracking-tight " />
                             <FiX
                                 onClick={toggleSearch}
-                                className=" min-w-4 h-4 m-1 " />
+                                className=" min-w-4 min-h-4 m-1 " />
                         </form>
                         : <HiOutlineSearch
                             onClick={toggleSearch}
-                            className={"  min-w-4 h-4 m-1  "} />
+                            className={"  min-w-4 min-h-4 m-1  "} />
                     }
                 </div>
 

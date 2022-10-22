@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { getAll } from "../api/review";
 import Background from "./Background";
 import Container from "./Container";
@@ -64,11 +64,12 @@ export default function UserFilm() {
         <Background>
             <Navbar />
             <Container>
-                <div className="grid grid-cols-6 gap-5">
-                    {hoverInfo.length === allReviews.length && allReviews.map((review, index) => (
+                <div className="grid grid-cols-6 gap-1">
+                    {console.log(allReviews, hoverInfo)}
+                    {(hoverInfo.length === allReviews.length) && allReviews.map((review, index) => (
                         <div key={index} className="flex flex-col group relative">
                             <p
-                                className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-600 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 ">
+                                className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 ">
                                 <span>
                                     {hoverInfo[index].title}
                                 </span>
@@ -82,9 +83,9 @@ export default function UserFilm() {
                                 onClick={() => toggleModal(index)}
                                 className="rounded-lg border-4 border-slate-400 border-opacity-0 hover:border-opacity-100 transition-all ">
                             </img>
-                            <p className="flex items-center justify-center space-x-4 ">
+                            <p className="flex items-center justify-center space-x-2 -mt-1">
                                 <span>Rating: {review.rating} </span>
-                                <span className="text-red-400">{review.liked && <FaHeart />}
+                                <span >{review.liked ? <FaHeart className="text-red-400"/> : <FaRegHeart/> }
                                 </span>
                             </p>
                         </div>

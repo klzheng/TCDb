@@ -9,7 +9,6 @@ export function MovieProvider(props) {
     const changeContent = async (url) => {
         const res = await fetch(url)
         const data = await res.json()
-        // console.log(data.results)
         setUrl(data.results)
     }
 
@@ -17,7 +16,6 @@ export function MovieProvider(props) {
     const grabData = async (url) => {
         const res = await fetch(url)
         const data = await res.json()
-        // console.log(data)
         return data
     }
 

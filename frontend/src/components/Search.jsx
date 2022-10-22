@@ -28,7 +28,7 @@ export default function Search() {
         grabData(`${url+query}`)
     },[url, query])
 
-    
+
     return (
         <Background>
             <Navbar />
@@ -49,14 +49,13 @@ export default function Search() {
                         <div className="flex flex-col w-full px-3 text-gray-300 ">
                             <p className="text-2xl font-bold text-gray-200 line-clamp-1">
                                 {(result.title || result.name)}
-                                {/* {console.log(result.vote_average !== 0)} */}
                             </p>
 
-                            {result.vote_average && 
+                            {(result.vote_average !== 0 && result.vote_average) && 
                                 <p className="text-lg text-yellow-100 pt-2">
                                     Rating: 
                                     <span className="bg-slate-900 bg-opacity-70 px-1 mx-1 rounded text-white">
-                                        {result.vote_average !== 0 && result.vote_average}
+                                        {result.vote_average}
                                     </span>
                                 </p>}
 

@@ -34,7 +34,7 @@ export default function MoviePage() {
     const {grabData} = useContext(MovieContext)
 
     // urls
-    const apiVideo = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/videos?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+    const apiVideo = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/videos?api_key=${process.env.REACT_APP_TMDB_API_KEY}&append_to_response=videos`
     const apiDetails = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
     const apiCrew = `https://api.themoviedb.org/3/${res.mediaType}/${res.id}/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
 
@@ -84,7 +84,6 @@ export default function MoviePage() {
             <PosterBackground imgPath={pageDetails.backdrop_path} />
             <Container>
                 <Trailer trailerKey={trailerKey} />
-
                 <div className={" flex-col space-y-12 mt-20 "}>
                     <Header
                         details={pageDetails}

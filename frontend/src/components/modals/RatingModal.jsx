@@ -24,12 +24,10 @@ export default function RatingModal(props) {
 
     const toggleLike = () => {
         setLiked(prevState => !prevState)
-        
     }
 
     const toggleEnlarge = () => {
         setTimeout(() => setEnlarge(prevState => !prevState), 95)
-        
     }
 
     const handleRating = (e) => {
@@ -112,11 +110,11 @@ export default function RatingModal(props) {
                                     ? " text-red-400 "
                                     : " text-slate-700 hover:text-slate-800 ")} />
                     </div>
-                    <label htmlFor="RATING" className="flex flex-col items-center space-y-1 ">
+                    <label htmlFor="RATING" className="flex flex-col items-center space-y-1 group">
                         <h3 className="text-gray-200 tracking-tight text-base">
                             Rating
                         </h3>
-                        <div className="flex items-center space-x-1 group">
+                        <div className="flex items-center space-x-1 ">
                             <input
                                 id="RATING"
                                 type="number"
@@ -125,7 +123,7 @@ export default function RatingModal(props) {
                                 onChange={handleRating}
                                 className="bg-inherit rounded w-9 h-5 text-2xl font-bold text-slate-100 outline-none text-center caret-transparent cursor-pointer group-hover:placeholder:text-gray-100 transition focus:placeholder:text-gray-100"
                             />
-                            <span className="text-sm text-slate-400 tracking-tight">
+                            <span className="text-sm text-slate-400 tracking-tight group-hover:text-slate-300">
                                 out of 10
                             </span>
                         </div>
