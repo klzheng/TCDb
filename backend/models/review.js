@@ -15,6 +15,14 @@ const reviewSchema = mongoose.Schema(
             type: Number,
             required: true
         },
+        movieName: {
+            type: String,
+            required: true
+        },
+        movieRelease: {
+            type: String,
+            required: true
+        },
         imgPath: {
             type: String,
         },

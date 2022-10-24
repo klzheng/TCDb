@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { getAll } from "../api/review";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { getAll, getSorted } from "../api/review";
 import Background from "./Background";
 import Container from "./Container";
 import RatingModal from "./modals/RatingModal";
@@ -12,7 +13,9 @@ export default function UserFilm() {
     const [allReviews, setAllReviews] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [selectedReviewData, setSelectedReviewData] = useState({})
-    const [hoverInfo, setHoverInfo] = useState([])
+    const [selectedSort, setSelectedSort] = useState("movieRelease")
+    const [sortValue, setSortValue] = useState(-1)
+
 
     // grabs movie data from TMDB 
     const grabData = async (movieType, movieId) => {
@@ -20,6 +23,7 @@ export default function UserFilm() {
         const data = await response.json()
         return data
     }
+
 
     // grabs data from clicked movie, opens modal, and sets state
     const toggleModal = async (index) => {
@@ -36,45 +40,77 @@ export default function UserFilm() {
         setDisplayModal(!displayModal)
     }
 
+
+    // sorts movies 
+    const sortItems = async (filterTerm, filterValue) => {
+        const response = await getSorted(filterTerm, filterValue)
+        setSortValue(filterValue)
+        setSelectedSort(filterTerm)
+        setAllReviews(response)
+    }
+
+
+    const changeSort = () => {
+        sortItems(selectedSort, sortValue * -1)
+
+    }
+
+
     // refreshes all reviews from db when modal is toggled
     useEffect(() => {
         const grabAllReviews = async () => {
-            const { response } = await getAll()
+            const response = await getAll()
+            // console.log(response)
             setAllReviews(response)
         }
         grabAllReviews()
     }, [displayModal])
 
 
-    // grabs data for each review item and sets state 
-    useEffect(() => {
-        allReviews.forEach(async (review) => {
-            const data = await grabData(review.movieType, review.movieId)
-            const info = {
-                "title": data.title || data.name,
-                "releaseYear": data.release_date || data.first_air_date
-            }
-            setHoverInfo(prevState => [...prevState, info])
-            setHoverInfo(prevState => prevState.slice(0, allReviews.length))
-        })
-    }, [allReviews])
+
 
 
     return (
         <Background>
             <Navbar />
             <Container>
+                <h2 className="flex justify-end items-center pb-10 space-x-2 ">
+                    {sortValue === -1
+                        ? <IoIosArrowDown
+                            className="text-white drop-shadow-white-text"
+                            onClick={() => changeSort()} />
+                        : <IoIosArrowUp
+                            className="text-white drop-shadow-white-text"
+                            onClick={() => changeSort()} />}
+                    <span
+                        onClick={() => sortItems("rating", -1)}
+                        className={"hover:text-gray-200" + (selectedSort === "rating" ? " text-white drop-shadow-white-text " : " ")}
+                    >
+                        RATING
+                    </span>
+                    <span
+                        onClick={() => sortItems("movieName", 1)}
+                        className={"hover:text-gray-200" + (selectedSort === "movieName" ? " text-white drop-shadow-white-text " : " ")}
+                    >
+                        TITLE
+                    </span>
+                    <span
+                        onClick={() => sortItems("movieRelease", -1)}
+                        className={"hover:text-gray-200" + (selectedSort === "movieRelease" ? " text-white drop-shadow-white-text " : " ")}
+                    >
+                        RELEASE DATE
+                    </span>
+                </h2>
                 <div className="grid grid-cols-6 gap-1">
-                    {console.log(allReviews, hoverInfo)}
-                    {(hoverInfo.length === allReviews.length) && allReviews.map((review, index) => (
+                    {allReviews.length !== 0 && allReviews.map((review, index) => (
                         <div key={index} className="flex flex-col group relative">
                             <p
                                 className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 ">
                                 <span>
-                                    {hoverInfo[index].title}
+                                    {review.movieName}
                                 </span>
                                 <span>
-                                    ({hoverInfo[index].releaseYear.slice(0, 4)})
+                                    ({review.movieRelease.slice(0, 4)})
                                 </span>
                             </p>
                             <img
@@ -83,9 +119,14 @@ export default function UserFilm() {
                                 onClick={() => toggleModal(index)}
                                 className="rounded-lg border-4 border-slate-400 border-opacity-0 hover:border-opacity-100 transition-all ">
                             </img>
-                            <p className="flex items-center justify-center space-x-2 -mt-1">
-                                <span>Rating: {review.rating} </span>
-                                <span >{review.liked ? <FaHeart className="text-red-400"/> : <FaRegHeart/> }
+                            <p className="flex items-center justify-center space-x-2">
+                                <span>
+                                    Rating:
+                                    <span className="bg-slate-600 rounded mx-0.5 px-1 bg-opacity-60 text-white">
+                                        {review.rating}
+                                    </span>
+                                </span>
+                                <span >{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}
                                 </span>
                             </p>
                         </div>
@@ -94,7 +135,7 @@ export default function UserFilm() {
                 {displayModal &&
                     <RatingModal
                         title={selectedReviewData.title}
-                        releaseYear={selectedReviewData.releaseDate.slice(0, 4)}
+                        releaseDate={selectedReviewData.releaseDate}
                         imgPath={selectedReviewData.imgPath}
                         reviewDetails={selectedReviewData.reviewDetails}
                         toggleModal={() => setDisplayModal(!displayModal)}

@@ -3,7 +3,7 @@ import { FaHeart } from "react-icons/fa"
 import { BiX } from "react-icons/bi"
 import { useState } from "react"
 import ModalContainer from "./ModalContainer"
-import { addReview, updateReview } from "../../api/review"
+import { addReview, deleteReview, updateReview } from "../../api/review"
 import { useNotification } from "../../hooks"
 import { useEffect } from "react"
 
@@ -18,7 +18,7 @@ export default function RatingModal(props) {
     const [enlarge, setEnlarge] = useState(false)
     const {updateNotification} = useNotification()
     const regex = /^(0-9|\d)(\.\d{1})?$/
-    const { title, releaseYear, imgPath, toggleModal, reviewDetails } = props
+    const { title, releaseDate, imgPath, toggleModal, reviewDetails } = props
     
 
 
@@ -26,9 +26,9 @@ export default function RatingModal(props) {
         setLiked(prevState => !prevState)
     }
 
-    const toggleEnlarge = () => {
-        setTimeout(() => setEnlarge(prevState => !prevState), 95)
-    }
+    // const toggleEnlarge = () => {
+    //     setTimeout(() => setEnlarge(prevState => !prevState), 95)
+    // }
 
     const handleRating = (e) => {
         if (regex.test(e.target.value) || e.target.value === "") {
@@ -43,6 +43,8 @@ export default function RatingModal(props) {
     const handleSubmit = async () => {
         if (!rating.length) return updateNotification("error", "Please Input a Rating")
         const data = {
+            movieName: title,
+            releaseDate: releaseDate,
             content: review,
             rating: rating,
             liked: liked,
@@ -51,12 +53,11 @@ export default function RatingModal(props) {
         
         if (Object.keys(reviewDetails).length !== 0) {
             const {error, message} = await updateReview( reviewDetails._id, data)
-
             if(error) return updateNotification("error", error)
             updateNotification("success", message)
+
         } else {
             const {error, message} = await addReview(res.mediaType, res.id, data)
-
             if(error) return updateNotification("error", error)
             updateNotification("success", message)
         }
@@ -64,6 +65,14 @@ export default function RatingModal(props) {
         toggleModal()
     }
 
+
+    const handleDelete = async () => {
+        const {error, message} = await deleteReview(reviewDetails._id)
+        if (error) return updateNotification("error", error)
+        updateNotification("success", message)
+
+        toggleModal()
+    }
 
     useEffect(() => {
         if (Object.keys(reviewDetails).length !== 0) {
@@ -93,7 +102,7 @@ export default function RatingModal(props) {
                 <p className="font-extrabold text-xl font-lora text-white tracking-tight">
                     {title}
                     <span className="font-thin text-gray-400 font-karla ">
-                        {" " + releaseYear}
+                        {" " + props.releaseDate.slice(0,4)}
                     </span>
                 </p>
 
@@ -105,8 +114,7 @@ export default function RatingModal(props) {
                         </h3>
                         <FaHeart
                             onClick={toggleLike}
-                            className={" drop-shadow-groove transition " +
-                                (liked
+                            className={" drop-shadow-groove transition text-xl " + (liked
                                     ? " text-red-400 "
                                     : " text-slate-700 hover:text-slate-800 ")} />
                     </div>
@@ -138,19 +146,24 @@ export default function RatingModal(props) {
                         rows="6"
                         placeholder="Add a review..."
                         value={review}
-                        onFocus={toggleEnlarge}
-                        onBlur={toggleEnlarge}
+                        onFocus={() => setEnlarge(true)}
                         onChange={handleChange}
                         className={"text-slate-600 bg-slate-300 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight w-full relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" + (enlarge ? " h-60 " : " h-24 ")} />
                 </div>
 
                 {/* SAVE BUTTON */}
-                <div className="flex justify-end">
+                <div className="flex justify-end space-x-2">
                     <button
                         onClick={handleSubmit}
                         className="bg-green-600 text-white py-0.5 px-4 rounded-sm text-base font-semibold hover:bg-green-700 transition outline-none "
                     >
                         SAVE
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-500 text-white py-0.5 px-4 rounded-sm text-base font-semibold hover:bg-red-600 transition outline-none "
+                    >
+                        DELETE
                     </button>
                 </div>
             </section>

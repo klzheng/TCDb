@@ -19,6 +19,7 @@ export const addReview = async( mediaType, id, reviewData ) => {
     }
 }
 
+
 export const getReview = async( mediaType, id ) => {
     const token = localStorage.getItem("auth-token");
 
@@ -36,6 +37,7 @@ export const getReview = async( mediaType, id ) => {
         return {err: err.message || err}
     }
 }
+
 
 export const updateReview = async( reviewId , reviewData ) => {
     const token = localStorage.getItem("auth-token");
@@ -55,14 +57,53 @@ export const updateReview = async( reviewId , reviewData ) => {
     }
 }
 
+
 export const getAll = async () => {
+    const token = localStorage.getItem("auth-token");
+    
+    try {
+        const {data} = await client.get(`/review/get/my-films/`, {
+            headers: {
+                authorization: "Bearer " + token,
+            },
+        })
+
+        return data
+
+    } catch (err) {
+        const {res} = err
+        if (res?.data) return res.data
+        return {err: err.message || err}
+    }
+}
+
+
+export const deleteReview = async (reviewId) => {
     const token = localStorage.getItem("auth-token")
 
     try {
-        const {data} = await client.get(`/review/get/my-films`, {
+        const { data } = await client.delete(`/review/delete/${reviewId}`, {
             headers: {
                 authorization: "Bearer " + token,
-            }, 
+            },
+        })
+        return data
+    } catch (err) {
+        const {res} = err
+        if (res?.data) return res.data
+        return {err: err.message || err}
+    }
+}
+
+
+export const getSorted = async (filterTerm, filterValue) => {
+    const token = localStorage.getItem("auth-token");
+    
+    try {
+        const {data} = await client.get(`/review/get/sort/${filterTerm}/${filterValue}`, {
+            headers: {
+                authorization: "Bearer " + token,
+            },
         })
         return data
 
@@ -71,5 +112,4 @@ export const getAll = async () => {
         if (res?.data) return res.data
         return {err: err.message || err}
     }
-  
 }

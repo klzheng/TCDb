@@ -4,12 +4,12 @@ const { create, forgetPassword, sendResetPasswordTokenStatus, resetPassword,
   signIn } = require("../controllers/user");
 const { isAuth, Auth } = require("../middlewares/auth");
 const { isValidPassResetToken } = require("../middlewares/user");
-const { userValidtor, validate, validatePassword, signInValidator} = require("../middlewares/validator");
+const { userValidator, validate, validatePassword, signInValidator} = require("../middlewares/validator");
 
 // routes
 const router = express.Router();
 
-router.post("/create", userValidtor, validate, create);
+router.post("/create", userValidator, validate, create);
 router.post("/sign-in", signInValidator, validate, signIn);
 router.post("/forget-password", forgetPassword);
 router.post("/verify-pass-reset-token", isValidPassResetToken, sendResetPasswordTokenStatus);

@@ -6,7 +6,6 @@ const cors = require("cors");
 const { errorHandler } = require("./middlewares/error");
 const { handleNotFound } = require("./utils/helper");
 const userRouter = require("./routes/user");
-const actorRouter = require("./routes/actor");
 const reviewRouter = require("./routes/review");
 
 
@@ -20,7 +19,6 @@ app.use(express.json()); // parses json
 app.use(morgan("dev")); 
 app.use("/api/user", userRouter);
 app.use("/api/review", reviewRouter);
-app.use("/api/actor", actorRouter);
 app.use("/*", handleNotFound);
 app.use(errorHandler);
 

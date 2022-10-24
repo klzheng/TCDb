@@ -43,7 +43,7 @@ export default function Header(props) {
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
                 </span>
-                {props.releaseDate.length !== 0 && <span> ({props.releaseDate.slice(-4)})</span>}
+                {props.releaseDate.length !== 0 && <span> ({props.releaseDate.slice(0,4)})</span>}
             </div>
 
             <div>
@@ -68,7 +68,7 @@ export default function Header(props) {
                     {displayModal &&
                         <RatingModal
                             title={props.details.title || props.details.name}
-                            releaseYear={props.releaseDate.slice(-4)}
+                            releaseDate={props.releaseDate}
                             imgPath={props.details.poster_path}
                             reviewDetails={reviewDetails}
                             toggleModal={toggleModal}

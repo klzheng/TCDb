@@ -5,7 +5,7 @@ const { sendError } = require("../utils/helper")
 
 exports.addReview = async (req, res) => {
     const { mediaType, id } = req.params
-    const { content, rating, liked, imgPath } = req.body
+    const { content, rating, liked, imgPath, releaseDate, movieName } = req.body
     const userId = req.user._id
 
     // validation
@@ -17,6 +17,8 @@ exports.addReview = async (req, res) => {
         owner: userId,
         movieType: mediaType,
         movieId: id,
+        movieName: movieName,
+        movieRelease: releaseDate,
         imgPath: imgPath,
         content: content,
         rating: rating,
@@ -31,9 +33,9 @@ exports.addReview = async (req, res) => {
 
 
 exports.updateReview = async (req, res) => {
-    console.log(req.params)
+    // console.log(req.body)
     const { reviewId } = req.params
-    const { content, rating, liked, imgPath } = req.body
+    const { content, rating, liked, imgPath, movieName, releaseDate } = req.body
     const userId = req.user._id
 
     // validation
@@ -47,6 +49,8 @@ exports.updateReview = async (req, res) => {
     review.rating = rating
     review.liked = liked
     review.imgPath = imgPath
+    review.movieName = movieName
+    review.movieRelease = releaseDate
 
     await review.save()
 
@@ -80,11 +84,26 @@ exports.getReview = async (req, res) => {
 
 }
 
+
 exports.getAll = async ( req, res ) => {
     const userId = req.user._id
 
-    Review.find({ owner: userId}, (err, response) => {
-        if (err) return sendError(res, "Reviews could not be retrieved")
-        res.json({response})
-    })
+    const response = await Review
+        .find({ owner: userId})
+        .sort({"movieRelease":-1})
+
+     res.json(response)
 }
+
+
+exports.getSorted = async (req, res) => {
+    const userId = req.user._id
+    const {filterTerm, filterValue} = req.params
+
+    const response = await Review
+        .find({owner: userId})
+        .sort({[filterTerm]: filterValue})
+
+    res.json(response)
+}
+

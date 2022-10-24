@@ -72,7 +72,7 @@ export default function Navbar() {
 
                 {/* Login/Signout */}
                 <Link
-                    to="auth/signin"
+                    to="/auth/signin"
                     onClick={isLoggedIn ? handleLogout : ""}
                     className=" text-lg hover:text-white transition">
                     {isLoggedIn ? "Sign Out " : "Login"}

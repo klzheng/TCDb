@@ -60,7 +60,7 @@ export default function MoviePage() {
                     .map(item => item.name)
                     .join(" • "))
 
-                setReleaseDate(moment(data.release_date || data.first_air_date).format('L'))
+                setReleaseDate((data.release_date || data.first_air_date))
             })
 
         // getting movie crew details
@@ -99,7 +99,7 @@ export default function MoviePage() {
                     <Other
                         director={director}
                         writers={writers}
-                        releaseDate={releaseDate}
+                        releaseDate={moment(releaseDate).format("L")}
                         languages={languages} />
                 </div>
 
