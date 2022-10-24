@@ -3,10 +3,16 @@ import SortSelection from "./SortSelection";
 
 export default function SortBy(props) {
 
-    const {sortValue, changeSort, selected, sortItems} = props
+    const {sortValue, changeSort, selected, sortItems, header} = props
 
     return (
-        <nav className="flex justify-end items-center pb-10 space-x-2 ">
+        <div className="flex justify-between">
+            <h2 className="text-4xl text-gray-300 drop-shadow-white-text pb-8">
+                {header}
+            </h2>
+
+            <nav className="flex justify-end items-center space-x-2 pb-5">
+
             {sortValue === -1
                 ? <IoIosArrowDown
                     className="text-white drop-shadow-white-text text-lg"
@@ -32,6 +38,7 @@ export default function SortBy(props) {
                 selectedValue="movieRelease"
                 sortValue={-1}
                 value="RELEASE DATE" />
-        </nav>
+                </nav>
+        </div>
     )
 }

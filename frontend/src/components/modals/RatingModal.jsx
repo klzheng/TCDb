@@ -26,9 +26,6 @@ export default function RatingModal(props) {
         setLiked(prevState => !prevState)
     }
 
-    // const toggleEnlarge = () => {
-    //     setTimeout(() => setEnlarge(prevState => !prevState), 95)
-    // }
 
     const handleRating = (e) => {
         if (regex.test(e.target.value) || e.target.value === "") {

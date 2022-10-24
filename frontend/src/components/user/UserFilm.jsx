@@ -39,6 +39,7 @@ export default function UserFilm() {
             "reviewDetails": allReviews[index],
         })
         setDisplayModal(!displayModal)
+        setSelected("movieRelease")
     }
 
 
@@ -50,10 +51,9 @@ export default function UserFilm() {
         setAllReviews(response)
     }
 
-
+    // reverses sort order
     const changeSort = () => {
         sortItems(selected, sortValue * -1)
-
     }
 
 
@@ -70,16 +70,18 @@ export default function UserFilm() {
 
 
 
-
     return (
         <Background>
             <Navbar />
             <Container>
+
                 <SortBy 
                     sortValue={sortValue}
                     changeSort={changeSort}
                     selected={selected} 
-                    sortItems={sortItems} />
+                    sortItems={sortItems}
+                    header="MY FILMS" />
+
                 <div className="grid grid-cols-6 gap-1">
                     {allReviews.length !== 0 && allReviews.map((review, index) => (
                         <div key={index} className="flex flex-col group relative">
@@ -111,6 +113,7 @@ export default function UserFilm() {
                         </div>
                     ))}
                 </div>
+
                 {displayModal &&
                     <RatingModal
                         title={selectedReviewData.title}
