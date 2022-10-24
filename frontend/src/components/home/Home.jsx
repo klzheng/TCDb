@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MovieContext from "../context/MovieContext";
-import { useAuth } from "../hooks";
-import MovieContent from "./home/MovieContent";
-import SearchBar from "./home/SearchBar";
-import SectionContent from "./home/SectionContent";
-import SectionHeader from "./home/SectionHeader";
-import Slider from "./home/Slider";
-import Welcome from "./home/Welcome";
-import Background from "./Background";
-import Container from "./Container";
-import Navbar from "./Navbar";
+import MovieContext from "../../context/MovieContext";
+import { useAuth } from "../../hooks";
+import MovieContent from "./MovieContent";
+import SearchBar from "../search/SearchBar";
+import SectionContent from "./SectionContent";
+import SectionHeader from "./SectionHeader";
+import Slider from "./Slider";
+import Welcome from "./Welcome";
+import Background from "../Background";
+import Container from "../Container";
+import Navbar from "../Navbar";
 
 
 export default function Home() {
@@ -61,7 +61,8 @@ export default function Home() {
                 <Welcome user={profile.name} />
                 <SearchBar
                     apiUrl={searchUrl}
-                    placeholder="Search for something specific..." />
+                    placeholder="Search for something specific..." 
+                    liveSearch={true}/>
 
                 <SectionContent>
                     <SectionHeader value="See what's popular this week" />

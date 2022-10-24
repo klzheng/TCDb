@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MovieContext from "../context/MovieContext";
-import Cast from "./film/Cast";
-import ActorOther from "./actor/ActorOther";
-import Biography from "./actor/Biography";
-import Background from "./Background";
-import Container from "./Container";
-import Navbar from "./Navbar";
-import ActorImage from "./actor/ActorImage";
+import MovieContext from "../../context/MovieContext";
+import Cast from "../film/Cast";
+import ActorOther from "./ActorOther";
+import Biography from "./Biography";
+import Background from "../Background";
+import Container from "../Container";
+import Navbar from "../Navbar";
+import ActorImage from "./ActorImage";
 
 export default function ActorPage() {
 

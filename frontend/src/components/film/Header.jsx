@@ -62,7 +62,6 @@ export default function Header(props) {
                     {props.details.length !== 0 && <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
                         <FaHeart className={"mr-2" + (reviewDetails.liked ? " text-red-400 " : " ")} />
                         Rate
-                        {console.log(props.details.length)}
                     </button>}
 
                     {displayModal &&

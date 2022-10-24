@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { getAll, getSorted } from "../api/review";
-import Background from "./Background";
-import Container from "./Container";
-import RatingModal from "./modals/RatingModal";
-import Navbar from "./Navbar";
+
+import { getAll, getSorted } from "../../api/review";
+import Background from "../Background";
+import Container from "../Container";
+import RatingModal from "../modals/RatingModal";
+import Navbar from "../Navbar";
+import SortBy from "./SortBy";
 
 export default function UserFilm() {
 
     const [allReviews, setAllReviews] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [selectedReviewData, setSelectedReviewData] = useState({})
-    const [selectedSort, setSelectedSort] = useState("movieRelease")
+    const [selected, setSelected] = useState("movieRelease")
     const [sortValue, setSortValue] = useState(-1)
 
 
@@ -45,13 +46,13 @@ export default function UserFilm() {
     const sortItems = async (filterTerm, filterValue) => {
         const response = await getSorted(filterTerm, filterValue)
         setSortValue(filterValue)
-        setSelectedSort(filterTerm)
+        setSelected(filterTerm)
         setAllReviews(response)
     }
 
 
     const changeSort = () => {
-        sortItems(selectedSort, sortValue * -1)
+        sortItems(selected, sortValue * -1)
 
     }
 
@@ -74,33 +75,11 @@ export default function UserFilm() {
         <Background>
             <Navbar />
             <Container>
-                <h2 className="flex justify-end items-center pb-10 space-x-2 ">
-                    {sortValue === -1
-                        ? <IoIosArrowDown
-                            className="text-white drop-shadow-white-text"
-                            onClick={() => changeSort()} />
-                        : <IoIosArrowUp
-                            className="text-white drop-shadow-white-text"
-                            onClick={() => changeSort()} />}
-                    <span
-                        onClick={() => sortItems("rating", -1)}
-                        className={"hover:text-gray-200" + (selectedSort === "rating" ? " text-white drop-shadow-white-text " : " ")}
-                    >
-                        RATING
-                    </span>
-                    <span
-                        onClick={() => sortItems("movieName", 1)}
-                        className={"hover:text-gray-200" + (selectedSort === "movieName" ? " text-white drop-shadow-white-text " : " ")}
-                    >
-                        TITLE
-                    </span>
-                    <span
-                        onClick={() => sortItems("movieRelease", -1)}
-                        className={"hover:text-gray-200" + (selectedSort === "movieRelease" ? " text-white drop-shadow-white-text " : " ")}
-                    >
-                        RELEASE DATE
-                    </span>
-                </h2>
+                <SortBy 
+                    sortValue={sortValue}
+                    changeSort={changeSort}
+                    selected={selected} 
+                    sortItems={sortItems} />
                 <div className="grid grid-cols-6 gap-1">
                     {allReviews.length !== 0 && allReviews.map((review, index) => (
                         <div key={index} className="flex flex-col group relative">

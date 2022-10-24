@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import Background from "./Background";
-import Container from "./Container";
-import SearchBar from "./home/SearchBar";
-import Navbar from "./Navbar";
+import Background from "../Background";
+import Container from "../Container";
+import SearchBar from "./SearchBar";
+import Navbar from "../Navbar";
 
 export default function Search() {
 
@@ -35,7 +35,7 @@ export default function Search() {
             <Container>
                 <SearchBar 
                     apiUrl={url} 
-                    liveResults={false}
+                    liveSearch={false}
                     placeholder="Search for different results..."/>
                 {searchResults.length !== 0 && searchResults.map((result, index) => (
                     <Link to={`/${result.media_type}/${result.id}`} key={index}>
@@ -46,6 +46,7 @@ export default function Search() {
                             src={getImgUrl(result.profile_path, result.poster_path)}
                             alt="Poster"
                             className="max-w-32 min-w-32 h-52 object-cover rounded overflow-auto" />
+                            {console.log(searchResults)}
                         <div className="flex flex-col w-full px-3 text-gray-300 ">
                             <p className="text-2xl font-bold text-gray-200 line-clamp-1">
                                 {(result.title || result.name)}
@@ -64,7 +65,7 @@ export default function Search() {
                                     Release Date: ({result.release_date || result.first_air_date})
                                 </p>}
 
-                            <p className="text-sm line-clamp-5 leading-snug">
+                            <p className="text-md line-clamp-5 leading-snug">
                                 {result.overview || result.known_for_department}
                             </p>
                         </div>
