@@ -1,11 +1,11 @@
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { FaHeart } from "react-icons/fa"
 import { BiX } from "react-icons/bi"
-import { useState } from "react"
 import ModalContainer from "./ModalContainer"
 import { addReview, deleteReview, updateReview } from "../../api/review"
 import { useNotification } from "../../hooks"
-import { useEffect } from "react"
+import Confirmation from "./Confirmation"
 
 
 export default function RatingModal(props) {
@@ -14,12 +14,13 @@ export default function RatingModal(props) {
     const [liked, setLiked] = useState(false)
     const [rating, setRating] = useState("")
     const [review, setReview] = useState("")
+    const [confirm, setConfirm] = useState(false)
 
     const [enlarge, setEnlarge] = useState(false)
-    const {updateNotification} = useNotification()
+    const { updateNotification } = useNotification()
     const regex = /^(0-9|\d)(\.\d{1})?$/
-    const { title, releaseDate, imgPath, toggleModal, reviewDetails } = props
-    
+    const { title, releaseDate, imgPath, toggleModal, reviewDetails, reloadOnDelete } = props
+
 
 
     const toggleLike = () => {
@@ -37,6 +38,7 @@ export default function RatingModal(props) {
         setReview(e.target.value)
     }
 
+
     const handleSubmit = async () => {
         if (!rating.length) return updateNotification("error", "Please Input a Rating")
         const data = {
@@ -47,15 +49,15 @@ export default function RatingModal(props) {
             liked: liked,
             imgPath: imgPath,
         }
-        
+
         if (Object.keys(reviewDetails).length !== 0) {
-            const {error, message} = await updateReview( reviewDetails._id, data)
-            if(error) return updateNotification("error", error)
+            const { error, message } = await updateReview(reviewDetails._id, data)
+            if (error) return updateNotification("error", error)
             updateNotification("success", message)
 
         } else {
-            const {error, message} = await addReview(res.mediaType, res.id, data)
-            if(error) return updateNotification("error", error)
+            const { error, message } = await addReview(res.mediaType, res.id, data)
+            if (error) return updateNotification("error", error)
             updateNotification("success", message)
         }
 
@@ -64,11 +66,16 @@ export default function RatingModal(props) {
 
 
     const handleDelete = async () => {
-        const {error, message} = await deleteReview(reviewDetails._id)
+        const { error, message } = await deleteReview(reviewDetails._id)
         if (error) return updateNotification("error", error)
         updateNotification("success", message)
 
+        if (reloadOnDelete) window.location.reload(false)
         toggleModal()
+    }
+
+    const toggleConfirm = () => {
+        setConfirm(prevState => !prevState)
     }
 
     useEffect(() => {
@@ -76,14 +83,14 @@ export default function RatingModal(props) {
             setReview(reviewDetails.content)
             setLiked(reviewDetails.liked)
             setRating(reviewDetails.rating.toString())
-        }
-    },[reviewDetails])
+        } 
+    }, [reviewDetails])
 
 
 
     return (
         <ModalContainer>
-            
+
             {/* LEFT COLUMN */}
             <section className="w-1/3 my-10 flex justify-center">
                 <img
@@ -99,7 +106,7 @@ export default function RatingModal(props) {
                 <p className="font-extrabold text-xl font-lora text-white tracking-tight">
                     {title}
                     <span className="font-thin text-gray-400 font-karla ">
-                        {" " + props.releaseDate.slice(0,4)}
+                        {" " + props.releaseDate.slice(0, 4)}
                     </span>
                 </p>
 
@@ -112,8 +119,8 @@ export default function RatingModal(props) {
                         <FaHeart
                             onClick={toggleLike}
                             className={" drop-shadow-groove transition text-xl " + (liked
-                                    ? " text-red-400 "
-                                    : " text-slate-700 hover:text-slate-800 ")} />
+                                ? " text-red-400 "
+                                : " text-slate-700 hover:text-slate-800 ")} />
                     </div>
                     <label htmlFor="RATING" className="flex flex-col items-center space-y-1 group">
                         <h3 className="text-gray-200 tracking-tight text-base">
@@ -148,7 +155,7 @@ export default function RatingModal(props) {
                         className={"text-slate-600 bg-slate-300 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight w-full relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" + (enlarge ? " h-60 " : " h-24 ")} />
                 </div>
 
-                {/* SAVE BUTTON */}
+                {/* SAVE/DELETE BUTTONS */}
                 <div className="flex justify-end space-x-2">
                     <button
                         onClick={handleSubmit}
@@ -157,7 +164,10 @@ export default function RatingModal(props) {
                         SAVE
                     </button>
                     <button
-                        onClick={handleDelete}
+                        onClick={
+                            Object.keys(reviewDetails).length !== 0 
+                            ? toggleConfirm 
+                            : toggleModal} 
                         className="bg-red-500 text-white py-0.5 px-4 rounded-sm text-base font-semibold hover:bg-red-600 transition outline-none "
                     >
                         DELETE
@@ -171,6 +181,16 @@ export default function RatingModal(props) {
                     onClick={toggleModal}
                     className="text-4xl text-slate-400 hover:text-slate-200 transition" />
             </section>
+
+            {/* CONFIRMATION DIALOG */}
+            <Confirmation 
+                title={"Confirm"}
+                prompt={"Are you sure you want to delete review?"}
+                confirmState={confirm}
+                rightLabel={"No"}
+                leftLabel={"Yes"}
+                rightAction={toggleConfirm}
+                leftAction={handleDelete}/>
 
         </ModalContainer>
     )

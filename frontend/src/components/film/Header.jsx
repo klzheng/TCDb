@@ -13,7 +13,7 @@ export default function Header(props) {
     const { mediaType, id } = useParams()
 
     const toggleModal = async () => {
-        setDisplayModal(prevState => !prevState)
+        await setDisplayModal(prevState => !prevState)
     }
 
     const ratingColor = (rating) => {
@@ -70,6 +70,7 @@ export default function Header(props) {
                             releaseDate={props.releaseDate}
                             imgPath={props.details.poster_path}
                             reviewDetails={reviewDetails}
+                            reloadOnDelete={true}
                             toggleModal={toggleModal}
                         />
                     }
