@@ -36,6 +36,12 @@ export default function ActorPage() {
             })
     }, [apiPerson, grabData])
 
+
+    useEffect(() => {
+        document.title = `${actorDetails.name} • TCDb`;
+    }, [actorDetails]);
+
+
     return (
         <Background>
             <Navbar />

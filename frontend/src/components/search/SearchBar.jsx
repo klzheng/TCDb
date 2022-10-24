@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import SearchResults from "./SearchResults"
 
 
-export default function SearchBar({ apiUrl, placeholder, liveSearch }) {
+export default function SearchBar({ apiUrl, placeholder, liveSearch, setCurrentPage }) {
 
     const [search, setSearch] = useState("")
     const [searchResult, setSearchResult] = useState([])
@@ -33,6 +33,7 @@ export default function SearchBar({ apiUrl, placeholder, liveSearch }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         navigate(`/search/${search}`)
+        if (setCurrentPage) setCurrentPage(1)
     }
 
     // grabs data and stores it if query is valid

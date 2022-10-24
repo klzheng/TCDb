@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-
 import { getAll, getSorted } from "../../api/review";
+import { useAuth } from "../../hooks";
 import Background from "../Background";
 import Container from "../Container";
 import RatingModal from "../modals/RatingModal";
@@ -11,6 +11,8 @@ import SortBy from "./SortBy";
 
 export default function UserFilm() {
 
+    const { authInfo } = useAuth()
+    const { profile } = authInfo
     const [allReviews, setAllReviews] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [selectedReviewData, setSelectedReviewData] = useState({})
@@ -68,6 +70,9 @@ export default function UserFilm() {
     }, [displayModal])
 
 
+    useEffect(() => {
+        document.title = `${profile.name}'s films • TCDb`;
+    }, [profile.name]);
 
 
     return (

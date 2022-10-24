@@ -52,6 +52,11 @@ export default function Home() {
         if (!isLoggedIn) navigate("/auth/signin") // eslint-disable-next-line
     }, [isLoggedIn])
 
+    // browser tab titling
+    useEffect(() => {
+        document.title = `TCDb`;
+    }, []);
+
     return (
 
         <Background>

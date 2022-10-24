@@ -60,6 +60,11 @@ export default function Search() {
     }, [url, query])
 
 
+    useEffect(() => {
+        document.title = `Search results for '${query}' • (Page ${currentPage})`;
+    }, [url, query, currentPage]);
+
+
     return (
         <Background>
             <div ref={myRef}></div>
@@ -69,7 +74,8 @@ export default function Search() {
                 <SearchBar
                     apiUrl={url}
                     liveSearch={false}
-                    placeholder="Search for different results..." />
+                    placeholder="Search for different results..."
+                    setCurrentPage={setCurrentPage} />
 
                 {/* RESULTS */}
                 {searchResults.length !== 0 && searchResults.map((result, index) => (

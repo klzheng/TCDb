@@ -40,6 +40,11 @@ export default function MoviePage() {
 
 
     useEffect(() => {
+        document.title = `${pageDetails.title || pageDetails.name} • TCDb`;
+    }, [pageDetails]);
+
+
+    useEffect(() => {
         // getting video key
         grabData(apiVideo)
             .then(data => {
