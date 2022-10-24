@@ -1,16 +1,40 @@
-import { useEffect } from "react"
-import { useState } from "react"
-import { FaHeart } from "react-icons/fa"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { FaRegHeart } from "react-icons/fa"
+import { BsBookmarkStar } from "react-icons/bs"
 import { getReview } from "../../api/review"
 import RatingModal from "../modals/RatingModal"
+import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../api/watchlist"
+import { useNotification } from "../../hooks"
 
 export default function Header(props) {
 
 
     const [displayModal, setDisplayModal] = useState(false)
     const [reviewDetails, setReviewDetails] = useState({})
+    const [inWatchlist, setInWatchlist] = useState(false)
+    const [watchlistDetails, setWatchlistDetails] = useState({})
     const { mediaType, id } = useParams()
+    const {updateNotification} = useNotification()
+
+
+    const addToList = async () => {
+        let name = {}
+        name["movieName"] = props.details.title || props.details.name
+        const { error, message } = await addWatchlist(mediaType, id, name)
+
+        if (error) return updateNotification("error", error)
+        updateNotification("success", message)
+        setInWatchlist(true)
+    }
+
+    const removeFromList = async () => {
+        const {error, message} = await removeWatchlist(watchlistDetails._id)
+        if (error) return updateNotification("error", error)
+        updateNotification("success", message)
+        setInWatchlist(false)
+    }
+
 
     const toggleModal = async () => {
         await setDisplayModal(prevState => !prevState)
@@ -32,18 +56,31 @@ export default function Header(props) {
             if (response) setReviewDetails(response)
         }
         grabData()
+        
+    }, [displayModal, id, mediaType])
 
-    },[displayModal, id, mediaType])
+
+    // checks if movie is already on user's watchlist and sets state
+    useEffect(() => {
+        const checkWatchlist = async () => {
+            const {response} = await getWatchlistItem(mediaType, id)
+            if (response) {
+                setInWatchlist(true)
+                setWatchlistDetails(response)
+            }
+            else setInWatchlist(false)
+        }
+        checkWatchlist()
+    },[inWatchlist])
 
 
     return (
         <div>
-            {/* {console.log(props)} */}
             <div className="text-5xl font-light text-gray-400 mb-1 mt-32">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
                 </span>
-                {props.releaseDate.length !== 0 && <span> ({props.releaseDate.slice(0,4)})</span>}
+                {props.releaseDate.length !== 0 && <span> ({props.releaseDate.slice(0, 4)})</span>}
             </div>
 
             <div>
@@ -59,10 +96,26 @@ export default function Header(props) {
                         TMDb Rating
                     </span>
 
-                    {props.details.length !== 0 && <button onClick={toggleModal} className="flex flex-row items-center hover:text-gray-300 hover:drop-shadow-white-text">
-                        <FaHeart className={"mr-2" + (reviewDetails.liked ? " text-red-400 " : " ")} />
-                        Rate
-                    </button>}
+                    {props.details.length !== 0 &&
+                        <div>
+                            <button 
+                                onClick={inWatchlist ? removeFromList : addToList}
+                                className="flex items-center mr-2 hover:text-gray-300 outline-none"
+                            >
+                                <BsBookmarkStar 
+                                    className={" mr-2 " + (inWatchlist ? " text-yellow-300 " : "  ")} />Add
+                            </button>
+
+                            <button
+                                onClick={toggleModal}
+                                className="flex flex-row items-center hover:text-gray-300 group "
+                            >
+                                <FaRegHeart
+                                    className={"mr-2 " + (reviewDetails.liked ? " text-red-500 group-hover:text-red-400 " : " ")} />
+                                Rate
+                            </button>
+                        </div>
+                    }
 
                     {displayModal &&
                         <RatingModal

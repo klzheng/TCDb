@@ -67,7 +67,6 @@ export const getAll = async () => {
                 authorization: "Bearer " + token,
             },
         })
-
         return data
 
     } catch (err) {
@@ -88,6 +87,7 @@ export const deleteReview = async (reviewId) => {
             },
         })
         return data
+        
     } catch (err) {
         const {res} = err
         if (res?.data) return res.data
@@ -113,3 +113,5 @@ export const getSorted = async (filterTerm, filterValue) => {
         return {err: err.message || err}
     }
 }
+
+
