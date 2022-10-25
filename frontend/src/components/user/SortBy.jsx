@@ -38,6 +38,7 @@ export default function SortBy(props) {
                 selectedValue="movieRelease"
                 sortValue={-1}
                 value="RELEASE DATE" />
+            <p>({props.numItems})</p>
                 </nav>
         </div>
     )

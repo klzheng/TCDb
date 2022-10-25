@@ -63,7 +63,6 @@ export default function UserFilm() {
     useEffect(() => {
         const grabAllReviews = async () => {
             const response = await getAll()
-            // console.log(response)
             setAllReviews(response)
         }
         grabAllReviews()
@@ -85,7 +84,8 @@ export default function UserFilm() {
                     changeSort={changeSort}
                     selected={selected} 
                     sortItems={sortItems}
-                    header="MY FILMS" />
+                    header="MY FILMS"
+                    numItems={allReviews.length} />
 
                 <div className="grid grid-cols-6 gap-1">
                     {allReviews.length !== 0 && allReviews.map((review, index) => (

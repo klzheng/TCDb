@@ -4,10 +4,9 @@ const {sendError} = require("../utils/helper")
 
 exports.addWatchlist = async ( req, res ) => {
     const {mediaType, id} = req.params
-    const {movieName} = req.body
+    const { imgPath, releaseDate, movieName } = req.body
     const userId = req.user._id
     
-
     const alreadySaved = await Watchlist.findOne({ owner: userId, movieId: id, movieType: mediaType })
     if (alreadySaved) return sendError(res, "This film has already been added to watchlist")
 
@@ -16,6 +15,8 @@ exports.addWatchlist = async ( req, res ) => {
         movieType: mediaType,
         movieId: id,
         movieName: movieName,
+        imgPath: imgPath,
+        movieRelease: releaseDate,
     })
 
     await newWatchlist.save()
@@ -50,3 +51,11 @@ exports.removeWatchlist = async (req, res) => {
 }
 
 
+exports.getWatchlist = async (req, res) => {
+    const userId = req.user._id
+
+    const response = await Watchlist
+        .find({ owner: userId})
+
+    res.json(response)
+}

@@ -7,21 +7,25 @@ import RatingModal from "../modals/RatingModal"
 import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../api/watchlist"
 import { useNotification } from "../../hooks"
 
-export default function Header(props) {
 
+export default function Header(props) {
 
     const [displayModal, setDisplayModal] = useState(false)
     const [reviewDetails, setReviewDetails] = useState({})
     const [inWatchlist, setInWatchlist] = useState(false)
     const [watchlistDetails, setWatchlistDetails] = useState({})
+
     const { mediaType, id } = useParams()
     const {updateNotification} = useNotification()
 
 
     const addToList = async () => {
-        let name = {}
-        name["movieName"] = props.details.title || props.details.name
-        const { error, message } = await addWatchlist(mediaType, id, name)
+        const data = {
+            movieName: props.details.title || props.details.name,
+            releaseDate: props.releaseDate,
+            imgPath: props.details.poster_path,
+        }
+        const { error, message } = await addWatchlist(mediaType, id, data)
 
         if (error) return updateNotification("error", error)
         updateNotification("success", message)
@@ -71,7 +75,7 @@ export default function Header(props) {
             else setInWatchlist(false)
         }
         checkWatchlist()
-    },[inWatchlist])
+    },[inWatchlist, id, mediaType])
 
 
     return (

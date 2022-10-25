@@ -19,6 +19,13 @@ const watchListSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        movieRelease: {
+            type: String,
+            required: true
+        },
+        imgPath: {
+            type: String,
+        },
     },
     { 
         timestamps: true 

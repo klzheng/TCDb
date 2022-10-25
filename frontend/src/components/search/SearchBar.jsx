@@ -47,7 +47,7 @@ export default function SearchBar({ apiUrl, placeholder, liveSearch, setCurrentP
     return (
 
         <div className="relative text-center my-10 mx-auto flex justify-center">
-            <form onSubmit={handleSubmit} className="w-9/12">
+            <form onSubmit={handleSubmit} className="w-full max-w-3xl">
                 <input
                     id="main-search"
                     type="text"

@@ -63,6 +63,13 @@ export default function Navbar() {
                     }
                 </div>
 
+                {/* User's watchlist */}
+                <Link 
+                    to="/watchlist"
+                    className="text-lg hover:text-white transition">
+                        Watchlist
+                </Link>
+
                 {/* User's films */}
                 <Link 
                     to="/my-films"

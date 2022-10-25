@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound";
 import Search from "./components/search/Search";
 import UserFilm from "./components/user/UserFilm";
 import { MovieProvider } from "./context/MovieContext";
+import Watchlist from "./components/watchlist/Watchlist";
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/person/:id" element={<ActorPage />}/>
           <Route path="/search/:query" element={<Search />} />
           <Route path="/my-films" element={<UserFilm />} />
+          <Route path="/watchlist" element={<Watchlist />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MovieProvider>

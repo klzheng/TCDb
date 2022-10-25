@@ -33,7 +33,6 @@ exports.addReview = async (req, res) => {
 
 
 exports.updateReview = async (req, res) => {
-    // console.log(req.body)
     const { reviewId } = req.params
     const { content, rating, liked, imgPath, movieName, releaseDate } = req.body
     const userId = req.user._id
