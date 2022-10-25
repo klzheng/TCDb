@@ -49,10 +49,10 @@ exports.forgetPassword = async (req, res) => {
   // create reset link
   const resetPasswordUrl = `http://localhost:3000/auth/reset-password?token=${token}&id=${user._id}`;
 
-  // password reset email
+  // password reset mail
   const transport = generateMailTransporter();
   transport.sendMail({
-    from: "security@reviewapp.com",
+    from: process.env.TCDB_MAIL_USER,
     to: user.email,
     subject: "Reset Password Link",
     html: `
@@ -60,7 +60,14 @@ exports.forgetPassword = async (req, res) => {
       <a href='${resetPasswordUrl}'>Change Password</a>
       <p>Link expires in 1 hour</p>
     `,
+  }, (err, data) => {
+    if (err) {
+      console.log("Error " + err)
+    } else {
+      console.log("Email sent successfully")
+    }
   });
+
   res.json({ message: "Password reset link has been sent to your email" });
 };
 
@@ -91,7 +98,7 @@ exports.resetPassword = async (req, res) => {
   // sends email notifying password change
   const transport = generateMailTransporter();
   transport.sendMail({
-    from: "security@reviewapp.com",
+    from: "thecinemadb@gmail.com",
     to: user.email,
     subject: "Password Reset Successfully",
     html: `
