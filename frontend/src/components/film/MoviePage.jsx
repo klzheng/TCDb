@@ -89,7 +89,7 @@ export default function MoviePage() {
             <PosterBackground imgPath={pageDetails.backdrop_path} />
             <Container>
                 <Trailer trailerKey={trailerKey} />
-                <div className={" flex-col space-y-12 mt-20 "}>
+                <div className=" flex-col space-y-12 mt-12 sm:mt-0 ">
                     <Header
                         details={pageDetails}
                         releaseDate={releaseDate}

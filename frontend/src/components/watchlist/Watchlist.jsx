@@ -30,21 +30,23 @@ export default function Watchlist() {
         <Background>
             <Navbar />
             <Container>
-                <h1 className="text-4xl text-gray-300  pb-8 flex items-center justify-between space-x-10">
+                <h1 className="text-4xl text-gray-300 pb-8 flex items-center justify-between xs:space-x-10 2xs:py-8 sm:pt-0 2xs:space-x-2">
                     <span className="drop-shadow-white-text">WATCHLIST</span> 
-                    <span className="text-xl text-gray-400">
+                    <span className="xs:text-xl text-gray-400 2xs:text-lg">
                         ({entireWatchlist.length} Items)
                     </span>
                 </h1>
-                <div className="grid grid-cols-5 gap-1">
+                <div className="grid gap-1 md:grid-cols-5 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 ">
                     {entireWatchlist.length !== 0 && entireWatchlist.map((item, index) => (
-                        <Link to={`/${item.movieType}/${item.movieId}`}>
+                        <Link 
+                            key={index} 
+                            to={`/${item.movieType}/${item.movieId}`}
+                        >
                             <div
-                                key={index}
                                 className="flex flex-col group relative"
                             >
                                 <p
-                                    className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 text-xl border-2 border-gray-300">
+                                    className="absolute left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 text-xl border-2 border-gray-300 2xs:text-base 2xs:-top-8 lg:text-lg lg:-top-10">
                                     <span>
                                         {item.movieName}
                                     </span>

@@ -33,7 +33,7 @@ export default function Other(props) {
 
             {/* LANGUAGES */}
             {props.languages.length !== 0 && <div>
-                <p className="drop-shadow-white-text text-gray-200 text-2xl">
+                <p className="drop-shadow-white-text text-gray-200 text-2xl ">
                     Languages
                 </p>
                 <div className="flex-col text-lg">

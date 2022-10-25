@@ -75,7 +75,7 @@ input[type=number] {
 
 .react-player {
     position: absolute;
-    top: 0;
+    top: 2%;
     left: 50%;
     transform: translate(-50%);
 }
@@ -90,6 +90,12 @@ input[type=number] {
     object-fit: cover
 }
 
+
+@media screen and (max-width: 640px) {
+    .nav-right > a {
+        display: none;
+    }
+}
 
 
 @tailwind base;

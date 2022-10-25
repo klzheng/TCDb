@@ -87,11 +87,11 @@ export default function UserFilm() {
                     header="MY FILMS"
                     numItems={allReviews.length} />
 
-                <div className="grid grid-cols-6 gap-1">
+                <div className="grid gap-1 md:grid-cols-6 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2">
                     {allReviews.length !== 0 && allReviews.map((review, index) => (
                         <div key={index} className="flex flex-col group relative">
                             <p
-                                className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:opacity-100 whitespace-nowrap space-x-1 opacity-0 transition-all duration-400 ">
+                                className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:block whitespace-nowrap space-x-1 hidden transition-all duration-400 ">
                                 <span>
                                     {review.movieName}
                                 </span>
@@ -105,10 +105,10 @@ export default function UserFilm() {
                                 onClick={() => toggleModal(index)}
                                 className="rounded-lg border-4 border-slate-400 border-opacity-0 hover:border-opacity-100 transition-all ">
                             </img>
-                            <p className="flex items-center justify-center space-x-2">
+                            <p className="flex items-center justify-center space-x-2 md:text-sm md:space-x-1 md:tracking-tight sm:tracking-tight sm:text-base sm:space-x-1 lg:text-lg lg:space-x-2 ">
                                 <span>
                                     Rating:
-                                    <span className="bg-slate-600 rounded mx-0.5 px-1 bg-opacity-60 text-white">
+                                    <span className="bg-slate-600 rounded mx-0.5 px-1 bg-opacity-60 text-white ">
                                         {review.rating}
                                     </span>
                                 </span>

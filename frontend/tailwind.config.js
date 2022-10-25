@@ -1,7 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
+    screens: {
+      '2xs': '320px',
+      'xs': '480px',
+      ...defaultTheme.screens,
+    },
     extend: {
       fontFamily: {
         "karla": ["Karla", "sans-serif"],
@@ -38,6 +45,7 @@ module.exports = {
         "yellow-green": "rgba(183, 221, 41, .8)",
       },
       width: {
+        68: '17rem',
         112: '28rem',
         120: '30rem',
         128: '32rem',
@@ -58,17 +66,44 @@ module.exports = {
       },
       minHeight: {
         4: "1rem",
+        8: "2rem",
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
+        10: "2.5rem",
         24: "6rem",
         28: "7rem",
         32: "8rem",
+        36: "9rem",
         112: '28rem',
         128: '32rem',
         144: '36rem',
         160: '40rem',
         "9/12": "75%",
       },
+      maxHeight: {
+        4: "1rem",
+        8: "2rem",
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
+        24: "6rem",
+        28: "7rem",
+        32: "8rem",
+        36: "9rem",
+        '112': '28rem',
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+      },     
       minWidth: {
         4: "1rem",
+        8: "2rem",
+        10: "2.5rem",
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
+        10: "2.5rem",
         24: "6rem",
         28: "7rem",
         32: "8rem",
@@ -80,6 +115,10 @@ module.exports = {
       },
       maxWidth: {
         4: "1rem",
+        8: "2rem",
+        12: "3rem",
+        16: "4rem",
+        20: "5rem",
         32: "8rem",
         28: "7rem",
         24: "6rem",
@@ -115,12 +154,6 @@ module.exports = {
         ],
         "3xl": "0 10px 25px rgba(0, 0, 0, 0.35)"
       },
-      maxHeight: {
-        '112': '28rem',
-        '128': '32rem',
-        '144': '36rem',
-        '160': '40rem',
-      },     
       spacing: {
         '10%': '10%', 
         '20%': '20%', 
@@ -140,7 +173,7 @@ module.exports = {
         97 : ".97",
         98 : ".98",
         99 : ".99",
-      }
+      },
     },
   },
   plugins: [

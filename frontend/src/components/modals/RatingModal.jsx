@@ -71,7 +71,6 @@ export default function RatingModal(props) {
         updateNotification("success", message)
 
         if (reloadOnDelete) window.location.reload(false)
-        toggleModal()
     }
 
     const toggleConfirm = () => {
@@ -92,26 +91,26 @@ export default function RatingModal(props) {
         <ModalContainer>
 
             {/* LEFT COLUMN */}
-            <section className="w-1/3 my-10 flex justify-center">
+            <section className="sm:w-1/3 my-10 sm:flex justify-center 2xs:hidden 2xs:w-0">
                 <img
                     src={`https://image.tmdb.org/t/p/w342${imgPath}`}
                     alt="Poster"
-                    className={"rounded w-40 h-60 object-cover drop-shadow-3xl"} />
+                    className={"rounded md:w-40 md:h-60 sm:w-28 sm:h-44 xs:w-20 xs:h-28 object-cover drop-shadow-3xl  sm:block"} />
             </section>
 
             {/* MIDDLE COLUMN */}
-            <section className="w-3/4 flex flex-col justify-center relative my-8">
+            <section className="sm:pl-0 2xs:w-10/12 sm:w-3/4 flex flex-col justify-center relative 2xs:my-3 sm:my-8 2xs:items-center md:items-stretch">
 
                 {/* TITLE */}
                 <p className="font-extrabold text-xl font-lora text-white tracking-tight">
                     {title}
-                    <span className="font-thin text-gray-400 font-karla ">
-                        {" " + props.releaseDate.slice(0, 4)}
+                    <span className="font-thin text-gray-400 font-karla 2xs:hidden sm:inline-flex pl-2">
+                        { props.releaseDate.slice(0, 4)}
                     </span>
                 </p>
 
                 {/* LIKE && REVIEW */}
-                <div className="flex my-2 w-40 space-x-6 bg-slate-500 rounded-lg px-2 py-1">
+                <div className="flex my-2 2xs:justify-center 2xs:w-68 xs:w-80 md:w-40 space-x-6 bg-slate-500 rounded-lg px-2 py-1">
                     <div className="flex flex-col items-center space-y-1">
                         <h3 className="text-gray-200 tracking-tight text-base">
                             Like
@@ -147,16 +146,16 @@ export default function RatingModal(props) {
                     <textarea
                         name="review"
                         id="review"
-                        rows="6"
+                        rows="8"
                         placeholder="Add a review..."
                         value={review}
                         onFocus={() => setEnlarge(true)}
                         onChange={handleChange}
-                        className={"text-slate-600 bg-slate-300 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight w-full relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" + (enlarge ? " h-60 " : " h-24 ")} />
+                        className={"text-slate-600 bg-slate-300 2xs:w-68 md:w-full xs:w-80 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight  relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" + (enlarge ? " h-60 " : " h-28 ")} />
                 </div>
 
                 {/* SAVE/DELETE BUTTONS */}
-                <div className="flex justify-end space-x-2">
+                <div className="flex md:justify-end space-x-2 ">
                     <button
                         onClick={handleSubmit}
                         className="bg-green-600 text-white py-0.5 px-4 rounded-sm text-base font-semibold hover:bg-green-700 transition outline-none "
@@ -176,10 +175,10 @@ export default function RatingModal(props) {
             </section>
 
             {/* RIGHT COLUMN (X BUTTON) */}
-            <section>
+            <section className="2xs:w-0 sm:w-9">
                 <BiX
                     onClick={toggleModal}
-                    className="text-4xl text-slate-400 hover:text-slate-200 transition" />
+                    className="text-4xl text-slate-400 hover:text-slate-200 transition float-right absolute right-2" />
             </section>
 
             {/* CONFIRMATION DIALOG */}

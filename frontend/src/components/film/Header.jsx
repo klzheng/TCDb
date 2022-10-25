@@ -80,7 +80,7 @@ export default function Header(props) {
 
     return (
         <div>
-            <div className="text-5xl font-light text-gray-400 mb-1 mt-32">
+            <div className="xs:text-5xl 2xs:text-3xl font-light text-gray-400 mb-1 ">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
                 </span>
@@ -92,7 +92,7 @@ export default function Header(props) {
             </div>
 
             {props.details.vote_average !== 0 &&
-                <div className="flex flex-row items-center text-2xl my-4 justify-between">
+                <div className="flex flex-row items-center xs:text-2xl 2xs:text-xl my-4 justify-between">
                     <span>
                         <span className={"border-2 rounded px-1 mr-2 text-white" + ratingColor(props.details.vote_average)}>
                             {props.details.vote_average && props.details.vote_average.toFixed(1)}
