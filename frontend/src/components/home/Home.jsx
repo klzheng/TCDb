@@ -58,7 +58,6 @@ export default function Home() {
     }, []);
 
     return (
-
         <Background>
             <Navbar />
             <Container>

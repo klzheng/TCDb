@@ -6,6 +6,7 @@ import ModalContainer from "./ModalContainer"
 import { addReview, deleteReview, updateReview } from "../../api/review"
 import { useNotification } from "../../hooks"
 import Confirmation from "./Confirmation"
+import {motion} from "framer-motion"
 
 
 export default function RatingModal(props) {
@@ -95,7 +96,7 @@ export default function RatingModal(props) {
                 <img
                     src={`https://image.tmdb.org/t/p/w342${imgPath}`}
                     alt="Poster"
-                    className={"rounded md:w-40 md:h-60 sm:w-28 sm:h-44 xs:w-20 xs:h-28 object-cover drop-shadow-3xl  sm:block"} />
+                    className={"rounded md:w-40 md:h-60 sm:w-28 sm:h-44 xs:w-20 xs:h-28 object-cover drop-shadow-3xl sm:block"} />
             </section>
 
             {/* MIDDLE COLUMN */}
@@ -143,7 +144,8 @@ export default function RatingModal(props) {
 
                 {/* REVIEW */}
                 <div>
-                    <textarea
+                    <motion.textarea
+                        animate={{height: enlarge ? 240 : 112}}
                         name="review"
                         id="review"
                         rows="8"
@@ -151,7 +153,7 @@ export default function RatingModal(props) {
                         value={review}
                         onFocus={() => setEnlarge(true)}
                         onChange={handleChange}
-                        className={"text-slate-600 bg-slate-300 2xs:w-68 md:w-full xs:w-80 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight  relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" + (enlarge ? " h-60 " : " h-28 ")} />
+                        className="text-slate-600 bg-slate-300 2xs:w-68 md:w-full xs:w-80 text-base p-2 my-2 outline-none rounded tracking-tight leading-tight  relative z-10 hover:bg-slate-200 focus:bg-slate-200 transition resize-none" />
                 </div>
 
                 {/* SAVE/DELETE BUTTONS */}

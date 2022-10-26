@@ -10,11 +10,11 @@ const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <BrowserRouter>
-    <ContextProviders>
-      <MovieProvider>
-      <App />
-      </MovieProvider>
-    </ContextProviders>
-  </BrowserRouter>
+    <BrowserRouter>
+        <ContextProviders>
+            <MovieProvider>
+                <App />
+            </MovieProvider>
+        </ContextProviders>
+    </BrowserRouter>
 );

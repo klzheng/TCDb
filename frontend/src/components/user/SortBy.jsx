@@ -7,11 +7,11 @@ export default function SortBy(props) {
 
     return (
         <div className="flex 2xs:justify-center 2xs:mt-20 sm:justify-between sm:mt-0">
-            <h2 className="text-4xl text-gray-300 drop-shadow-white-text 2xs:absolute 2xs:top-24 2xs:left-1/2 2xs:-translate-x-1/2 2xs:pb-0  sm:static sm:top-0 sm:left-0 sm:translate-x-0 sm:pb-6 2xs:w-40">
+            <h2 className="text-4xl text-gray-300 drop-shadow-white-text 2xs:absolute 2xs:top-24 2xs:left-1/2 2xs:-translate-x-1/2 2xs:pb-0  sm:static sm:top-0 sm:left-0 sm:translate-x-0 sm:pb-6 2xs:w-40 ">
                 {header}
             </h2>
 
-            <nav className="flex justify-end items-center space-x-2 2xs:pb-6 sm:pb-4 ">
+            <nav className="flex justify-end items-center space-x-2 2xs:pb-6 sm:pb-4 transition-all ">
 
             {sortValue === -1
                 ? <IoIosArrowDown

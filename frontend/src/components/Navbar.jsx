@@ -45,7 +45,6 @@ export default function Navbar() {
 
     return (
         <>
-
             <nav 
                 className="bg-primary text-secondary drop-shadow-xl py-4 overflow-hidden flex justify-between items-center px-32 md:px-12 sm:px-4 xs:px-2 2xs:px-1">
 
@@ -58,7 +57,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Right Sided elements */}
-                <div className="flex items-center space-x-4 relative 2xs:pr-2 sm:pr-0 2xl:py-3 2xl:space-x-10 nav-right">
+                <div className="flex items-center space-x-4 relative 2xs:pr-2 sm:pr-0 2xl:py-3 2xl:space-x-10 nav-right ">
 
 
                     {/* Mini search-bar */}
@@ -84,7 +83,7 @@ export default function Navbar() {
                     </div>
 
                     <nav className="relative sm:hidden text-2xl" >
-                        <FiMenu onClick={toggleMenu} />
+                        {activeMenu ? <FiX onClick={toggleMenu}/> : <FiMenu onClick={toggleMenu} />}
                     </nav>
 
                     {/* User's watchlist */}
@@ -114,7 +113,7 @@ export default function Navbar() {
 
             {activeMenu && 
             <div
-                className="absolute flex flex-col text-gray-200 right-0 top-12 bg-slate-500 rounded py-2 px-3 sm:hidden z-50">
+                className="absolute flex flex-col text-gray-200 right-0 top-12 bg-slate-500 rounded py-2 px-3 sm:hidden z-50 ">
                 <Link
                     to="/watchlist"
                     className="text-lg hover:text-white transition 2xl:text-3xl ">

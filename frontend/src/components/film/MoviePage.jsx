@@ -16,6 +16,7 @@ import Container from "../Container"
 import Navbar from "../Navbar"
 
 
+
 export default function MoviePage() {
     const [pageDetails, setPageDetails] = useState([])
     const [trailerKey, setTrailerKey] = useState("")

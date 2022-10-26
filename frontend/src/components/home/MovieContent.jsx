@@ -4,7 +4,6 @@ import Card from "./Card"
 export default function MovieContent(props) {
 
     return (
-        
         <div className="flex overflow-auto bg-black bg-opacity-30 rounded-lg px-4 ">
             {props && props.url.map((movie, index) => (
                 <div key={index} className="mt-8 mb-3 mx-3 transition ease-in-out">

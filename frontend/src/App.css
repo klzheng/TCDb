@@ -24,6 +24,7 @@ input::-webkit-inner-spin-button {
 }
 
 
+
 /* Removes input number arrows [Firefox support] */
 input[type=number] {
     -moz-appearance: textfield;
