@@ -43,8 +43,8 @@ export default function Home() {
                 console.log(err)
             }
         }
-        fetchDetails() // eslint-disable-next-line
-    }, [])
+        fetchDetails() 
+    }, [setUrl, theatersUrl, trendingUrl])
 
 
     // redirect user to sign in page if no user already signed in

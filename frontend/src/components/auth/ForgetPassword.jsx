@@ -18,7 +18,7 @@ export default function ForgetPassword() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //eslint-disable-line
+        const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  //eslint-disable-line
         if (!isValidEmail.test(email))
             return updateNotification("error", "Invalid email!");
 

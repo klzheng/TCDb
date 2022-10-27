@@ -43,8 +43,8 @@ export default function Signin() {
 
     useEffect(() => {
         // redirect user to homepage
-        if (isLoggedIn) navigate("/") // eslint-disable-next-line
-    }, [isLoggedIn])
+        if (isLoggedIn) navigate("/") 
+    }, [isLoggedIn, navigate])
 
     return (
         <FormBackground>

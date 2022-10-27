@@ -11,7 +11,7 @@ export default function Slider() {
     const { changeContent } = useContext(MovieContext)
 
     // Changes slider content and styling on click
-    const handleToggle = (e) => { // eslint-disable-next-line
+    const handleToggle = (e) => { 
         switch (e.target.id) {
             case "all":
                 changeContent(urlHeader + "trending/all/week" + urlParams)
@@ -24,6 +24,8 @@ export default function Slider() {
             case "shows":
                 changeContent(urlHeader + "tv/popular" + urlParams)
                 setActive([false, false, true]) 
+                break
+            default:
         }
     }
 

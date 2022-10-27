@@ -9,7 +9,7 @@ import Submit from "./form/Submit";
 
 
 const validateUserInfo = ({ name, email, password }) => {
-    const isValidName = /^[a-z A-Z]+$/; //eslint-disable-line
+    const isValidName = /^[a-z A-Z]+$/; 
     const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ //eslint-disable-line
 
     if (!name.trim()) return { ok: false, error: "Name is missing!" };

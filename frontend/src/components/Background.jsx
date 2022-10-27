@@ -1,5 +1,6 @@
 import {motion} from "framer-motion"
 
+
 export default function Background({children}) {
     return (
         <motion.div 

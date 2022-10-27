@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import SearchResults from "./SearchResults"
 
@@ -11,11 +10,11 @@ export default function SearchBar({ apiUrl, placeholder, liveSearch, setCurrentP
     const navigate = useNavigate()
 
     // grabs API data and returns results
-    const requestResultsData = async (query) => {
+    const requestResultsData = useCallback(async (query) => {
         const res = await fetch(`${apiUrl + query}`)
         const data = await res.json()
         return data.results
-    }
+    },[apiUrl])  
 
     // sets search query state to input field
     const handleChange = (e) => {
@@ -40,8 +39,8 @@ export default function SearchBar({ apiUrl, placeholder, liveSearch, setCurrentP
     useEffect(() => {
         if (!search) return;
         requestResultsData(search)
-            .then(setSearchResult) // eslint-disable-next-line
-    }, [search])
+            .then(setSearchResult)
+    }, [search, requestResultsData])
 
 
     return (
