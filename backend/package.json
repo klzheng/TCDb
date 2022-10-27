@@ -1,12 +1,12 @@
 {
   "name": "review_backend_api",
   "version": "1.0.0",
-  "description": "This is the project created for educational purpose",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "Full Stack Niraj",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",

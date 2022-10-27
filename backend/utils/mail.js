@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-// // Mailer
+// Mailer
 exports.generateMailTransporter = () =>
     nodemailer.createTransport({
         service: "gmail",

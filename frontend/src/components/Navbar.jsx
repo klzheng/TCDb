@@ -52,12 +52,12 @@ export default function Navbar() {
                 <Link to="/">
                     <div className="flex items-center space-x-1 ">
                         <img src="./logo.png" alt="Logo" className="h-8 items-center 2xl:h-12" />
-                        <span className="font-bold text-2xl 2xl:text-5xl">TCDb</span>
+                        <span className="font-bold text-2xl 2xl:text-3xl 3xl:text-5xl">TCDb</span>
                     </div>
                 </Link>
 
                 {/* Right Sided elements */}
-                <div className="flex items-center space-x-4 relative 2xs:pr-2 sm:pr-0 2xl:py-3 2xl:space-x-10 nav-right ">
+                <div className="flex items-center space-x-4 relative 2xs:pr-2 sm:pr-0 2xl:py-3 3xl:space-x-10 nav-right ">
 
 
                     {/* Mini search-bar */}
@@ -89,14 +89,14 @@ export default function Navbar() {
                     {/* User's watchlist */}
                     <Link
                         to="/watchlist"
-                        className="text-lg  hover:text-white transition 2xl:text-3xl">
+                        className="text-lg  hover:text-white transition 2xl:text-xl 3xl:text-3xl">
                         Watchlist
                     </Link>
 
                     {/* User's films */}
                     <Link
                         to="/my-films"
-                        className="text-lg hover:text-white transition 2xl:text-3xl">
+                        className="text-lg hover:text-white transition  2xl:text-xl 3xl:text-3xl">
                         <p>Films</p>
                     </Link>
 
@@ -104,7 +104,7 @@ export default function Navbar() {
                     <Link
                         to="/auth/signin"
                         onClick={isLoggedIn ? handleLogout : ""}
-                        className=" text-lg hover:text-white transition 2xl:text-3xl ">
+                        className=" text-lg hover:text-white transition 2xl:text-xl 3xl:text-3xl ">
                         {isLoggedIn ? "Sign Out " : "Login"}
                     </Link>
                 </div>
