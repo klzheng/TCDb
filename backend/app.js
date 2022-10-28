@@ -25,6 +25,8 @@ app.use("/*", handleNotFound);
 app.use(errorHandler);
 
 
-app.listen(8000, () => {
-  console.log("the port is listening on port 8000");
+const PORT = process.env.PORT || 8000
+
+app.listen(PORT, () => {
+  console.log("the port is listening on port " + PORT);
 });
