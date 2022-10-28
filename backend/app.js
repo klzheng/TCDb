@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json()); // parses json
 app.use(morgan("dev")); 
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'https://tcdb-backend2-gjtz3.ondigitalocean.app/'), function(err) {
+  res.sendFile(path.join(__dirname, 'https://thecinemadb.netlify.app/'), function(err) {
     if (err) {
       res.status(500).send(err)
     }
