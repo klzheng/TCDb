@@ -1,20 +1,58 @@
 
 
+<br />
 
-# TCDb
+<!-- TITLE -->
+<div  align="center">
+    <h1  align="center">TCDb - The Cinema Database</h1>
+</div>
 
-<img src="project-demo.gif" alt="Project Demo" width="100%" />
 
-Movie tracking websites already like IMDb and Letterboxd already exist. 
-However, everyone has their preferences and there were still things that I didn't like that ultimately drove me to create my own web application:
 
-- **Track, rate, and see films all in one place for personal use**. While a community is important in many places, most days I just want the simple functionality of seeing what shows I've watched and what shows I bookmarked.  
 
-- **Letterboxd doesn't include TV shows in their database**. This can be frustrating for some users if they want to keep all their favorite TV shows and movies in one place.
+<p align="center">
+  <img src="https://github.com/klzheng/TCDb/frontend/public/project-demo.gif" alt="Project Demo" width="100%"  />
+</p>
 
-- **Both IMDb and Letterboxd only allow user ratings in half integer (star) increments**. I personally found this to be very limiting as it paints a very black and white picture that isn't quite accurate in my opinion. 
+
+<!-- TABLE OF CONTENTS -->
+<details>
+    <ol>
+        <li><a  href="#tcdb">TCDb</a></li>
+        <li><a  href="#demo">Demo</a></li>
+        <li><a  href="#built-with">Built With</a></li>
+        <li><a  href="#features">Features</a></li>
+        <li><a  href="#run-locally">Run Locally</a></li>
+        <li><a  href="#environment-variables">.ENV variables</a></li>
+        <li><a  href="#optimizations">Optimizations</a></li>
+    </ol>
+</details>
+
+<br />
+
+## TCDb
+
+Movie tracking websites like IMDb and Letterboxd already exist. However, everyone has their preferences and there were still things that I didn't like that ultimately drove me to create my own web application:
+
+- **Track, rate, and see films all in one place for personal use**  &ndash;   While a community is important in many places, most days I just want the simple functionality of seeing what shows I've watched and what shows I bookmarked.  
+
+- **Letterboxd doesn't include TV shows in their database** &ndash;  This can be frustrating for some users if they want to keep all their favorite TV shows and movies in one place.
+
+- **Both IMDb and Letterboxd only allow user ratings in half integer (star) increments** &ndash;  I personally found this to be very limiting as it paints a very black and white picture that isn't quite accurate in my opinion. 
 
 Also, building a fullstack CRUD app like TCDb is a great way to learn, practice, and demonstrate my skills 😊 
+
+<br />
+
+## Demo
+Try it out here using this [link](https://thecinemadb.netlify.app/) or this one: [https://thecinemadb.netlify.app/](https://thecinemadb.netlify.app/). Please do create an account and try out the app for yourself!
+
+
+
+<br />
+
+
+
 ## Built With
 
 * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -27,6 +65,9 @@ Also, building a fullstack CRUD app like TCDb is a great way to learn, practice,
 
 
 
+<br /> 
+
+<p align="right">(<a href="#tcdb" style="text-decoration:none;">↑</a>)</p>
 
 ## Features
 
@@ -37,12 +78,12 @@ Also, building a fullstack CRUD app like TCDb is a great way to learn, practice,
 - 😲 Ability to provide ratings to 1 decimal place (crazy, I know!)
 
 
-## Demo
 
-Try it out here using this link: 
+<br />
 
 
-## Run Locally
+
+## Run Locally 
 
 1. Install npm
 
@@ -67,7 +108,7 @@ Try it out here using this link:
   npm run start
 ```
 
-5. Navigate to the backend and install dependencies
+5. Navigate to the backend, install dependencies, and run server locally
 ```bash
   cd .. 
   cd backend/
@@ -75,8 +116,13 @@ Try it out here using this link:
   npm run start
 ```
 
+6. Make sure all environment variables are accounted for!
 
 
+
+
+
+<br />
 
 
 
@@ -98,13 +144,14 @@ To run this project, you will need to add the following environment variables to
 
 
 2. Frontend
-`REACT_APP_TMDB_API_KEY`
+`REACT_APP_TMDB_API_KEY` `REACT_APP_BASE_URL`
 
+<br />
 
 ## Optimizations
 
 - Adding transitions/animation to movie cards (filtering/sorting)
 - Add light mode 
   
-
-<p align="right">[↑ (Back to top)](#tcdb)</p>
+  
+<p align="right">(<a href="#tcdb" style="text-decoration:none;">↑</a>)</p>
