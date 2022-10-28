@@ -1,7 +1,6 @@
 
 
 <br />
-<br />
 
 <!-- TITLE -->
 <div  align="center">
@@ -12,33 +11,7 @@
 
 
 <p align="center">
-  <img src="https://github.com/klzheng/TCDb/frontend/public/project-demo.gif" alt="Project Demo" width="100%"  />
-</p>
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-    <ol>
-        <li><a  href="#tcdb">TCDb</a></li>
-        <li><a  href="#demo">Demo</a></li>
-        <li><a  href="#built-with">Built With</a></li>
-        <li><a  href="#features">Features</a></li>
-        <li><a  href="#run-locally">Run Locally</a></li>
-        <li><a  href="#environment-variables">.ENV variables</a></li>
-        <li><a  href="#optimizations">Optimizations</a></li>
-    </ol>
-</details>
-
-<!-- TITLE -->
-<div  align="center">
-    <h1  align="center">TCDb - The Cinema Database</h1>
-</div>
-
-
-
-
-<p align="center">
-  <img src="https://github.com/klzheng/TCDb/frontend/public/project-demo.gif" alt="Project Demo" width="100%"  />
+  <img src="https://github.com/klzheng/TCDb/blob/main/frontend/public/project-demo.gif" alt="Project Demo" width="100%"  />
 </p>
 
 
@@ -180,5 +153,5 @@ To run this project, you will need to add the following environment variables to
 - Adding transitions/animation to movie cards (filtering/sorting)
 - Add light mode 
   
-
-<p align="right">[↑ (Back to top)](#tcdb)</p>
+  
+<p align="right">(<a href="#tcdb" style="text-decoration:none;">↑</a>)</p>
