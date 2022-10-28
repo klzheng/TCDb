@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import "./App.css";
 import ContextProviders from "./context";
@@ -10,11 +10,11 @@ const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <ContextProviders>
             <MovieProvider>
                 <App />
             </MovieProvider>
         </ContextProviders>
-    </BrowserRouter>
+    </HashRouter>
 );

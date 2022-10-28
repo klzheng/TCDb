@@ -18,13 +18,6 @@ require("./db"); // connects to mongo db
 app.use(cors());
 app.use(express.json()); // parses json
 app.use(morgan("dev")); 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'https://thecinemadb.netlify.app/'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
 app.use("/api/user", userRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/watchlist", watchlistRouter);
