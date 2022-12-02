@@ -45,8 +45,10 @@ Also, building a fullstack CRUD app like TCDb is a great way to learn, practice,
 <br />
 
 ## Demo
-Try it out here using this [link](https://thecinemadb.netlify.app/) or this one: [https://thecinemadb.netlify.app/](https://thecinemadb.netlify.app/). Please do create an account and try out the app for yourself!
+Try it out here using this [link](https://thecinemadb.netlify.app/) or this one: [https://thecinemadb.netlify.app/](https://thecinemadb.netlify.app/). Please do create an account (or use the provided login details) and try out the app for yourself!
 
+Email: test@test.com
+Password: testing123
 
 
 <br />
