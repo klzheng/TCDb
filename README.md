@@ -131,7 +131,7 @@ Password: testing123
 
 ## Environment Variables
 
-1. Create a MongoDb Atlas account, and place credentials in .env  file (Refer to next section)  
+1. Create a MongoDb Database Access account (if it doesn't already exist), and place credentials in .env  file (Refer to next section)  
 
 2. Create TMDb account store API key in .env file 
 
@@ -143,7 +143,7 @@ Password: testing123
 To run this project, you will need to add the following environment variables to your .env file:
 
 1. Backend
-`MONGO_URI` `JWT_SECRET` `PORT` `TCDB_MAIL_USER` `TCDB_MAIL_PASS` `OAUTH_CLIENTID` `OAUTH_CLIENT_SECRET` `OAUTH_REFRESH_TOKEN`
+`MONGO_DB_USERNAME` `MONGO_DB_PASSWORD` `JWT_SECRET` `PORT` `TCDB_MAIL_USER` `TCDB_MAIL_PASS` `OAUTH_CLIENTID` `OAUTH_CLIENT_SECRET` `OAUTH_REFRESH_TOKEN`
 
 
 2. Frontend
