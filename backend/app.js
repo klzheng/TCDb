@@ -14,7 +14,6 @@ require("express-async-errors"); // error handling when using async functions
 require("dotenv").config(); // .env
 require("./db"); // connects to mongo db
 
-
 app.use(cors());
 app.use(express.json()); // parses json
 app.use(morgan("dev")); 

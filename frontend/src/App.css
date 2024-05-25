@@ -6,6 +6,10 @@ input::-webkit-inner-spin-button {
 }
 
 /* Styling scrollbar */
+.scrollbar-default {
+    scrollbar-color: rgb(55 65 81) #13131300; /* The first color is for the thumb and the second is for the track */
+}
+
 *::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -13,12 +17,10 @@ input::-webkit-inner-spin-button {
 }
 
 *::-webkit-scrollbar-track {
-    background: #ffffff00;
     z-index: -10000;
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: rgb(55 65 81);
     border-radius: 10px;
     z-index: -10000;
 }
