@@ -96,13 +96,18 @@ exports.getAll = async ( req, res ) => {
 
 
 exports.getSorted = async (req, res) => {
-    const userId = req.user._id
-    const {filterTerm, filterValue} = req.params
-
-    const response = await Review
-        .find({owner: userId})
-        .sort({[filterTerm]: filterValue})
-
-    res.json(response)
+    try {
+        const userId = req.user._id
+        const {filterTerm, filterValue} = req.params
+    
+        const response = await Review
+            .find({owner: userId})
+            .sort({[filterTerm]: Number(filterValue) || 0})
+    
+        res.json(response)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
 }
 
