@@ -1,9 +1,5 @@
 const crypto = require("crypto");
 
-// error message
-exports.sendError = (res, error, statusCode = 401) =>
-    res.status(statusCode).json({ error });
-
 // generates random data
 exports.generateRandomByte = () => {
     return new Promise((resolve, reject) => {
@@ -14,9 +10,4 @@ exports.generateRandomByte = () => {
             resolve(buffString);
         });
     });
-};
-
-// When address is unknown
-exports.handleNotFound = (req, res) => {
-    this.sendError(res, "Not found", 404);
 };

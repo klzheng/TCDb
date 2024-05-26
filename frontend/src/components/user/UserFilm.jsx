@@ -73,7 +73,7 @@ export default function UserFilm() {
 
 
     useEffect(() => {
-        document.title = `${profile.name}'s films • TCDb`;
+        document.title = "My Reviews • TCDb";
     }, [profile.name, allReviews]);
 
 

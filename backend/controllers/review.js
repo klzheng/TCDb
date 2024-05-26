@@ -1,6 +1,7 @@
 const { isValidObjectId } = require("mongoose")
-const Review = require("../models/review")
-const { sendError } = require("../utils/helper")
+const Review = require("../db/models/review")
+const { sendError } = require("../utils/error")
+const { errorHandler } = require("../middlewares/errorHandler")
 
 
 exports.addReview = async (req, res) => {
@@ -76,11 +77,18 @@ exports.getReview = async (req, res) => {
     const { mediaType, id } = req.params
     const userId = req.user._id
 
-    Review.findOne({ owner: userId, movieType: mediaType, movieId: id }, (err, response) => {
-        if (err) return sendError(res, "Review not found")
-        res.json({response})
+    Review.findOne({ 
+        owner: userId, 
+        movieType: mediaType, 
+        movieId: id 
+    }).then((review) => {
+        if (!review) {
+            return res.status(404).json({ message: "Review not found"})
+        }
+        return res.json(review)
+    }).catch((err) => {
+        return errorHandler(err, req, res)
     })
-
 }
 
 

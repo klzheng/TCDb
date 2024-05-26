@@ -3,8 +3,7 @@ const express = require("express"); // express
 const app = express(); // convention 
 const morgan = require("morgan"); // db logger
 const cors = require("cors"); 
-const { errorHandler } = require("./middlewares/error");
-const { handleNotFound } = require("./utils/helper");
+const { errorHandler, errorNotFound } = require("./middlewares/errorHandler");
 const userRouter = require("./routes/user");
 const reviewRouter = require("./routes/review");
 const watchlistRouter = require("./routes/watchlist");
@@ -20,7 +19,7 @@ app.use(morgan("dev"));
 app.use("/api/user", userRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/watchlist", watchlistRouter);
-app.use("/*", handleNotFound);
+app.use("/*", errorNotFound);
 app.use(errorHandler);
 
 

@@ -24,7 +24,7 @@ export default function Watchlist() {
         }
         getEntireWatchlist()
 
-        document.title = `${profile.name}'s Watchlist • TCDb`;
+        document.title = `Watchlist • TCDb`;
 
     }, [profile.name])
 

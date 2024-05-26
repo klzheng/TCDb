@@ -20,8 +20,6 @@ export default function Home() {
     const { authInfo } = useAuth()
     const { isLoggedIn, profile } = authInfo
 
-
-
     // api urls
     const trendingUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1`
     const theatersUrl = `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_API_KEY}&sort_by=popularity.desc&vote_count.gte=50&language=en-US&page=1`

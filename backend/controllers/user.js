@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const { generateMailTransporter } = require("../utils/mail");
-const { sendError, generateRandomByte } = require("../utils/helper");
-const PasswordResetToken = require("../models/passwordResetToken");
+const User = require("../db/models/user");
+const { generateMailTransporter } = require("../utils/mailer");
+const { generateRandomByte } = require("../utils/helper");
+const sendError = require("../utils/error")
+const PasswordResetToken = require("../db/models/passwordResetToken");
 
 
 // creates new user, saves it to db

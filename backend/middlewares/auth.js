@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { sendError } = require("../utils/helper");
-const User = require("../models/user");
+const { sendError } = require("../utils/error");
+const User = require("../db/models/user");
 
 // verifies jwt
 exports.isAuth = async (req, res, next) => {

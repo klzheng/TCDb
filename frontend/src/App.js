@@ -16,9 +16,7 @@ import { AnimatePresence } from "framer-motion"
 
 
 export default function App() {
-
     const location = useLocation()
-
 
     return (
         <MovieProvider>

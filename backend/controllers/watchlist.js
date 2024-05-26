@@ -1,6 +1,7 @@
 const { isValidObjectId } = require("mongoose")
-const Watchlist = require("../models/watchList")
-const {sendError} = require("../utils/helper")
+const Watchlist = require("../db/models/watchList")
+const {sendError, errors} = require("../utils/error")
+const { errorHandler } = require("../middlewares/errorHandler")
 
 exports.addWatchlist = async ( req, res ) => {
     const {mediaType, id} = req.params
@@ -29,10 +30,18 @@ exports.getWatchlistItem = async ( req, res ) => {
     const {mediaType, id} = req.params
     const userId = req.user._id
 
-    const alreadySaved = await Watchlist.findOne({ owner: userId, movieId: id, movieType: mediaType })
-    if (!alreadySaved) return sendError(res, "Item not found on watchlist")
-
-    res.json({response: alreadySaved})
+    Watchlist.findOne({
+        owner: userId,
+        movieId: id,
+        movieType: mediaType
+    }).then((item) => {
+        if (!item) {
+            return res.status(404).json({ message: errors.RESOURCE_NOT_FOUND});
+        }
+        return res.json(item)
+    }).catch((err) => {
+        return errorHandler(err, req, res)
+    })
 }
 
 

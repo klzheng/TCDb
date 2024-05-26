@@ -1,6 +1,6 @@
 const { isValidObjectId } = require("mongoose");
-const PasswordResetToken = require("../models/passwordResetToken");
-const { sendError } = require("../utils/helper");
+const PasswordResetToken = require("../db/models/passwordResetToken");
+const { sendError } = require("../utils/error");
 
 // Middleware that checks if password token is valid
 exports.isValidPassResetToken = async (req, res, next) => {
