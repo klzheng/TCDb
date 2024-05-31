@@ -1,0 +1,14 @@
+{
+  "name": "tcdb",
+  "version": "1.0.0",
+  "description": "An all in one place to track, log, and rate both movies and shows",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm run start\" \"cd backend && npm run start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
