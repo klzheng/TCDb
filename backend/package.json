@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon -x 'node app.js || touch app.js'"
+    "start": "nodemon -x 'node app.js || touch app.js'",
+    "start-all": "concurrently \"npm run start\" \"cd ../frontend && npm run start\""
   },
   "author": "",
   "license": "ISC",
