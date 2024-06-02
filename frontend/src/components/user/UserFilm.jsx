@@ -8,7 +8,6 @@ import Container from "../Container";
 import RatingModal from "../modals/RatingModal";
 import Navbar from "../Navbar";
 import SortBy from "./SortBy";
-import { motion, AnimatePresence, } from "framer-motion"
 
 
 export default function UserFilm() {
@@ -53,7 +52,6 @@ export default function UserFilm() {
         setSortValue(filterValue)
         setSelected(filterTerm)
         setAllReviews(response)
-        console.log(response)
     }
 
     // reverses sort order
@@ -90,13 +88,9 @@ export default function UserFilm() {
                     header="MY FILMS"
                     numItems={allReviews.length} />
 
-                <motion.div
-                    layout
-                    className="grid gap-1 md:grid-cols-6 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
-                    <AnimatePresence>
+                <div className="grid gap-1 md:grid-cols-6 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
                     {allReviews.length !== 0 && allReviews.map((review, index) => (
-                        <motion.div
-                            layout
+                        <div
                             initial={{ scale: .2 }}
                             animate={{ scale: 1 }}
                             exit={{ scale: .8 }}
@@ -104,14 +98,9 @@ export default function UserFilm() {
                             key={index}
                             className="flex flex-col group relative"
                         >
-                            <p
-                                className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:block whitespace-nowrap space-x-1 hidden transition-all duration-400 ">
-                                <span>
-                                    {review.movieName}
-                                </span>
-                                <span>
-                                    ({review.movieRelease.slice(0, 4)})
-                                </span>
+                            <p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:block whitespace-nowrap space-x-1 hidden transition-all duration-400 ">
+                                <span>{review.movieName}</span>
+                                <span>({review.movieRelease.slice(0, 4)})</span>
                             </p>
                             <img
                                 src={`https://image.tmdb.org/t/p/w342${review.imgPath}`}
@@ -125,25 +114,21 @@ export default function UserFilm() {
                                         {review.rating}
                                     </span>
                                 </span>
-                                <span >{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}
-                                </span>
+                                <span>{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}</span>
                             </p>
-                        </motion.div>
+                        </div>
                     ))}
-                    </AnimatePresence>
-                </motion.div>
+                </div>
 
-                <AnimatePresence>
-                    {displayModal &&
-                        <RatingModal
-                            title={selectedReviewData.title}
-                            releaseDate={selectedReviewData.releaseDate}
-                            imgPath={selectedReviewData.imgPath}
-                            reviewDetails={selectedReviewData.reviewDetails}
-                            toggleModal={() => setDisplayModal(!displayModal)}
-                        />
-                    }
-                </AnimatePresence>
+                {displayModal &&
+                    <RatingModal
+                        title={selectedReviewData.title}
+                        releaseDate={selectedReviewData.releaseDate}
+                        imgPath={selectedReviewData.imgPath}
+                        reviewDetails={selectedReviewData.reviewDetails}
+                        toggleModal={() => setDisplayModal(!displayModal)}
+                    />
+                }
             </Container>
         </Background>
     )

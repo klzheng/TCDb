@@ -12,7 +12,6 @@ import Search from "./components/search/Search";
 import UserFilm from "./components/user/UserFilm";
 import { MovieProvider } from "./context/MovieContext";
 import Watchlist from "./components/watchlist/Watchlist";
-import { AnimatePresence } from "framer-motion"
 
 
 export default function App() {
@@ -20,21 +19,19 @@ export default function App() {
 
     return (
         <MovieProvider>
-            <AnimatePresence>
-                <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/auth/signin" element={<Signin />} />
-                    <Route path="/auth/signup" element={<Signup />} />
-                    <Route path="/auth/forget-password" element={<ForgetPassword />} />
-                    <Route path="/auth/reset-password" element={<ConfirmPassword />} />
-                    <Route path="/:mediaType/:id" element={<MoviePage />} />
-                    <Route path="/person/:id" element={<ActorPage />} />
-                    <Route path="/search/:query" element={<Search />} />
-                    <Route path="/my-films" element={<UserFilm />} />
-                    <Route path="/watchlist" element={<Watchlist />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </AnimatePresence>
+            <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/auth/signin" element={<Signin />} />
+                <Route path="/auth/signup" element={<Signup />} />
+                <Route path="/auth/forget-password" element={<ForgetPassword />} />
+                <Route path="/auth/reset-password" element={<ConfirmPassword />} />
+                <Route path="/:mediaType/:id" element={<MoviePage />} />
+                <Route path="/person/:id" element={<ActorPage />} />
+                <Route path="/search/:query" element={<Search />} />
+                <Route path="/my-films" element={<UserFilm />} />
+                <Route path="/watchlist" element={<Watchlist />} />
+                <Route path="*" element={<NotFound />} />
+            </Routes>
         </MovieProvider>
     );
 }

@@ -6,7 +6,6 @@ import ModalContainer from "./ModalContainer"
 import { addReview, deleteReview, updateReview } from "../../api/review"
 import { useNotification } from "../../hooks"
 import Confirmation from "./Confirmation"
-import {motion} from "framer-motion"
 
 
 export default function RatingModal(props) {
@@ -144,7 +143,7 @@ export default function RatingModal(props) {
 
                 {/* REVIEW */}
                 <div>
-                    <motion.textarea
+                    <textarea
                         animate={{height: enlarge ? 240 : 112}}
                         name="review"
                         id="review"

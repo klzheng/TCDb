@@ -6,7 +6,6 @@ import { getReview } from "../../api/review"
 import RatingModal from "../modals/RatingModal"
 import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../api/watchlist"
 import { useNotification } from "../../hooks"
-import { motion, AnimatePresence } from "framer-motion"
 
 
 export default function Header(props) {
@@ -104,7 +103,7 @@ export default function Header(props) {
 
                     {props.details.length !== 0 &&
                         <div>
-                            <motion.button
+                            <button
                                 whileHover={{scale:1.1}}
                                 whileTap={{scale:1}}
                                 onClick={inWatchlist ? removeFromList : addToList}
@@ -112,9 +111,9 @@ export default function Header(props) {
                             >
                                 <BsBookmarkStar
                                     className={" mr-2 " + (inWatchlist ? " text-yellow-300 " : "  ")} />Add
-                            </motion.button>
+                            </button>
 
-                            <motion.button
+                            <button
                                 whileHover={{scale:1.1}}
                                 onClick={toggleModal}
                                 className="flex flex-row items-center hover:text-gray-300 group "
@@ -122,22 +121,20 @@ export default function Header(props) {
                                 <FaRegHeart
                                     className={"mr-2 " + (reviewDetails.liked ? " text-red-500 group-hover:text-red-400 " : " ")} />
                                 Rate
-                            </motion.button>
+                            </button>
                         </div>
                     }
 
-                    <AnimatePresence>
-                        {displayModal &&
-                            <RatingModal
-                                title={props.details.title || props.details.name}
-                                releaseDate={props.releaseDate}
-                                imgPath={props.details.poster_path}
-                                reviewDetails={reviewDetails}
-                                reloadOnDelete={true}
-                                toggleModal={toggleModal}
-                            />
-                        }
-                    </AnimatePresence>
+                    {displayModal &&
+                        <RatingModal
+                            title={props.details.title || props.details.name}
+                            releaseDate={props.releaseDate}
+                            imgPath={props.details.poster_path}
+                            reviewDetails={reviewDetails}
+                            reloadOnDelete={true}
+                            toggleModal={toggleModal}
+                        />
+                    }
                 </div>}
 
         </div>
