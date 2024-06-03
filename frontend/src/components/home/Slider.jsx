@@ -29,21 +29,20 @@ export default function Slider() {
         }
     }
 
-
     return (
         <div className="flex 2xs:justify-center sm:justify-start">
             <div className="flex flex-row justify-evenly gap-1 xs:w-80 border-2 border-solid border-teal-standard rounded-full text-white mb-5 xs:text-xl 2xs:text-lg 2xs:w-64 ">
                 <button
-                    onClick={handleToggle}
                     id="all"
+                    onClick={handleToggle}
                     className={(isActive[0] ? "bg-teal-standard shadow-teal ease-in-out  duration-300 " : " ") + "w-1/3 py-1  rounded-full outline-none"}>All</button>
                 <button
-                    onClick={handleToggle}
                     id="movies"
+                    onClick={handleToggle}
                     className={(isActive[1] ? "bg-teal-standard shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Movies</button>
                 <button
-                    onClick={handleToggle}
                     id="shows"
+                    onClick={handleToggle}
                     className={(isActive[2] ? "bg-teal-standard shadow-teal ease-in-out duration-300 " : " ") + "w-1/3 py-1 rounded-full outline-none"}>Shows</button>
             </div>
         </div>

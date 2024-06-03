@@ -175,6 +175,9 @@ module.exports = {
         98 : ".98",
         99 : ".99",
       },
+      borderWidth: {
+        1 : "1px",
+      }
     },
   },
   plugins: [
