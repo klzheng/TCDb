@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { getAll, getSorted } from "../../api/review";
+import { getAll, getReview } from "../../api/review";
 import Background from "../Background";
 import Container from "../Container";
 import RatingModal from "../modals/RatingModal";
 import Navbar from "../Navbar";
 import SortBy from "./SortBy";
 import LoadingImage from "../utils/LoadingImage";
+import { Reorder } from "framer-motion";
 
 
 export default function UserFilm() {
@@ -18,6 +19,88 @@ export default function UserFilm() {
     const [selected, setSelected] = useState("movieRelease")
     const [sortValue, setSortValue] = useState(-1)
     const [loadedImages, setLoadedImages] = useState({})
+    const [searchQuery, setSearchQuery] = useState("")
+    const [isSearchActive, setIsSearchActive] = useState(false);
+
+    const SearchBar = () => {
+        const inputRef = useRef(null);
+
+        const handleSearch = (event) => {
+          setSearchQuery(event.target.value);
+          if (event.target.value === '') {
+            setIsSearchActive(false);
+          }
+        };
+
+        useEffect(() => {
+            if (isSearchActive) {
+              inputRef.current.focus();
+            }
+        }, []);
+
+        useEffect(() => {
+            const handleKeyDown = (event) => {
+                /*  
+                Search bar for filtering reviews becomes active if:
+                -- alphanumeric OR "Backspace"/"Delete" keys are pressed
+                -- modifier keys are NOT pressed 
+                -- not currently focused on any inputs
+                */ 
+                if (
+                    (event.key.match(/^[a-zA-Z0-9]$/) || event.key === 'Backspace' || event.key === 'Delete') &&
+                    !event.metaKey &&
+                    !event.ctrlKey &&
+                    !event.shiftKey &&
+                    document.activeElement === document.body
+                ) {
+                    setIsSearchActive(true);
+                    inputRef.current.focus();
+                } 
+            };
+          
+            document.addEventListener('keydown', handleKeyDown);
+          
+            return () => {
+              document.removeEventListener('keydown', handleKeyDown);
+            };
+          }, []);
+          
+      
+        return (
+            <div className="relative">
+                {isSearchActive ? (
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={handleSearch}
+                        className="w-full p-2 pl-10 text-sm text-gray-700"
+                    />
+                ) : (
+                    <h1 className="text-2xl font-bold">MY FILMS</h1>
+                )}
+                {isSearchActive && (
+                    <div className="absolute top-0 left-0 inline-flex items-center p-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-6 h-6 text-gray-400"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                            <circle cx="10" cy="10" r="7" />
+                            <line x1="21" y1="21" x2="15" y2="15" />
+                        </svg>
+                    </div>
+                )}
+            </div>
+        );
+    };
 
     // grabs movie data from TMDB 
     const grabData = async (movieType, movieId) => {
@@ -26,29 +109,38 @@ export default function UserFilm() {
         return data
     }
 
-    // grabs data from clicked movie, opens modal, and sets state
+    // opens modal for review
     const toggleModal = async (index) => {
         const mediaType = allReviews[index].movieType
         const id = allReviews[index].movieId
         const data = await grabData(mediaType, id)
+        const reviewData = await getReview(mediaType, id)
 
         setSelectedReviewData({
             "title": data.title || data.name,
             "releaseDate": data.release_date || data.first_air_date,
             "imgPath": data.poster_path || data.backdrop_path,
-            "reviewDetails": allReviews[index],
+            "reviewDetails": reviewData,
         })
         setDisplayModal(!displayModal)
-        setSelected("movieRelease")
     }
 
-
     // sorts movies 
-    const sortItems = async (filterTerm, filterValue) => {
-        const response = await getSorted(filterTerm, filterValue)
+    const sortItems = (filterTerm, filterValue) => {
+        allReviews.sort((a, b) => {
+            if (filterTerm === "movieRelease") {
+                return (new Date(a.movieRelease) - new Date(b.movieRelease)) * filterValue;
+            } else if (filterTerm === "movieName") {
+                return a.movieName.localeCompare(b.movieName) * filterValue;
+            } else if (filterTerm === "rating") {
+                return (a.rating - b.rating) * filterValue;
+            } else {
+                return 0;
+            }
+        });
+
         setSortValue(filterValue)
         setSelected(filterTerm)
-        setAllReviews(response)
     }
 
     // reverses sort order
@@ -57,16 +149,16 @@ export default function UserFilm() {
     }
 
 
-    // refreshes all reviews from db when modal is toggled
+    // loads all reviews on page load
     useEffect(() => {
         const grabAllReviews = async () => {
             const response = await getAll()
             setAllReviews(response)
         }
         grabAllReviews()
-    }, [displayModal])
+    }, [])
 
-
+    // shows loading skeletons for movie posters
     useEffect(() => {
         allReviews.forEach((review) => {
           const img = new Image();
@@ -87,37 +179,40 @@ export default function UserFilm() {
                     changeSort={changeSort}
                     selected={selected}
                     sortItems={sortItems}
-                    header="MY FILMS"
+                    header={<SearchBar />}
                     numItems={allReviews.length} 
                 />
-                <div className="grid gap-1 md:grid-cols-5 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
-                    {/* Looping over all user reviews */}
-                    {allReviews.length !== 0 && allReviews.map((review, index) => (
-                        <div key={index} className="w-40 group relative">
-                            <p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:block whitespace-nowrap space-x-1 hidden transition-all duration-400 border-1">
-                                <span>{review.movieName}</span>
-                                <span>({review.movieRelease.slice(0, 4)})</span>
-                            </p>
-                            {!loadedImages[review.movieId] 
-                                ? <LoadingImage />
-                                : <img
-                                    src={`https://image.tmdb.org/t/p/w342${review.imgPath}`}
-                                    alt="Poster"
-                                    onClick={() => toggleModal(index)}
-                                    className="h-60 w-40 min-w-40 box-content rounded-lg border-4 border-slate-400 border-opacity-0 hover:border-opacity-100 transition-all hover:cursor-pointer" 
-                                />}
-                            <p className="flex items-center justify-center space-x-2 md:space-x-1 sm:space-x-1 lg:space-x-2 ">
-                                <span>
-                                    Rating:
-                                    <span className="bg-slate-600 rounded mx-0.5 px-1 bg-opacity-60 text-white ">
-                                        {review.rating}
+                <Reorder.Group axis="y" onReorder={setAllReviews} values={allReviews}>
+                    <div className="grid gap-1 md:grid-cols-5 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
+                        {allReviews.length !== 0 && allReviews.filter((review) => {
+                            return searchQuery === "" ? true : review.movieName.toLowerCase().includes(searchQuery.toLowerCase())
+                        }).map((review, index) => (
+                            <Reorder.Item key={review.movieId} value={review} transition={{ duration: .2 }} layout className="w-40 group relative">
+                                <p className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-500 text-gray-200 px-1 rounded group-hover:block whitespace-nowrap space-x-1 hidden transition-all duration-400 border-1">
+                                    <span>{review.movieName}</span>
+                                    <span>({review.movieRelease.slice(0, 4)})</span>
+                                </p>
+                                {!loadedImages[review.movieId] 
+                                    ? <LoadingImage />
+                                    : <img
+                                        src={`https://image.tmdb.org/t/p/w342${review.imgPath}`}
+                                        alt="Poster"
+                                        onClick={() => toggleModal(index)}
+                                        className="h-60 w-40 min-w-40 box-content rounded-lg border-4 border-slate-400 border-opacity-0 hover:border-opacity-100 transition-all hover:cursor-pointer" 
+                                    />}
+                                <p className="flex items-center justify-center space-x-2 md:space-x-1 sm:space-x-1 lg:space-x-2 ">
+                                    <span>
+                                        Rating:
+                                        <span className="bg-slate-600 rounded mx-0.5 px-1 bg-opacity-60 text-white ">
+                                            {review.rating}
+                                        </span>
                                     </span>
-                                </span>
-                                <span>{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}</span>
-                            </p>
-                        </div>
-                    ))}
-                </div>
+                                    <span>{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}</span>
+                                </p>
+                            </Reorder.Item>
+                        ))}
+                    </div>
+                </Reorder.Group>
 
                 {displayModal &&
                     <RatingModal

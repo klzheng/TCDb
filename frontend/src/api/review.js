@@ -96,22 +96,3 @@ export const deleteReview = async (reviewId) => {
 }
 
 
-export const getSorted = async (filterTerm, filterValue) => {
-    const token = localStorage.getItem("auth-token");
-    
-    try {
-        const {data} = await client.get(`/review/get/sort/${filterTerm}/${filterValue}`, {
-            headers: {
-                authorization: "Bearer " + token,
-            },
-        })
-        return data
-
-    } catch (err) {
-        const {res} = err
-        if (res?.data) return res.data
-        return {err: err.message || err}
-    }
-}
-
-

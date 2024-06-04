@@ -22,21 +22,21 @@ export default function SortBy(props) {
                     sortItems={sortItems}
                     selected={selected}
                     selectedValue="rating"
-                    sortValue={-1}
+                    sortValue={sortValue}
                     value="RATING"
                 />
                 <SortSelection
                     sortItems={sortItems}
                     selected={selected}
                     selectedValue="movieName"
-                    sortValue={1}
+                    sortValue={sortValue}
                     value="TITLE" 
                 />
                 <SortSelection
                     sortItems={sortItems}
                     selected={selected}
                     selectedValue="movieRelease"
-                    sortValue={-1}
+                    sortValue={sortValue}
                     value="RELEASE DATE" 
                 />
                 <p className="2xs:text-lg xs:text-xl">
