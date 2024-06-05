@@ -38,9 +38,9 @@ export default function Watchlist() {
         <Background>
             <Navbar />
             <Container>
-                <h1 className="text-4xl text-gray-300 pb-8 flex items-center justify-between xs:space-x-10 2xs:py-8 sm:pt-0 2xs:space-x-2">
+                <h1 className="text-3xl text-gray-300 pb-8 flex items-center justify-between xs:space-x-10 2xs:py-8 sm:pt-0 2xs:space-x-2">
                     <span className="drop-shadow-white-text">WATCHLIST</span>
-                    <span className="2xs:text-lg xs:text-xl text-gray-400 ">
+                    <span className="2xs:text-lg xs:text-xl text-gray-400">
                         ({entireWatchlist.length} Items)
                     </span>
                 </h1>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { getAll, getReview } from "../../api/review";
@@ -9,9 +9,18 @@ import Navbar from "../Navbar";
 import SortBy from "./SortBy";
 import LoadingImage from "../utils/LoadingImage";
 import { Reorder } from "framer-motion";
+import SearchBar from "./SearchBar";
 
 
-export default function UserFilm() {
+const SearchBarInactive = () => {
+    return (
+        <h1 className="text-3xl text-gray-300">
+            <span className="drop-shadow-white-text">MY FILMS</span>
+        </h1>
+    )
+}
+
+const UserFilm = () => {
     document.title = "My Reviews • TCDb";
     const [allReviews, setAllReviews] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
@@ -19,88 +28,7 @@ export default function UserFilm() {
     const [selected, setSelected] = useState("movieRelease")
     const [sortValue, setSortValue] = useState(-1)
     const [loadedImages, setLoadedImages] = useState({})
-    const [searchQuery, setSearchQuery] = useState("")
-    const [isSearchActive, setIsSearchActive] = useState(false);
-
-    const SearchBar = () => {
-        const inputRef = useRef(null);
-
-        const handleSearch = (event) => {
-          setSearchQuery(event.target.value);
-          if (event.target.value === '') {
-            setIsSearchActive(false);
-          }
-        };
-
-        useEffect(() => {
-            if (isSearchActive) {
-              inputRef.current.focus();
-            }
-        }, []);
-
-        useEffect(() => {
-            const handleKeyDown = (event) => {
-                /*  
-                Search bar for filtering reviews becomes active if:
-                -- alphanumeric OR "Backspace"/"Delete" keys are pressed
-                -- modifier keys are NOT pressed 
-                -- not currently focused on any inputs
-                */ 
-                if (
-                    (event.key.match(/^[a-zA-Z0-9]$/) || event.key === 'Backspace' || event.key === 'Delete') &&
-                    !event.metaKey &&
-                    !event.ctrlKey &&
-                    !event.shiftKey &&
-                    document.activeElement === document.body
-                ) {
-                    setIsSearchActive(true);
-                    inputRef.current.focus();
-                } 
-            };
-          
-            document.addEventListener('keydown', handleKeyDown);
-          
-            return () => {
-              document.removeEventListener('keydown', handleKeyDown);
-            };
-          }, []);
-          
-      
-        return (
-            <div className="relative">
-                {isSearchActive ? (
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        placeholder="Search..."
-                        value={searchQuery}
-                        onChange={handleSearch}
-                        className="w-full p-2 pl-10 text-sm text-gray-700"
-                    />
-                ) : (
-                    <h1 className="text-2xl font-bold">MY FILMS</h1>
-                )}
-                {isSearchActive && (
-                    <div className="absolute top-0 left-0 inline-flex items-center p-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-gray-400"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-                            <circle cx="10" cy="10" r="7" />
-                            <line x1="21" y1="21" x2="15" y2="15" />
-                        </svg>
-                    </div>
-                )}
-            </div>
-        );
-    };
+    const [searchQuery, setSearchQuery] = useState("");
 
     // grabs movie data from TMDB 
     const grabData = async (movieType, movieId) => {
@@ -148,6 +76,10 @@ export default function UserFilm() {
         sortItems(selected, sortValue * -1)
     }
 
+    // filters reviews based on input query
+    const handleSearch = (query) => {
+        setSearchQuery(query);
+    }
 
     // loads all reviews on page load
     useEffect(() => {
@@ -161,27 +93,31 @@ export default function UserFilm() {
     // shows loading skeletons for movie posters
     useEffect(() => {
         allReviews.forEach((review) => {
-          const img = new Image();
-          img.src = `https://image.tmdb.org/t/p/w342${review.imgPath}`;
-          img.onload = () => {
-            setLoadedImages((prevLoadedImages) => ({ ...prevLoadedImages, [review.movieId]: true }));
-          };
+            const img = new Image();
+            img.src = `https://image.tmdb.org/t/p/w342${review.imgPath}`;
+            img.onload = () => {
+                setLoadedImages((prevLoadedImages) => ({ ...prevLoadedImages, [review.movieId]: true }));
+            };
         });
     }, [allReviews]);
-
+    
 
     return (
         <Background>
             <Navbar />
             <Container>
-                <SortBy
-                    sortValue={sortValue}
-                    changeSort={changeSort}
-                    selected={selected}
-                    sortItems={sortItems}
-                    header={<SearchBar />}
-                    numItems={allReviews.length} 
-                />
+                <div className="flex justify-between items-center pb-5">
+                    <SearchBar 
+                        onSearch={handleSearch} 
+                        inactiveElement={<SearchBarInactive />} />
+                    <SortBy
+                        sortValue={sortValue}
+                        changeSort={changeSort}
+                        selected={selected}
+                        sortItems={sortItems}
+                        numItems={allReviews.length} 
+                    />
+                </div>
                 <Reorder.Group axis="y" onReorder={setAllReviews} values={allReviews}>
                     <div className="grid gap-1 md:grid-cols-5 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
                         {allReviews.length !== 0 && allReviews.filter((review) => {
@@ -227,3 +163,5 @@ export default function UserFilm() {
         </Background>
     )
 }
+
+export default UserFilm;
