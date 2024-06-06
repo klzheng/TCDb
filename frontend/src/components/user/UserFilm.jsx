@@ -55,7 +55,7 @@ const UserFilm = () => {
     }
 
     // sorts movies 
-    const sortItems = (filterTerm, filterValue) => {
+    const handleSort = (filterTerm, filterValue) => {
         allReviews.sort((a, b) => {
             if (filterTerm === "movieRelease") {
                 return (new Date(a.movieRelease) - new Date(b.movieRelease)) * filterValue;
@@ -73,8 +73,8 @@ const UserFilm = () => {
     }
 
     // reverses sort order
-    const changeSort = () => {
-        sortItems(selected, sortValue * -1)
+    const handleSwitchSort = () => {
+        handleSort(selected, sortValue * -1)
     }
 
     // filters reviews based on input query
@@ -88,7 +88,7 @@ const UserFilm = () => {
             return searchQuery === "" ? true : review.movieName.toLowerCase().includes(searchQuery.toLowerCase())
         });
         setAllReviewsCount(filteredReviews.length);
-      }, [searchQuery, allReviews]);
+    }, [searchQuery, allReviews]);
 
     // loads all reviews on page load
     useEffect(() => {
@@ -120,10 +120,10 @@ const UserFilm = () => {
                         onSearch={handleSearch} 
                         inactiveElement={<SearchBarInactive />} />
                     <SortBy
+                        onSort={handleSort}
+                        onChangeSortOrder={handleSwitchSort}
                         sortValue={sortValue}
-                        changeSort={changeSort}
                         selected={selected}
-                        sortItems={sortItems}
                         numItems={allReviewsCount} 
                     />
                 </div>
