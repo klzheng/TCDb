@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 
 const SearchBar = ({ onSearch, inactiveElement }) => {
     const inputRef = useRef(null);
@@ -51,19 +52,22 @@ const SearchBar = ({ onSearch, inactiveElement }) => {
     return (
         <div className="relative">
             {isSearchActive 
-                ? <input
-                    ref={inputRef}
-                    type="text"
-                    value={searchInputValue}
-                    onChange={handleSearch}
-                    className="w-30 h-8 rounded-lg bg-gray-600 outline-none focus:bg-gray-300 focus:text-gray-600 pl-8 pr-8 py-1" 
+                ? (
+                <div className="flex items-center">
+                    <motion.input
+                        ref={inputRef}
+                        type="text"
+                        value={searchInputValue}
+                        onChange={handleSearch}
+                        className="w-30 h-8 rounded-lg bg-gray-600 outline-none focus:bg-gray-300 focus:text-gray-600 pl-8 pr-8 py-1.5"
+                        initial={{ width: 0 }}
+                        animate={{ width: '100%' }}
+                        exit={{ width: 0 }}
+                        transition={{ duration: 0.25 }}
                     />
-                : inactiveElement}
-            {isSearchActive && (
-                <>
-                    <svg
+                    <motion.svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-4 h-4 text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-2" // adjust size
+                        className="w-4 h-4 text-gray-400 absolute top-1/2 transform -translate-y-1/2 left-2"
                         viewBox="0 0 24 24"
                         strokeWidth="2"
                         stroke="currentColor"
@@ -74,25 +78,29 @@ const SearchBar = ({ onSearch, inactiveElement }) => {
                         <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
                         <circle cx="10" cy="10" r="7" />
                         <line x1="21" y1="21" x2="15" y2="15" />
-                    </svg>
-                    <svg
+                    </motion.svg>
+                    <motion.svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-4 h-4 text-gray-400 absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer" // adjust size
+                        className="w-4 h-4 text-gray-400 absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
                         viewBox="0 0 24 24"
                         strokeWidth="2"
                         stroke="currentColor"
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.1, delay: 0.15 }}
                         onClick={handleClearSearch}
                     >
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
-                    </svg>
-                </>
-            )}
+                    </motion.svg>
+                </div>
+            ) : inactiveElement}
         </div>
-    );
+      );
 };
 
 export default SearchBar;

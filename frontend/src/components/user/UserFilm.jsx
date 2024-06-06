@@ -23,6 +23,7 @@ const SearchBarInactive = () => {
 const UserFilm = () => {
     document.title = "My Reviews • TCDb";
     const [allReviews, setAllReviews] = useState([])
+    const [allReviewsCount, setAllReviewsCount] = useState(0)
     const [displayModal, setDisplayModal] = useState(false)
     const [selectedReviewData, setSelectedReviewData] = useState({})
     const [selected, setSelected] = useState("movieRelease")
@@ -81,6 +82,14 @@ const UserFilm = () => {
         setSearchQuery(query);
     }
 
+    // tracks number of movies on page
+    useEffect(() => {
+        const filteredReviews = allReviews.filter((review) => {
+            return searchQuery === "" ? true : review.movieName.toLowerCase().includes(searchQuery.toLowerCase())
+        });
+        setAllReviewsCount(filteredReviews.length);
+      }, [searchQuery, allReviews]);
+
     // loads all reviews on page load
     useEffect(() => {
         const grabAllReviews = async () => {
@@ -115,12 +124,13 @@ const UserFilm = () => {
                         changeSort={changeSort}
                         selected={selected}
                         sortItems={sortItems}
-                        numItems={allReviews.length} 
+                        numItems={allReviewsCount} 
                     />
                 </div>
                 <Reorder.Group axis="y" onReorder={setAllReviews} values={allReviews}>
                     <div className="grid gap-1 md:grid-cols-5 sm:grid-cols-4 xs:grid-cols-3 2xs:grid-cols-2 transition-all">
-                        {allReviews.length !== 0 && allReviews.filter((review) => {
+                        {allReviews.length !== 0 && 
+                        allReviews.filter((review) => {
                             return searchQuery === "" ? true : review.movieName.toLowerCase().includes(searchQuery.toLowerCase())
                         }).map((review, index) => (
                             <Reorder.Item key={review.movieId} value={review} transition={{ duration: .2 }} layout className="w-40 group relative">
@@ -143,7 +153,11 @@ const UserFilm = () => {
                                             {review.rating}
                                         </span>
                                     </span>
-                                    <span>{review.liked ? <FaHeart className="text-red-400" /> : <FaRegHeart />}</span>
+                                    <span>
+                                        {review.liked 
+                                            ? <FaHeart className="text-red-400" /> 
+                                            : <FaRegHeart />}
+                                    </span>
                                 </p>
                             </Reorder.Item>
                         ))}
