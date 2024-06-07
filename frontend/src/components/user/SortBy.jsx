@@ -2,14 +2,14 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect, useRef } from 'react';
 
 const SortBy = (props) => {
-    let { handleSortChange, sortOptions, totalCount, data } = props
-    const [openMenu, setOpenMenu] = useState(false);
-    const [selected, setSelected] = useState(sortOptions[0].value);
-    const [sortValue, setSortValue] = useState(-1);
+    let { onSort, sortOptions, data, dataCount } = props
     const menuRef = useRef(null);
+    const [openMenu, setOpenMenu] = useState(false);
+    const [sortValue, setSortValue] = useState(sortOptions[0].value);
+    const [sortOrder, setSortOrder] = useState(-1);
     
     const handleSortOrder = () => {
-        setSortValue(sortValue * -1);
+        setSortOrder(sortOrder * -1);
     };
 
     const handleCloseMenu = (event) => {
@@ -28,24 +28,24 @@ const SortBy = (props) => {
     useEffect(() => {
         const sortedData = [...data];
         sortedData.sort((a, b) => {
-            const valA = a[selected];
-            const valB = b[selected];
+            const valA = a[sortValue];
+            const valB = b[sortValue];
     
             if (!isNaN(new Date(valA)) && !isNaN(new Date(valB))) { // date
-                return (new Date(valA) - new Date(valB)) * sortValue;
+                return (new Date(valA) - new Date(valB)) * sortOrder;
             } else if (typeof valA === 'string' && typeof valB === 'string') { // string
-                return valA.localeCompare(valB) * sortValue;
+                return valA.localeCompare(valB) * sortOrder;
             } else if (typeof aVavalAlue === 'number' && typeof valB === 'number') { // number
-                return (valA - valB) * sortValue;
+                return (valA - valB) * sortOrder;
             } else {
                 return 0;
             }
         });
     
         if (JSON.stringify(sortedData) !== JSON.stringify(data)) {
-            handleSortChange(sortedData);
+            onSort(sortedData);
         }
-    }, [selected, sortValue, data, handleSortChange]);
+    }, [sortValue, sortOrder, data, onSort]);
 
     return (
         <div className="relative inline-block text-left" ref={menuRef}>
@@ -58,16 +58,16 @@ const SortBy = (props) => {
                     aria-haspopup="true"
                     onClick={() => setOpenMenu(!openMenu)}
                 >
-                    Sort By: <span className="text-white">{sortOptions.find(option => option.value === selected).label}</span>
+                    Sort By: <span className="text-white">{sortOptions.find(option => option.value === sortValue).label}</span>
                 </button>
-                {sortValue === -1
+                {sortOrder === -1
                     ? <IoIosArrowDown
                         className="text-white drop-shadow-white-text cursor-pointer"
                         onClick={() => handleSortOrder()} />
                     : <IoIosArrowUp
                         className="text-white drop-shadow-white-text cursor-pointer"
                         onClick={() => handleSortOrder()} />}
-                <span className="text-gray-400">({totalCount})</span>
+                <span className="text-gray-400">({dataCount})</span>
             </div>
             {openMenu && (
                 <div 
@@ -81,9 +81,9 @@ const SortBy = (props) => {
                         <div 
                             role="none"
                             key={option.value}
-                            onClick={() => setSelected(option.value)}
+                            onClick={() => setSortValue(option.value)}
                         >
-                            <div className={"px-3 py-2 text-sm hover:text-gray-200 cursor-pointer" + (selected === option.value ? " text-white drop-shadow-white-text " : " ")}>
+                            <div className={"px-3 py-2 text-sm hover:text-gray-200 cursor-pointer" + (sortValue === option.value ? " text-white drop-shadow-white-text " : " ")}>
                                 {option.label}
                             </div>
                         </div>

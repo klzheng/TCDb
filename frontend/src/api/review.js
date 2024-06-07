@@ -20,7 +20,7 @@ export const addReview = async( mediaType, id, reviewData ) => {
 }
 
 
-export const getReview = async( mediaType, id ) => {
+export const fetchReviewData = async( id, mediaType ) => {
     const token = localStorage.getItem("auth-token");
 
     try {
@@ -58,7 +58,7 @@ export const updateReview = async( reviewId , reviewData ) => {
 }
 
 
-export const getAll = async () => {
+export const fetchAllReviews = async () => {
     const token = localStorage.getItem("auth-token");
     
     try {
