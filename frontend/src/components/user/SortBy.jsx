@@ -1,54 +1,73 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect, useRef } from 'react';
-import SortSelection from "./SortSelection";
 
-export default function SortBy(props) {
-    let {onSort, onChangeSortOrder, sortValue, selected, numItems} = props
+const SortBy = (props) => {
+    let { handleSortChange, sortOptions, totalCount, data } = props
     const [openMenu, setOpenMenu] = useState(false);
-    const dropdownRef = useRef(null);
+    const [selected, setSelected] = useState(sortOptions[0].value);
+    const [sortValue, setSortValue] = useState(-1);
+    const menuRef = useRef(null);
+    
+    const handleSortOrder = () => {
+        setSortValue(sortValue * -1);
+    };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setOpenMenu(false);
-            }
+    const handleCloseMenu = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setOpenMenu(false);
         }
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [dropdownRef]);
-
-    if (selected === "movieRelease") {
-        selected = "Release Date";
-    } else if (selected === "movieName") {
-        selected = "Title";
-    } else {
-        selected = "Rating";
     }
 
+    useEffect(() => {
+        document.addEventListener("mousedown", handleCloseMenu);
+        return () => {
+            document.removeEventListener("mousedown", handleCloseMenu);
+        };
+    }, [menuRef]);
+
+    useEffect(() => {
+        const sortedData = [...data];
+        sortedData.sort((a, b) => {
+            const valA = a[selected];
+            const valB = b[selected];
+    
+            if (!isNaN(new Date(valA)) && !isNaN(new Date(valB))) { // date
+                return (new Date(valA) - new Date(valB)) * sortValue;
+            } else if (typeof valA === 'string' && typeof valB === 'string') { // string
+                return valA.localeCompare(valB) * sortValue;
+            } else if (typeof aVavalAlue === 'number' && typeof valB === 'number') { // number
+                return (valA - valB) * sortValue;
+            } else {
+                return 0;
+            }
+        });
+    
+        if (JSON.stringify(sortedData) !== JSON.stringify(data)) {
+            handleSortChange(sortedData);
+        }
+    }, [selected, sortValue, data, handleSortChange]);
+
     return (
-        <div className="relative inline-block text-left" ref={dropdownRef}>
+        <div className="relative inline-block text-left" ref={menuRef}>
             <div className="flex items-center space-x-1">
                 <button 
                     type="button" 
-                    className="text-gray-400" 
                     id="menu-button" 
+                    className="text-gray-400" 
                     aria-expanded="true" 
                     aria-haspopup="true"
                     onClick={() => setOpenMenu(!openMenu)}
                 >
-                    Sort By: <span className="text-white">{selected}</span>
+                    Sort By: <span className="text-white">{sortOptions.find(option => option.value === selected).label}</span>
                 </button>
                 {sortValue === -1
                     ? <IoIosArrowDown
                         className="text-white drop-shadow-white-text cursor-pointer"
-                        onClick={() => onChangeSortOrder()} />
+                        onClick={() => handleSortOrder()} />
                     : <IoIosArrowUp
                         className="text-white drop-shadow-white-text cursor-pointer"
-                        onClick={() => onChangeSortOrder()} />}
-                <span className="text-gray-400">({numItems})</span>
+                        onClick={() => handleSortOrder()} />}
+                <span className="text-gray-400">({totalCount})</span>
             </div>
             {openMenu && (
                 <div 
@@ -58,35 +77,21 @@ export default function SortBy(props) {
                     aria-labelledby="menu-button" 
                     tabIndex="-1"
                 >
-                    <div role="none">
-                        <SortSelection 
-                            sortItems={onSort}
-                            selected={selected}
-                            selectedValue="rating"
-                            sortValue={sortValue}
-                            value="Rating"
-                        />
-                    </div>
-                    <div role="none">
-                        <SortSelection
-                            sortItems={onSort}
-                            selected={selected}
-                            selectedValue="movieName"
-                            sortValue={sortValue}
-                            value="Title" 
-                        />
-                    </div>
-                    <div role="none">
-                        <SortSelection
-                            sortItems={onSort}
-                            selected={selected}
-                            selectedValue="movieRelease"
-                            sortValue={sortValue}
-                            value="Release Date" 
-                        />
-                    </div>
+                    {sortOptions.map((option) => (
+                        <div 
+                            role="none"
+                            key={option.value}
+                            onClick={() => setSelected(option.value)}
+                        >
+                            <div className={"px-3 py-2 text-sm hover:text-gray-200 cursor-pointer" + (selected === option.value ? " text-white drop-shadow-white-text " : " ")}>
+                                {option.label}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
     )
 }
+
+export default SortBy;
