@@ -17,7 +17,7 @@ export default function Search() {
     const url = `https://api.themoviedb.org/3/search/multi?sort_by=popularity.desc&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US&page=${currentPage}&query=`
 
 
-    const getImgUrl = (path1, path2) => {
+    const getimageUrl = (path1, path2) => {
         if (path1) return `https://image.tmdb.org/t/p/w500/${path1}`
         else if (path2) return `https://image.tmdb.org/t/p/w500/${path2}`
         return 'default_profile.png'
@@ -84,7 +84,7 @@ export default function Search() {
                             key={index}
                             className="flex font-karla justify-start rounded-lg bg-gray-700 p-2 my-8 hover:bg-slate-600 transition ">
                             <img
-                                src={getImgUrl(result.profile_path, result.poster_path)}
+                                src={getimageUrl(result.profile_path, result.poster_path)}
                                 alt="Poster"
                                 className="max-w-32 min-w-32 h-52 object-cover rounded overflow-auto" />
                             <div className="flex flex-col w-full px-3 text-gray-300 ">

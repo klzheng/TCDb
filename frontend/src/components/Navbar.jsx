@@ -88,8 +88,8 @@ export default function Navbar() {
 
                     {/* User's watchlist */}
                     <Link
-                        to="/watchlist"
-                        className="text-lg  hover:text-white transition 2xl:text-xl 3xl:text-3xl">
+                        to="/my-watchlist"
+                        className="text-lg hover:text-white transition 2xl:text-xl 3xl:text-3xl">
                         Watchlist
                     </Link>
 

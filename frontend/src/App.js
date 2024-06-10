@@ -9,9 +9,9 @@ import MoviePage from "./components/film/MoviePage";
 import ActorPage from "./components/actor/ActorPage";
 import NotFound from "./components/NotFound";
 import Search from "./components/search/Search";
-import UserFilm from "./components/user/UserFilm";
+import Review from "./components/user/Review";
 import { MovieProvider } from "./context/MovieContext";
-import Watchlist from "./components/watchlist/Watchlist";
+import Watchlist from "./components/user/Watchlist";
 
 
 export default function App() {
@@ -28,8 +28,8 @@ export default function App() {
                 <Route path="/:mediaType/:id" element={<MoviePage />} />
                 <Route path="/person/:id" element={<ActorPage />} />
                 <Route path="/search/:query" element={<Search />} />
-                <Route path="/my-films" element={<UserFilm />} />
-                <Route path="/watchlist" element={<Watchlist />} />
+                <Route path="/my-films" element={<Review />} />
+                <Route path="/my-watchlist" element={<Watchlist />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </MovieProvider>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { FaRegHeart } from "react-icons/fa"
 import { BsBookmarkStar } from "react-icons/bs"
-import { fetchReviewData } from "../../api/review"
+import { fetchReview } from "../../api/review"
 import RatingModal from "../modals/RatingModal"
 import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../api/watchlist"
 import { useNotification } from "../../hooks"
@@ -56,7 +56,7 @@ export default function Header(props) {
     // grab review data on load
     useEffect(() => {
         const grabData = async () => {
-            const { response } = await fetchReviewData(mediaType, id)
+            const { response } = await fetchReview(mediaType, id)
             if (response) setReviewDetails(response)
         }
         grabData()

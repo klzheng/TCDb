@@ -1,7 +1,7 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useState, useEffect, useRef } from 'react';
 
-const SortBy = (props) => {
+const Sortable = (props) => {
     let { onSort, sortOptions, data, dataCount } = props
     const menuRef = useRef(null);
     const [openMenu, setOpenMenu] = useState(false);
@@ -94,4 +94,4 @@ const SortBy = (props) => {
     )
 }
 
-export default SortBy;
+export default Sortable;

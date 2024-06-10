@@ -1,7 +1,6 @@
 import client from "./client";
 
-
-export const addReview = async( mediaType, id, reviewData ) => {
+const addReview = async( mediaType, id, reviewData ) => {
     const token = localStorage.getItem("auth-token");
 
     try {
@@ -20,7 +19,7 @@ export const addReview = async( mediaType, id, reviewData ) => {
 }
 
 
-export const fetchReviewData = async( id, mediaType ) => {
+const fetchReview = async( id, mediaType ) => {
     const token = localStorage.getItem("auth-token");
 
     try {
@@ -39,7 +38,7 @@ export const fetchReviewData = async( id, mediaType ) => {
 }
 
 
-export const updateReview = async( reviewId , reviewData ) => {
+const updateReview = async( reviewId , reviewData ) => {
     const token = localStorage.getItem("auth-token");
 
     try {
@@ -58,7 +57,7 @@ export const updateReview = async( reviewId , reviewData ) => {
 }
 
 
-export const fetchAllReviews = async () => {
+const fetchAllReviews = async () => {
     const token = localStorage.getItem("auth-token");
     
     try {
@@ -77,7 +76,7 @@ export const fetchAllReviews = async () => {
 }
 
 
-export const deleteReview = async (reviewId) => {
+const deleteReview = async (reviewId) => {
     const token = localStorage.getItem("auth-token")
 
     try {
@@ -96,3 +95,10 @@ export const deleteReview = async (reviewId) => {
 }
 
 
+export { 
+    addReview,
+    fetchReview, 
+    fetchAllReviews, 
+    updateReview, 
+    deleteReview, 
+}

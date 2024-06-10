@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export default function SearchResults({ data, display }) {
     
     // getting poster img
-    const getImgUrl = (index) => {
+    const getimageUrl = (index) => {
         if (data[index].poster_path) return "https://image.tmdb.org/t/p/w185" + data[index].poster_path
         else if (data[index].backdrop_path) return "https://image.tmdb.org/t/p/w185" + data[index].backdrop_path
         else if (data[index].profile_path) return "https://image.tmdb.org/t/p/w185" + data[index].profile_path
@@ -21,7 +21,7 @@ export default function SearchResults({ data, display }) {
                             key={index}
                             className="flex font-karla justify-start rounded bg-gray-300 p-2 hover:bg-slate-200 transition ">
                             <img
-                                src={getImgUrl(index)}
+                                src={getimageUrl(index)}
                                 alt="Poster"
                                 className="2xs:max-w-16 2xs:min-w-16 2xs:max-h-24 xs:inline-block xs:max-w-24 xs:min-w-24 xs:min-h-36 xs:max-h-36  object-cover rounded overflow-auto" />
                             <div className="flex flex-col w-full px-2 space-y-1 ">

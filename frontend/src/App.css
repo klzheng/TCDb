@@ -1,3 +1,8 @@
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* Removes input number arrows/spinners */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -93,6 +98,21 @@ input[type=number] {
     object-fit: cover
 }
 
+.movie-content-title {
+    text-align: center;
+    padding: 10px;
+}
+
+.movie-content-card {
+    padding: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 160px);
+    gap: 20px;
+    justify-content: center;
+}
 
 @media screen and (max-width: 640px) {
     .nav-right > a {
@@ -100,6 +120,24 @@ input[type=number] {
     }
 }
 
+  
+@media (min-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 160px);
+    }
+}
+  
+@media (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(4, 160px);
+    }
+}
+
+@media (min-width: 960px) {
+    .grid-container {
+        grid-template-columns: repeat(5, 160px);
+    }
+}
 
 @tailwind base;
 @tailwind components;
