@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { FaRegHeart } from "react-icons/fa"
 import { BsBookmarkStar } from "react-icons/bs"
-import { fetchReview } from "../../api/review"
-import RatingModal from "../modals/RatingModal"
-import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../api/watchlist"
+import { fetchReview } from "../../services/review"
+import ModalBody from "../Shared/Modal/ModalBody"
+import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../services/watchlist"
 import { useNotification } from "../../hooks"
 
 
@@ -126,7 +126,7 @@ export default function Header(props) {
                     }
 
                     {displayModal &&
-                        <RatingModal
+                        <ModalBody
                             title={props.details.title || props.details.name}
                             releaseDate={props.releaseDate}
                             imgPath={props.details.poster_path}

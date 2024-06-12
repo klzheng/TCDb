@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getIsAuth, signInUser } from "../api/auth";
+import { getIsAuth, signInUser } from "../services/auth";
 import { useNotification } from "../hooks";
 
 

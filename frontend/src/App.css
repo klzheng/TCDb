@@ -1,3 +1,10 @@
+
+
+:root {
+    --card-grid-gap: 20px;
+    --card-width: 160px;
+}
+
 body {
     max-width: 1200px;
     margin: 0 auto;
@@ -31,12 +38,21 @@ input::-webkit-inner-spin-button {
 }
 
 
-
 /* Removes input number arrows [Firefox support] */
 input[type=number] {
     -moz-appearance: textfield;
 
 }
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--card-width));
+    gap: var(--card-grid-gap);
+    justify-content: center;
+    min-width: (2 * var(--card-width)) + var(--card-grid-gap) ; /* 2 columns x 160px + 20px gap */
+}
+
 
 /* Notification bounce animation */
 .scale-in-center {
@@ -72,70 +88,9 @@ input[type=number] {
     }
 }
 
-
-/* React player responsive css */
-.player-wrapper {
-    position: relative;
-    padding-top: 56.25%;
-    max-width: 90%;
-    max-height: 90%;
-}
-
-.react-player {
-    position: absolute;
-    top: 2%;
-    left: 50%;
-    transform: translate(-50%);
-}
-
-.backdrop-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-width: 99vw;
-    z-index: -10;
-    opacity: 15%;
-    object-fit: cover
-}
-
-.movie-content-title {
-    text-align: center;
-    padding: 10px;
-}
-
-.movie-content-card {
-    padding: 10px;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 160px);
-    gap: 20px;
-    justify-content: center;
-}
-
 @media screen and (max-width: 640px) {
     .nav-right > a {
         display: none;
-    }
-}
-
-  
-@media (min-width: 600px) {
-    .grid-container {
-        grid-template-columns: repeat(3, 160px);
-    }
-}
-  
-@media (min-width: 768px) {
-    .grid-container {
-        grid-template-columns: repeat(4, 160px);
-    }
-}
-
-@media (min-width: 960px) {
-    .grid-container {
-        grid-template-columns: repeat(5, 160px);
     }
 }
 
