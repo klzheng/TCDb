@@ -13,7 +13,7 @@ import Navbar from "../components/Shared/Layout/Navbar.jsx";
 const SearchBarPlaceholder = () => {
     return (
         <h1 className="text-3xl text-gray-300">
-            <span className="drop-shadow-white-text">MY REVIEWS</span>
+            <span className="drop-shadow-white-text">REVIEWS</span>
         </h1>
     )
 }

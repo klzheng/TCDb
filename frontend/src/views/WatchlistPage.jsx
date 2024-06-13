@@ -20,7 +20,7 @@ export default function Watchlist() {
             setEntireWatchlist(response)
         }
         getEntireWatchlist()
-        document.title = `Watchlist • TCDb`;
+        document.title = `My Watchlist • TCDb`;
     }, [profile.name])    
 
     return (

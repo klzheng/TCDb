@@ -1,5 +1,3 @@
-
-
 :root {
     --card-grid-gap: 20px;
     --card-width: 160px;
@@ -22,20 +20,6 @@ input::-webkit-inner-spin-button {
     scrollbar-color: rgb(55 65 81) #13131300; /* The first color is for the thumb and the second is for the track */
 }
 
-*::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    z-index: -10000;
-}
-
-*::-webkit-scrollbar-track {
-    z-index: -10000;
-}
-
-*::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    z-index: -10000;
-}
 
 
 /* Removes input number arrows [Firefox support] */
