@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router-dom"
+import ReactPlayer from "react-player";
 import moment from "moment"
-import Trailer from "../components/Film/Trailer"
-import Poster from "../components/Film/Poster"
 import Header from "../components/Film/Header"
 import Summary from "../components/Film/Summary"
 import Cast from "../components/Film/Cast"
@@ -80,33 +79,42 @@ export default function FilmPage() {
     }, [apiCrew, apiDetails, apiVideo, grabData])
 
 
-
     return (
         <Background>
             <Navbar />
-            <Poster imgPath={pageDetails.backdrop_path} />
             <Container>
-                <Trailer trailerKey={trailerKey} />
-                <div className=" flex-col space-y-12 mt-12 sm:mt-0 ">
+                <div className="flex-col space-y-12">
+                    <ReactPlayer
+                        url={`youtube.com/watch?v=${trailerKey}`}
+                        controls={true}
+                        volume={0.05}
+                        width="100%"
+                        height="56.25%"
+                        style={{
+                            "maxWidth": "56rem",
+                            "margin": "4rem 0",
+                            "aspectRatio": "16/9",
+                        }}
+                    />
+                    
                     <Header
                         details={pageDetails}
                         releaseDate={releaseDate}
-                        genres={genres} />
+                        genres={genres}
+                    />
 
-                    <Summary
-                        details={pageDetails} />
+                    <Summary details={pageDetails} />
 
-                    <Cast
-                        cast={cast} title="Cast" people={true}/>
+                    <Cast cast={cast} title="Cast" people={true} />
 
                     <Info
                         director={director}
                         writers={writers}
                         releaseDate={moment(releaseDate).format("L")}
-                        languages={languages} />
+                        languages={languages}
+                    />
                 </div>
-
             </Container>
         </Background>
-    )
+    );
 }

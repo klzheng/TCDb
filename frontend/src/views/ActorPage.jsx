@@ -11,7 +11,6 @@ import Navbar from "../components/Shared/Layout/Navbar";
 import Cast from "../components/Film/Cast";
 
 export default function ActorPage() {
-
     const [actorDetails, setActorDetails] = useState([])
     const [credits, setCredits] = useState([])
     const [dataTest, setDataTest] = useState({})
@@ -50,11 +49,9 @@ export default function ActorPage() {
                     <div className="flex space-x-10 2xs:py-10 sm:py-0 2xs:pr-5">
 
                         {/* LEFT COLUMN */}
-                        <div className="2xs:hidden sm:flex sm:w-2/5 xl:w-1/5  flex-col gap-5">
-                            <Profile
-                                imgPath={actorDetails.profile_path} />
-                            <Info
-                                info={dataTest} />
+                        <div className="2xs:hidden sm:flex sm:w-2/5 xl:w-1/5 flex-col gap-5">
+                            <Profile imgPath={actorDetails.profile_path} />
+                            <Info info={dataTest} />
                         </div>
 
                         {/* RIGHT COLUMN */}

@@ -79,9 +79,8 @@ export default function Header(props) {
 
 
     return (
-
         <div>
-            <div className="xs:text-5xl 2xs:text-3xl 2xs:-mt-12 sm:mt-4 md:mt-16 lg:mt-16 xl:mt-40 font-light text-gray-400 mb-1 ">
+            <div className="xs:text-5xl 2xs:text-3xl font-light text-gray-400 mb-1 ">
                 <span className="font-semibold text-white">
                     {(props.details.title || props.details.name)}
                 </span>
@@ -135,9 +134,8 @@ export default function Header(props) {
                             toggleModal={toggleModal}
                         />
                     }
-                </div>}
-
+                </div>
+            }
         </div>
-
     )
 }
