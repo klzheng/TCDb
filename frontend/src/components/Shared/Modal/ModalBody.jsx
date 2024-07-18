@@ -7,8 +7,7 @@ import { addReview, deleteReview, updateReview } from "../../../services/review"
 import { useNotification } from "../../../hooks"
 import ModalConfirmation from "./ModalConfirmation"
 
-
-export default function ModalBody(props) {
+export default function ModalBody({title, releaseDate, imgPath, onClose, reviewDetails, reloadOnDelete}) {
     const res = useParams()
     const [liked, setLiked] = useState(false)
     const [rating, setRating] = useState("")
@@ -17,13 +16,10 @@ export default function ModalBody(props) {
     const [enlarge, setEnlarge] = useState(false)
     const { updateNotification } = useNotification()
     const regex = /^(0-9|\d)(\.\d{1})?$/
-    const { title, releaseDate, imgPath, toggleModal, reviewDetails, reloadOnDelete } = props
-
 
     const toggleLike = () => {
         setLiked(prevState => !prevState)
     }
-
 
     const handleRating = (e) => {
         if (regex.test(e.target.value) || e.target.value === "") {
@@ -35,9 +31,8 @@ export default function ModalBody(props) {
         setReview(e.target.value)
     }
 
-
     const handleSubmit = async () => {
-        if (!rating.length) return updateNotification("error", "Please Input a Rating")
+        if (!rating.length) return updateNotification("error", "Please Input a valid rating")
         const data = {
             movieName: title,
             releaseDate: releaseDate,
@@ -51,16 +46,14 @@ export default function ModalBody(props) {
             const { error, message } = await updateReview(reviewDetails._id, data)
             if (error) return updateNotification("error", error)
             updateNotification("success", message)
-
         } else {
             const { error, message } = await addReview(res.mediaType, res.id, data)
             if (error) return updateNotification("error", error)
             updateNotification("success", message)
         }
 
-        toggleModal()
+        onClose()
     }
-
 
     const handleDelete = async () => {
         const { error, message } = await deleteReview(reviewDetails._id)
@@ -82,10 +75,8 @@ export default function ModalBody(props) {
         } 
     }, [reviewDetails])
 
-
     return (
         <ModalContainer>
-
             {/* LEFT COLUMN */}
             <section className="sm:w-1/3 my-10 sm:flex justify-center 2xs:hidden 2xs:w-0">
                 <img
@@ -96,12 +87,11 @@ export default function ModalBody(props) {
 
             {/* MIDDLE COLUMN */}
             <section className="sm:pl-0 2xs:w-10/12 sm:w-3/4 flex flex-col justify-center relative 2xs:my-3 sm:my-8 2xs:items-center md:items-stretch">
-
                 {/* TITLE */}
                 <p className="font-extrabold text-xl font-lora text-white tracking-tight">
                     {title}
                     <span className="font-thin text-gray-400 font-karla 2xs:hidden sm:inline-flex pl-2">
-                        { props.releaseDate.slice(0, 4)}
+                        { releaseDate.slice(0, 4) }
                     </span>
                 </p>
 
@@ -113,9 +103,7 @@ export default function ModalBody(props) {
                         </h3>
                         <FaHeart
                             onClick={toggleLike}
-                            className={" drop-shadow-groove transition text-xl " + (liked
-                                ? " text-red-400 "
-                                : " text-slate-700 hover:text-slate-800 ")} />
+                            className={" drop-shadow-groove transition text-xl " + (liked ? " text-red-400 " : " text-slate-700 hover:text-slate-800 ")} />
                     </div>
                     <label htmlFor="RATING" className="flex flex-col items-center space-y-1 group">
                         <h3 className="text-gray-200 tracking-tight text-base">
@@ -128,7 +116,7 @@ export default function ModalBody(props) {
                                 placeholder="—"
                                 value={rating}
                                 onChange={handleRating}
-                                className="bg-inherit rounded w-9 h-5 text-2xl font-bold text-slate-100 outline-none text-center caret-transparent cursor-pointer group-hover:placeholder:text-gray-100 transition focus:placeholder:text-gray-100"
+                                className="bg-inherit rounded w-9 h-5 text-2xl font-bold text-slate-100 outline-none text-center cursor-pointer group-hover:placeholder:text-gray-100 transition focus:placeholder:text-gray-100"
                             />
                             <span className="text-sm text-slate-400 tracking-tight group-hover:text-slate-300">
                                 out of 10
@@ -160,10 +148,7 @@ export default function ModalBody(props) {
                         SAVE
                     </button>
                     <button
-                        onClick={
-                            Object.keys(reviewDetails).length !== 0 
-                            ? toggleConfirm 
-                            : toggleModal} 
+                        onClick={Object.keys(reviewDetails).length !== 0 ? toggleConfirm : onClose} 
                         className="bg-red-500 text-white py-0.5 px-4 rounded-sm text-base font-semibold hover:bg-red-600 transition outline-none "
                     >
                         DELETE
@@ -173,9 +158,7 @@ export default function ModalBody(props) {
 
             {/* RIGHT COLUMN (X BUTTON) */}
             <section className="2xs:w-0 sm:w-9">
-                <BiX
-                    onClick={toggleModal}
-                    className="text-4xl text-slate-400 hover:text-slate-200 transition float-right absolute right-2" />
+                <BiX onClick={onClose} className="text-4xl text-slate-400 hover:text-slate-200 transition float-right absolute right-2 cursor-pointer" />
             </section>
 
             {/* CONFIRMATION DIALOG */}
@@ -188,7 +171,6 @@ export default function ModalBody(props) {
                 rightAction={toggleConfirm}
                 leftAction={handleDelete}
             />
-
         </ModalContainer>
     )
 }

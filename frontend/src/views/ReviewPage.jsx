@@ -113,7 +113,7 @@ const Review = () => {
                         releaseDate={currentReview.releaseDate}
                         imgPath={currentReview.imgPath}
                         reviewDetails={currentReview.reviewDetails}
-                        toggleModal={() => setIsModalOpen(!isModalOpen)}
+                        onClose={() => setIsModalOpen(false)}
                     />
                 }
             </Container>

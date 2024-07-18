@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router-dom"
 import ReactPlayer from "react-player";
 import moment from "moment"
-import Header from "../components/Film/Header"
+import Header from "../components/Film/Header";
 import Summary from "../components/Film/Summary"
 import Cast from "../components/Film/Cast"
 import MovieContext from "../context/MovieContext"
@@ -46,35 +46,29 @@ export default function FilmPage() {
         grabData(apiVideo)
             .then(data => {
                 setTrailerKey(data.results
-                    .filter((item) => item.type === "Trailer")[0].key)
+                    ?.filter((item) => item.type === "Trailer")[0].key)
             })
 
         // getting movie details
         grabData(apiDetails)
             .then(data => {
-                
                 setPageDetails(data)
-
-                setLanguages(data.spoken_languages
-                    .map(item => item.english_name))
-
-                setGenres(data.genres
-                    .map(item => item.name)
-                    .join(" • "))
-
+                setLanguages(data.spoken_languages.map(item => item.english_name))
+                setGenres(data.genres.map(item => item.name).join(" • "))
                 setReleaseDate((data.release_date || data.first_air_date))
             })
 
         // getting movie crew details
         grabData(apiCrew)
             .then(data => {
-                setCast(data.cast.slice(0, 11))
+                if (data.cast.length !== 0) {
+                    setCast(data.cast.slice(0, 11))
+                }
 
-                setDirector(data.crew
-                    .filter(item => item.known_for_department === "Directing" || item.department === "Directing")[0].name)
-
-                setWriters(data.crew
-                    .filter(item => item.department === "Writing").map(item => item.name))
+                if (data.crew.length !== 0) {
+                    setDirector(data.crew?.filter(item => item.known_for_department === "Directing" || item.department === "Directing")[0].name)
+                    setWriters(data.crew?.filter(item => item.department === "Writing").map(item => item.name))
+                }
             })
     }, [apiCrew, apiDetails, apiVideo, grabData])
 
@@ -92,7 +86,6 @@ export default function FilmPage() {
                         height="56.25%"
                         style={{
                             "maxWidth": "56rem",
-                            "margin": "4rem 0",
                             "aspectRatio": "16/9",
                         }}
                     />

@@ -1,3 +1,5 @@
+const { sendError } = require("../utils/error");
+
 // error message
 exports.errorHandler = (err, req, res, next) => {
     console.log(err)
@@ -6,5 +8,5 @@ exports.errorHandler = (err, req, res, next) => {
 
 // When address is unknown
 exports.errorNotFound = (req, res) => {
-    this.sendError(res, "Not found", 404);
+    sendError(res, "Not found", 404);
 };

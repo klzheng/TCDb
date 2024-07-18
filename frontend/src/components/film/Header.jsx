@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { motion } from "framer-motion"
 import { FaRegHeart } from "react-icons/fa"
 import { BsBookmarkStar } from "react-icons/bs"
 import { fetchReview } from "../../services/review"
@@ -7,9 +8,7 @@ import ModalBody from "../Shared/Modal/ModalBody"
 import { addWatchlist, getWatchlistItem, removeWatchlist } from "../../services/watchlist"
 import { useNotification } from "../../hooks"
 
-
 export default function Header(props) {
-
     const [displayModal, setDisplayModal] = useState(false)
     const [reviewDetails, setReviewDetails] = useState({})
     const [inWatchlist, setInWatchlist] = useState(false)
@@ -18,30 +17,29 @@ export default function Header(props) {
     const { mediaType, id } = useParams()
     const { updateNotification } = useNotification()
 
-
     const addToList = async () => {
-        const data = {
+        const movieData = {
             movieName: props.details.title || props.details.name,
             releaseDate: props.releaseDate,
             imgPath: props.details.poster_path,
         }
-        const { error, message } = await addWatchlist(mediaType, id, data)
-
-        if (error) return updateNotification("error", error)
-        updateNotification("success", message)
-        setInWatchlist(true)
+        const { error, message, data } = await addWatchlist(mediaType, id, movieData)
+        if (error) {
+            updateNotification("error", error)
+        } else {
+            updateNotification("success", message)
+            setInWatchlist(true)
+            setWatchlistDetails(data)
+        }
     }
 
     const removeFromList = async () => {
-        const { error, message } = await removeWatchlist(watchlistDetails._id)
-        if (error) return updateNotification("error", error)
-        updateNotification("success", message)
+        if (!watchlistDetails) return updateNotification("error", "Watchlist item not found")
+        const response = await removeWatchlist(watchlistDetails._id)
+        if (response.error) return updateNotification("error", response.error)
+        updateNotification("success", response.message)
         setInWatchlist(false)
-    }
-
-
-    const toggleModal = async () => {
-        await setDisplayModal(prevState => !prevState)
+        setWatchlistDetails(null)
     }
 
     const ratingColor = (rating) => {
@@ -52,37 +50,36 @@ export default function Header(props) {
         else return ""
     }
 
-
-    // grab review data on load
     useEffect(() => {
         const grabData = async () => {
-            const { response } = await fetchReview(mediaType, id)
-            if (response) setReviewDetails(response)
+            try {
+                const reviewData = await fetchReview(id, mediaType);
+                setReviewDetails(reviewData);
+            } catch (err) {
+                console.log(err);
+            }
         }
         grabData()
-
     }, [displayModal, id, mediaType])
 
-
-    // checks if movie is already on user's watchlist and sets state
     useEffect(() => {
         const checkWatchlist = async () => {
-            const { response } = await getWatchlistItem(mediaType, id)
-            if (response) {
+            const watchlistItem = await getWatchlistItem(mediaType, id)
+            
+            if (watchlistItem) {
                 setInWatchlist(true)
-                setWatchlistDetails(response)
+                setWatchlistDetails(watchlistItem)
             }
             else setInWatchlist(false)
         }
         checkWatchlist()
-    }, [inWatchlist, id, mediaType])
-
+    }, [id, mediaType])
 
     return (
         <div>
             <div className="xs:text-5xl 2xs:text-3xl font-light text-gray-400 mb-1 ">
                 <span className="font-semibold text-white">
-                    {(props.details.title || props.details.name)}
+                    {props.details.title || props.details.name}
                 </span>
                 {props.releaseDate.length !== 0 && <span> ({props.releaseDate.slice(0, 4)})</span>}
             </div>
@@ -102,25 +99,24 @@ export default function Header(props) {
 
                     {props.details.length !== 0 &&
                         <div>
-                            <button
+                            <motion.button
                                 whileHover={{scale:1.1}}
                                 whileTap={{scale:1}}
                                 onClick={inWatchlist ? removeFromList : addToList}
                                 className="flex items-center mr-2 hover:text-gray-300 outline-none"
                             >
-                                <BsBookmarkStar
-                                    className={" mr-2 " + (inWatchlist ? " text-yellow-300 " : "  ")} />Add
-                            </button>
+                                <BsBookmarkStar className={" mr-2 " + (inWatchlist ? " text-yellow-300 " : "  ")} />
+                                Add
+                            </motion.button>
 
-                            <button
+                            <motion.button
                                 whileHover={{scale:1.1}}
-                                onClick={toggleModal}
+                                onClick={() => setDisplayModal(true)}
                                 className="flex flex-row items-center hover:text-gray-300 group "
                             >
-                                <FaRegHeart
-                                    className={"mr-2 " + (reviewDetails.liked ? " text-red-500 group-hover:text-red-400 " : " ")} />
+                                <FaRegHeart className={"mr-2 " + (Object.keys(reviewDetails).length && " text-red-500 group-hover:text-red-400 ")} />
                                 Rate
-                            </button>
+                            </motion.button>
                         </div>
                     }
 
@@ -131,7 +127,7 @@ export default function Header(props) {
                             imgPath={props.details.poster_path}
                             reviewDetails={reviewDetails}
                             reloadOnDelete={true}
-                            toggleModal={toggleModal}
+                            onClose={() => setDisplayModal(false)}
                         />
                     }
                 </div>

@@ -29,7 +29,7 @@ exports.addReview = async (req, res) => {
     // saving review
     await newReview.save()
 
-    res.json({ message: "Review added" })
+    res.status(200).json({ message: "Review added" })
 }
 
 
@@ -54,7 +54,7 @@ exports.updateReview = async (req, res) => {
 
     await review.save()
 
-    res.json({ message: "Review updated" })
+    res.status(200).json({ message: "Review updated" })
 }
 
 
@@ -82,10 +82,9 @@ exports.getReview = async (req, res) => {
         movieType: mediaType, 
         movieId: id 
     }).then((review) => {
-        if (!review) {
-            return res.status(404).json({ message: "Review not found"})
+        if (review) {
+            return res.status(200).json(review)
         }
-        return res.json(review)
     }).catch((err) => {
         return errorHandler(err, req, res)
     })
@@ -99,7 +98,7 @@ exports.getAll = async ( req, res ) => {
         .find({ owner: userId})
         .sort({"movieRelease":-1})
 
-     res.json(response)
+     res.status(200).json(response)
 }
 
 
@@ -112,7 +111,7 @@ exports.getSorted = async (req, res) => {
             .find({owner: userId})
             .sort({[filterTerm]: Number(filterValue) || 0})
     
-        res.json(response)
+        res.status(200).json(response)
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Internal Server Error' })

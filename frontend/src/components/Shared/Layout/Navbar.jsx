@@ -85,7 +85,7 @@ export default function Navbar() {
                     <Link
                         to="/my-films"
                         className="text-lg hover:text-white transition  2xl:text-xl 3xl:text-3xl">
-                        <p>Films</p>
+                        <p>Reviews</p>
                     </Link>
 
                     {/* Login/Signout */}
@@ -96,7 +96,6 @@ export default function Navbar() {
                         {isLoggedIn ? "Sign Out " : "Login"}
                     </Link>
                 </div>
-
             </nav>
 
             {activeMenu && 
@@ -112,7 +111,7 @@ export default function Navbar() {
                     to="/my-films"
                     className="text-lg hover:text-white transition 2xl:text-3xl "
                 >
-                    <span>Films</span>
+                    <span>Reviews</span>
                 </Link>
 
                 <Link
